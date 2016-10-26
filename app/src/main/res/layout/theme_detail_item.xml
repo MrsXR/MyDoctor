@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+  <RelativeLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:gravity="center_vertical"
+      >
+      <RelativeLayout
+          android:padding="5dp"
+          android:layout_centerVertical="true"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content" >
+
+          <TextView
+              android:textColor="@color/colorTitle"
+              android:id="@+id/tv_name1"
+              android:layout_alignParentLeft="true"
+              android:text="骚旺"
+              android:textSize="18dp"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content" />
+          <TextView
+              android:textSize="18dp"
+              android:layout_toEndOf="@+id/tv_name1"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="回复"
+              android:id="@+id/tv_dui" />
+
+          <TextView
+              android:textColor="@color/colorTitle"
+              android:textSize="18dp"
+              android:layout_toRightOf="@+id/tv_dui"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="骚龙"
+              android:id="@+id/tv_name2" />
+
+          <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text=":"
+              android:textSize="18dp"
+              android:id="@+id/tv_maohao"
+              android:layout_toRightOf="@+id/tv_name2"/>
+
+          <TextView
+              android:layout_toRightOf="@+id/tv_maohao"
+              android:textSize="18dp"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="好真的不好"
+              android:id="@+id/tv_themedetailcontent" />
+      </RelativeLayout>
+  </RelativeLayout>
+</RelativeLayout>

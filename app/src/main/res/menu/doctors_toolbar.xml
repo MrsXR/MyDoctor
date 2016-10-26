@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item android:id="@+id/collect_doctor_menu"
+    android:icon="@mipmap/collect1"
+    android:title="item_collect"
+        app:showAsAction="always" />
+
+    <item android:id="@+id/share_doctor_menu"
+        android:icon="@mipmap/share1"
+        android:title="item_share"
+        app:showAsAction="always"/>
+</menu>

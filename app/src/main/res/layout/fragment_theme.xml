@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:id="@+id/ll_module"
+        android:layout_weight="1">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="00dp"
+                android:layout_weight="1"
+                android:text="@string/ill"
+                android:gravity="center"
+                android:id="@+id/tv_ill"/>
+           <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:text="@string/baojian"
+                android:gravity="center"
+                android:id="@+id/tv_baojian"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:text="@string/jijiu"
+                android:gravity="center"
+                android:id="@+id/tv_jijiu"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:text="@string/eat"
+                android:gravity="center"
+                android:id="@+id/tv_eat"
+                />
+
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:text="@string/heart"
+                android:gravity="center"
+                android:id="@+id/tv_heart"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:text="@string/man"
+                android:gravity="center"
+                android:id="@+id/tv_sex"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:text="@string/nice"
+                android:gravity="center"
+                android:id="@+id/tv_nice"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:text="@string/jianfei"
+                android:id="@+id/tv_jianfei"
+                android:gravity="center"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/china_hospital"
+                android:id="@+id/tv_zhongyi"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/child"
+                android:id="@+id/child"/>
+
+   </LinearLayout>
+    <LinearLayout
+        android:layout_width="0dp"
+        android:orientation="vertical"
+        android:layout_height="match_parent"
+        android:layout_weight="3">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:id="@+id/tv_theme_zuire"
+                android:text="最热话题"
+                android:gravity="center"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:id="@+id/tv_theme_zuixin"
+                android:text="最新话题"
+                android:gravity="center"
+                android:layout_weight="1"/>
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/ll_theme_title">
+
+            <ListView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/lv_theme"
+                android:layout_gravity="right" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+   >
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:id="@+id/RL_title_article"
+        android:background="@color/colorTitle"
+          >
+
+     <RadioGroup
+        android:layout_centerInParent="true"
+        android:layout_width="140dp"
+        android:layout_height="40dp"
+         android:gravity="center"
+        android:orientation="horizontal"
+        android:id="@+id/rg_title_article"
+        >
+
+        <RadioButton
+            style="@style/radiobt"
+            android:background="@drawable/radiozixun1"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:text="@string/zixun"
+            android:textSize="20dp"
+            android:id="@+id/radioButton"
+            android:checked="true"
+
+            android:layout_weight="1"/>
+
+        <RadioButton
+            style="@style/radiobt"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:text="@string/hottalk"
+            android:textSize="20dp"
+            android:background="@drawable/radioreliao1"
+            android:id="@+id/radioButton2"
+           android:layout_weight="1"/>
+    </RadioGroup>
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:id="@+id/fanhui"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:src="@mipmap/fanhui1"
+             />
+        <ImageView
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:id="@+id/mine"
+            android:layout_marginRight="15dp"
+            android:src="@mipmap/findw"
+                android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/RL_title_article"
+        android:id="@+id/linearLayout">
+        <android.support.v4.view.ViewPager
+            android:layout_width="match_parent"
+            android:id="@+id/viewPager_photo"
+            android:layout_height="match_parent">
+
+        </android.support.v4.view.ViewPager>
+
+
+    </LinearLayout>
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/listView"
+        android:layout_below="@+id/linearLayout"
+        android:layout_centerHorizontal="true"
+         />
+
+
+</RelativeLayout>

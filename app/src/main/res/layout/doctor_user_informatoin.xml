@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+   >
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="患者的1号"
+        android:id="@+id/doctor_user_informatoin"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="用户评星:"
+        android:id="@+id/doctor_user_temp"
+        android:layout_below="@+id/doctor_user_informatoin"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+      />
+    <RatingBar
+        android:layout_width="100dp"
+        android:layout_height="20dp"
+        android:text="用户评星"
+        android:id="@+id/doctor_user_comment"
+        android:layout_toRightOf="@+id/doctor_user_temp"
+        android:layout_below="@+id/doctor_user_informatoin"
+        android:numStars="5"
+        android:isIndicator="true"
+        style="@style/foodRatingBar"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/doctor_user_consult"
+        android:text="*******************"
+        android:ellipsize="end"
+        android:maxEms="20"
+        android:singleLine="true"
+        android:layout_below="@+id/doctor_user_comment"
+        android:textSize="17dp"
+        android:textColor="@color/textcolor"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"/>
+    <!--分隔符-->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/splitbar"
+        android:layout_below="@+id/doctor_user_consult"
+        />
+
+
+</RelativeLayout>

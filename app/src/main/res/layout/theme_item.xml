@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal">
+
+        <RelativeLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:id="@+id/ll_user"
+            android:padding="2dp"
+            >
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:background="@mipmap/ic_launcher"
+                android:id="@+id/iv_userphoto"/>
+            <TextView
+                android:layout_toRightOf="@+id/iv_userphoto"
+                android:gravity="center_vertical"
+                android:layout_width="wrap_content"
+                android:text="用户昵称"
+                android:textColor="@color/username"
+                android:layout_height="match_parent"
+                android:id="@+id/tv_username"
+                android:layout_marginLeft="10dp"/>
+
+        </RelativeLayout>
+
+        <TextView
+            android:padding="10dp"
+            android:gravity="center_vertical"
+            android:layout_below="@+id/ll_user"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="帖子标题"
+            android:textSize="18dp"
+            android:textColor="@color/text"
+            android:id="@+id/tv_forum_title" />
+
+
+            <TextView
+                android:textSize="10dp"
+                android:gravity="center_vertical"
+                android:text="发表时间"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_themetime"
+                android:layout_below="@+id/tv_forum_title"
+                />
+            <ImageView
+                android:layout_alignBottom="@+id/tv_theme_readnumber"
+                android:layout_below="@+id/tv_forum_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/im_theme_readnumber"
+                android:layout_toLeftOf="@+id/tv_theme_readnumber"
+                android:src="@mipmap/readnumber"/>
+            <TextView
+                android:textSize="10dp"
+                android:layout_below="@+id/tv_forum_title"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:layout_toLeftOf="@+id/iv_answertheme_number"
+                android:id="@+id/tv_theme_readnumber"/>
+            <ImageView
+                android:layout_alignBottom="@+id/tv_answertheme_number"
+                android:layout_below="@+id/tv_forum_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/iv_answertheme_number"
+                android:layout_toLeftOf="@+id/tv_answertheme_number"
+                android:src="@mipmap/answer"/>
+            <TextView
+                android:textSize="10dp"
+                android:layout_below="@+id/tv_forum_title"
+                android:gravity="center_vertical"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_answertheme_number"
+                android:layout_alignParentRight="true"
+                />
+
+    </RelativeLayout>
+<!--
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:text="New Text"
+        android:id="@+id/textView4"
+        android:layout_gravity="center_horizontal"
+        android:background="@color/hui"/>
+-->
+</LinearLayout>

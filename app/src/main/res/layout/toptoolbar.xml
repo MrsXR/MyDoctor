@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:background="@color/ww"
+        android:theme="?attr/actionBarTheme"
+        android:minHeight="?attr/actionBarSize"
+        android:id="@+id/toolbar3"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        app:srcCompat="@mipmap/denglu"
+        android:layout_marginTop="23dp"
+        android:id="@+id/imageButton8"
+        android:background="@android:color/transparent"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        app:srcCompat="@mipmap/zixun_baise"
+        android:layout_marginLeft="37dp"
+        android:layout_marginStart="37dp"
+        android:layout_marginBottom="14dp"
+        android:id="@+id/imageButton9"
+        android:background="@android:color/transparent"
+        android:layout_above="@+id/textView8"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:text="我的咨询"
+        android:layout_weight="1"
+        android:textColor="#FFFFFF"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView8"
+        android:layout_alignBottom="@+id/toolbar3"
+        android:layout_alignRight="@+id/imageButton9"
+        android:layout_alignEnd="@+id/imageButton9"
+        android:layout_marginBottom="14dp" />
+
+    <TextView
+        android:text="我的收藏"
+        android:layout_weight="1"
+        android:layout_width="wrap_content"
+        android:textColor="#FFFFFF"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView10"
+        android:layout_alignBaseline="@+id/textView8"
+        android:layout_alignBottom="@+id/textView8"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:text="我的服务"
+        android:layout_weight="1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView11"
+        android:textColor="#FFFFFF"
+        android:layout_alignBaseline="@+id/textView10"
+        android:layout_alignBottom="@+id/textView10"
+        android:layout_alignLeft="@+id/imageButton11"
+        android:layout_alignStart="@+id/imageButton11" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        app:srcCompat="@mipmap/fuwu_baise"
+        android:layout_marginRight="46dp"
+        android:layout_marginEnd="46dp"
+        android:id="@+id/imageButton11"
+        android:background="@android:color/transparent"
+        android:layout_alignTop="@+id/imageButton10"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@mipmap/shoucang_baise"
+        android:id="@+id/imageButton10"
+        android:background="@android:color/transparent"
+        android:layout_alignTop="@+id/imageButton9"
+        android:layout_alignLeft="@+id/imageButton8"
+        android:layout_alignStart="@+id/imageButton8" />
+
+    <ImageButton
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        app:srcCompat="@mipmap/xiaoxi_baise2"
+        android:id="@+id/imageButton13"
+        android:background="@android:color/transparent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar3"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+
+</RelativeLayout>

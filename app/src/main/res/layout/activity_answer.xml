@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+ >
+
+    <RelativeLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:id="@+id/rl_title"
+        >
+
+        <TextView
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            android:text="@string/quxiao"
+            android:gravity="center"
+            android:id="@+id/tv_qx"
+            android:layout_centerInParent="true"
+            android:layout_alignParentLeft="true"/>
+
+        <TextView
+            android:layout_width="80dp"
+            android:layout_height="30dp"
+            android:text="发评论"
+            android:textSize="24dp"
+            android:id="@+id/textView6"
+            android:layout_centerHorizontal="true"/>
+
+        <Button
+            android:layout_width="82dp"
+            android:layout_height="wrap_content"
+            android:text="@string/cend"
+            android:id="@+id/button13"
+
+            android:layout_alignBottom="@+id/tv_qx"
+            android:layout_alignParentEnd="true" />
+
+        <TextView
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="鹏袜子"
+            android:textSize="15dp"
+            android:id="@+id/tx_user"
+            android:layout_alignParentBottom="true"
+                 />
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/rl_title"
+        android:layout_above="@+id/Rl_end">
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="233dp"
+            android:id="@+id/editText"
+            android:gravity="top"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/Rl_end">
+
+
+    </LinearLayout>
+
+</RelativeLayout>

@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">testBottomNavigationBar</string>
+    <string name="man">两性</string>
+    <string name="child">育儿</string>
+    <string name="china_hospital">中医</string>
+    <string name="baojian">保健</string>
+    <string name="jianfei">减肥</string>
+    <string name="nice">美容</string>
+    <string name="eat">饮食</string>
+    <string name="jijiu">急救</string>
+    <string name="ill">疾病</string>
+    <string name="heart">心理</string>
+    <string name="zixun">资讯</string>
+    <string name="hottalk">热聊</string>
+    <string name="lookall">查看全部</string>
+    <string name="looklouzhu">只看楼主</string>
+    <string name="lookdoctor">只看医生</string>
+    <string name="answer">回复楼主</string>
+    <string name="quxiao">取消</string>
+    <string name="cend">发送</string>
+    <string name="answerme">回复我的</string>
+    <string name="pinglunme">评论我的</string>
+    <string name="guanyume">艾特我的</string>
+    <string name="startlocation">开始定位</string>
+    <string name="stoplocation">停止定位</string>
+</resources>

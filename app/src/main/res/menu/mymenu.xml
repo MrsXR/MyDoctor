@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:androd="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item androd:icon="@mipmap/find"
+        androd:id="@+id/find"
+        androd:title="搜索"
+        app:showAsAction="always">
+
+    </item>
+
+
+
+</menu>

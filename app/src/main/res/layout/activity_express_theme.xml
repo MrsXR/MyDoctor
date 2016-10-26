@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="cn.gem.mydoctor.ExpressThemeActivity">
+ <RelativeLayout
+     android:id="@+id/rl_Express_theme"
+     android:layout_width="match_parent"
+     android:layout_height="60dp"
+     android:orientation="horizontal">
+
+
+     <ImageView
+         android:layout_width="30dp"
+         android:layout_height="30dp"
+         android:id="@+id/iv_quxiao"
+         android:layout_centerVertical="true"
+         android:layout_marginLeft="10dp"
+         android:src="@mipmap/error"/>
+
+     <TextView
+         android:gravity="center"
+         android:textSize="22dp"
+         android:layout_width="100dp"
+         android:layout_height="match_parent"
+         android:text="发表主题"
+         android:textColor="#000000"
+         android:id="@+id/tv_expresstheme"
+         android:layout_centerInParent="true"/>
+
+     <TextView
+         android:layout_width="70dp"
+         android:layout_height="30dp"
+         android:textSize="20dp"
+         android:textColor="@color/colorTitle1"
+         android:text="发表"
+         android:gravity="center"
+         android:id="@+id/tv_express"
+         android:layout_alignParentRight="true"
+         android:layout_centerVertical="true"/>
+ </RelativeLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="@color/hui"
+        android:layout_below="@+id/rl_Express_theme"
+        android:id="@+id/tv_hui">
+    </TextView>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:layout_below="@+id/tv_hui"
+        android:id="@+id/ll_title_theme">
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"/>
+        <EditText
+            android:textCursorDrawable="@drawable/color_cursor"
+            android:background="@null"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/et_themetitle"
+            android:layout_marginLeft="10dp"
+            android:hint="标题（可选）"/>
+     </LinearLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="@color/hui"
+        android:layout_below="@+id/ll_title_theme"
+        android:id="@+id/tv_hui1">
+    </TextView>
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_marginLeft="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:id="@+id/ll_context"
+        android:layout_below="@+id/tv_hui1">
+        <EditText
+            android:textCursorDrawable="@drawable/color_cursor"
+            android:background="@null"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:id="@+id/et_themecontext"
+            android:gravity="start"
+            android:hint="主题内容"/>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/ll_context"
+        android:id="@+id/ll_weizhi">
+        <ImageView
+            android:layout_margin="5dp"
+            android:id="@+id/iv_photo"
+            android:layout_width="40dp"
+            android:layout_height="30dp"
+            android:src="@mipmap/photo"/>
+        <ImageView
+            android:layout_alignTop="@+id/iv_photo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/iv_photo1"
+            android:layout_marginLeft="50dp"
+            android:padding="5dp"/>
+       <RadioGroup
+           android:layout_alignParentRight="true"
+           android:orientation="horizontal"
+           android:layout_width="100dp"
+           android:layout_height="20dp"
+           android:id="@+id/rg_dingwei">
+        <ImageView
+            android:layout_marginLeft="5dp"
+            android:layout_width="25dp"
+            android:layout_height="20dp"
+            android:src="@mipmap/place"
+            android:id="@+id/iv_place"/>
+        <TextView
+            android:layout_width="60dp"
+            android:layout_height="20dp"
+            android:text="所在位置"
+            android:gravity="center"
+            android:id="@+id/tv_placeyourself"/>
+       </RadioGroup>
+
+
+
+    </RelativeLayout>
+
+
+
+
+</RelativeLayout>

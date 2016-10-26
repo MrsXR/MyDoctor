@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:id="@+id/article_title_item">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:id="@+id/article_title1">
+
+
+
+        <ImageView
+            android:padding="3dp"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:id="@+id/article_photo"
+            android:src="@mipmap/ic_launcher"
+            android:layout_weight="1"/>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:id="@+id/tv_article_title"
+            android:layout_weight="5" >
+
+
+
+            <TextView
+                android:padding="1dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="文章标题"
+                android:gravity="center_vertical"
+                android:id="@+id/tv_title"
+                android:layout_weight="7"/>
+
+            <RadioGroup
+
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:id="@+id/rg_title_article_item"
+                android:orientation="horizontal"
+                android:layout_weight="3">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="7"/>
+             <TextView
+
+                android:padding="1dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="time"
+                android:layout_weight="3"
+
+                android:textSize="10dp"
+                android:id="@+id/tv_article_time" />
+            <TextView
+                android:padding="1dp"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="阅读量："
+                android:textSize="10dp"
+                android:id="@+id/tv_read_namber"
+                android:layout_weight="2"
+                />
+            <TextView
+                android:padding="1dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="num"
+                    android:textAlignment="gravity"
+                    android:id="@+id/tv_article_readnumber"
+                    android:layout_weight="1"/>
+            </RadioGroup>
+
+
+        </LinearLayout>
+
+
+
+
+    </LinearLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:background="@color/hui"
+        android:layout_below="@+id/article_title1"/>
+
+    </LinearLayout>
+
+</RelativeLayout>

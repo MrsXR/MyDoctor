@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/activity_qianbaoyue_"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="cn.gem.mydoctor.qianbao_yue_Activity">
+
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryDark"
+        android:id="@+id/toolbar_yue_toolbar"
+        >
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/image_fanhui"
+            app:srcCompat="@mipmap/fanghui_baise"
+            android:background="@android:color/transparent"
+            android:layout_marginLeft="10dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="账户余额"
+            android:gravity="center"
+            android:textColor="#ffffff"
+            android:layout_marginLeft="110dp"
+            android:textSize="22dp"/>
+
+
+
+    </android.support.v7.widget.Toolbar>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="170dp"
+        android:id="@+id/qiaobaoyue_text"
+        android:layout_below="@+id/toolbar_yue_toolbar">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="当前账户余额"
+            android:layout_marginTop="30dp"
+            android:layout_marginLeft="20dp"
+            android:textSize="16dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/text_yue_dangqianzhanghuyue"
+            android:text="余额"
+            android:textColor="#17abe3"
+            android:layout_marginTop="80dp"
+            android:layout_marginLeft="150dp"
+            android:textSize="40dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="元"
+            android:layout_toRightOf="@+id/text_yue_dangqianzhanghuyue"
+            android:layout_marginTop="100dp"
+            android:textSize="20dp"/>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_below="@+id/qiaobaoyue_text">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            android:id="@+id/liner_yue_chongzhi">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="余额充值"
+                android:textSize="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="7dp"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/xiayiye"
+                android:layout_marginTop="7dp"
+                android:layout_marginLeft="230dp"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+
+            android:layout_below="@+id/qiaobaoyue_text"
+
+            android:id="@+id/liner_yue_shouzhimingxi">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="余额收支明细"
+                android:textSize="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="7dp"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/xiayiye"
+                android:layout_marginTop="7dp"
+                android:layout_marginLeft="190dp"/>
+
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>

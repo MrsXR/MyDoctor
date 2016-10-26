@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="cn.gem.mydoctor.FindActivity">
+
+
+    <RelativeLayout
+
+        android:id="@+id/ll_dingbu"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@color/colorTitle">
+        <TextView
+
+            android:paddingLeft="10dp"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:text="取消"
+            android:textSize="16dp"
+            android:textColor="@color/white"
+            android:id="@+id/tv_quxiao"
+            />
+        <LinearLayout
+            android:layout_centerInParent="true"
+            android:layout_width="250dp"
+            android:layout_height="35dp"
+            android:id="@+id/rl_find"
+            android:background="@color/white">
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:id="@+id/ll_xuanze">
+              <TextView
+                  android:id="@+id/tv_xuanze"
+                  android:gravity="center"
+                  android:layout_gravity="center_vertical"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="推荐"
+                  android:textSize="16dp"
+                  android:paddingLeft="5dp"
+                  />
+                <ImageView
+                    android:paddingLeft="5dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/xiala"
+                    />
+            </LinearLayout>
+            <EditText
+
+                android:background="@drawable/et_bg"
+                android:hint="请输入关键字"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/et_find"
+                android:singleLine="true"
+                />
+        </LinearLayout>
+        <TextView
+            android:paddingRight="10dp"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:id="@+id/tv_find"
+            android:gravity="center_vertical"
+            android:text="搜索"
+            android:textSize="16dp"
+            android:textColor="@color/white"/>
+
+    </RelativeLayout>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/fl_find_detail">
+
+    </FrameLayout>
+
+
+</LinearLayout>

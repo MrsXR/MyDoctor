@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto">
+
+     <item android:id="@+id/fasong"
+         android:title="发表"
+         android:icon="@mipmap/fabiao"
+         app:showAsAction="always"
+         android:orderInCategory="3">
+
+     </item>
+
+    <item android:id="@+id/invite"
+          android:icon="@mipmap/invite"
+        android:title="邀请医生"
+        app:showAsAction="always"
+        android:orderInCategory="2">
+
+    </item>
+
+    <item android:id="@+id/lookdoctor"
+        android:title="@string/lookdoctor"
+        app:showAsAction="never">
+
+    </item>
+    <item android:id="@+id/looklouzhu"
+        android:title="@string/looklouzhu"
+        app:showAsAction="never">
+
+    </item>
+</menu>

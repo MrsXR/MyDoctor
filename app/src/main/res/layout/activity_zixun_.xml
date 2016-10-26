@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_zixun"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="cn.gem.mydoctor.zixun_Activity">
+
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#17abe3"
+        android:theme="?attr/actionBarTheme"
+        android:minHeight="?attr/actionBarSize"
+        android:id="@+id/zixun_toolbar"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/image_zixun_fanghui"
+            app:srcCompat="@mipmap/fanghui_baise"
+            android:layout_marginLeft="10dp"
+            android:background="@android:color/transparent"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="我的咨询"
+            android:textColor="#ffffff"
+            android:textSize="22dp"
+            android:layout_marginLeft="132dp"
+            android:layout_alignBottom="@+id/toolbar5"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="13dp" />
+    </android.support.v7.widget.Toolbar>
+
+    <cn.gem.weight.newlistview
+        android:id="@+id/zixun_listview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/zixun_toolbar"
+        />
+
+
+</RelativeLayout>

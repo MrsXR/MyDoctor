@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ChangeDoctorActivity">
+
+        <android.support.v7.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:id="@+id/change_doctor_toolbar"
+            android:background="@color/blue"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/change_doctor_subject"
+                android:text="科室的名称"
+                android:textColor="@color/colorWhite"
+                android:textSize="25dp"
+                android:layout_gravity="center"/>
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/change_doctor_back"
+                android:background="@mipmap/back6"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="5dp"
+                />
+        </android.support.v7.widget.Toolbar>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:layout_below="@+id/change_doctor_toolbar"
+        android:background="@color/splitbar"
+        android:id="@+id/change_d_temp"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/change_temp"
+        android:layout_below="@+id/change_d_temp">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/belowback">
+        <Button
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/change_d_synthetical"
+            android:layout_weight="1"
+            android:text="综合排序"
+            android:textSize="15dp"
+            android:background="@color/belowback"/>
+        </RelativeLayout>
+        <TextView
+            android:layout_width="1dp"
+            android:layout_marginTop="5dp"
+            android:layout_height="40dp"
+            android:background="@color/grey"/>
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/belowback"
+            android:id="@+id/change_doctor_position_r">
+        <Button
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/change_d_position"
+            android:layout_weight="1"
+            android:text="全部职称"
+            android:textSize="15dp"
+            android:background="@color/belowback"/>
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/change_h_down"
+                android:background="@mipmap/down4"
+                android:layout_toRightOf="@+id/change_d_position"
+                android:layout_centerInParent="true"/>
+        </RelativeLayout>
+    </LinearLayout>
+
+ <ListView
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content"
+     android:id="@+id/change_d_listview"
+     android:layout_below="@+id/change_temp">
+
+ </ListView>
+
+</RelativeLayout>

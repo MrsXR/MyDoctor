@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="colorTitle">#17abe3</color>
+    <color name="colorTitle1">#8a8a8a</color>
+    <color name="colorTitle2">#f4f0f0</color>
+    <color name="text">#000000</color>
+    <color name="white">#ffffff</color>
+    <color name="hui">#f1f1f1</color>
+   <color name="username">#0255B3</color>
+    <color name="colorWhite">#FFFFFF</color>
+
+    <color name="black">#000000</color>
+    <color name="splitbar">#D4D4D4</color>
+    <color name="belowback">#EBEBEB</color>
+    <color name="lightblue">#AADAF5</color>
+    <color name="brown">#8D6E63</color>
+    <color name="blue">#17abe3</color>
+    <color name="grey">#8a8a8a</color>
+    <color name="textcolor">#666666</color>
+    <color name="orange">#F57C00</color>
+    <color name="common_botton_bar_blue">#2ea7e0</color>
+    <color name="darkGrey">#7A7A7A</color>
+    <color name="huise">#D6D7D7</color>
+    <color name="ww">#17abe3</color>
+    <color name="border_clo">#ccc</color>
+    <color name="Btbule">#387BF0</color>
+    <color name="BWordred">#F61F43</color>
+    <color name="reserve_line">#F61F43</color>
+    <color name="defult">#F5F5F5</color>
+    <color name="click">#ffffff</color>
+    <color name="content_line">#387BF0</color>
+    <color name="myred">#eb4f38</color>
+    <color name="darkgray">#cccc</color>
+    <color name="color_white">#ffffff</color>
+    <color name="btn_press_color">#5677fc</color>
+    <color name="btn_pressed_color">#3ca0ec</color>
+
+    <color name="hhhhh">#e9e7e4</color>
+
+
+
+
+</resources>

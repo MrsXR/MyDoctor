@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <cn.gem.weight.SlideShowView
+                android:id="@+id/slideshowView"
+                android:layout_width="match_parent"
+                android:layout_height="180dp"
+                android:layout_centerHorizontal="true"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/splitbar"/>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/home_go_order_doctor"
+               android:padding="@dimen/activity_horizontal_margin"
+                >
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/home_temp"
+                    android:background="@drawable/icon_department"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="预约挂号"
+                    android:textSize="@dimen/activity_horizontal_margin"
+                    android:id="@+id/home_temp1"
+                    android:layout_toRightOf="@+id/home_temp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginBottom="10dp"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="轻轻松松在线预约全国名医"
+                    android:layout_below="@+id/home_temp1"
+                    android:layout_marginLeft="20dp"
+                    android:layout_toRightOf="@+id/home_temp"
+                    />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/home_temp1"
+                    android:layout_marginLeft="140dp"
+                    android:background="@drawable/hospital_default_image"/>
+            </RelativeLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/splitbar"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/home_temp3">
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/home_go_fastD"
+                   >
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/home_temp2"
+                        android:background="@drawable/founction_1"/>
+
+                    <TextView
+                        android:layout_width="2dp"
+                        android:layout_height="120dp"
+                        android:background="@color/splitbar"
+                        android:layout_toRightOf="@+id/home_temp2"
+                        />
+                </RelativeLayout>
+
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/home_go_fastD"
+                    android:padding="@dimen/activity_horizontal_margin"
+                    android:id="@+id/search_to_content"
+                    >
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/icon_search_by_disease_big"
+                        android:id="@+id/home_temp4"
+                        android:layout_gravity="center_horizontal"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="搜索"
+                        android:layout_below="@+id/home_temp4"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="10dp"
+                        android:gravity="center"/>
+                </RelativeLayout>
+
+            </RelativeLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/splitbar"/>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/home_temp3">
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/home_consult"
+                  >
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/founction_2"
+                        android:id="@+id/home_temp6"/>
+
+                    <TextView
+                        android:layout_width="2dp"
+                        android:layout_height="120dp"
+                        android:background="@color/splitbar"
+                        android:layout_toRightOf="@+id/home_temp6"
+                        />
+                </RelativeLayout>
+
+
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/home_consult"
+                    android:padding="@dimen/activity_horizontal_margin"
+                    android:id="@+id/search_content_s"
+                  >
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/icon_nearby_hospital_big"
+                        android:id="@+id/home_temp7"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="附近"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_below="@+id/home_temp7"/>
+                </RelativeLayout>
+
+            </RelativeLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/splitbar"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="15dp"
+                android:id="@+id/home_my_hospital"
+                android:background="@mipmap/biz_quickness_home_top_bg"
+                >
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/home_hospital_temp"
+                    android:background="@drawable/biz_privatehospital_index_icon"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="医院"
+                    android:layout_toRightOf="@+id/home_hospital_temp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginLeft="15dp"
+                    android:textSize="40dp"
+                  />
+            </RelativeLayout>
+
+
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

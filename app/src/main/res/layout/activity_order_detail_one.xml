@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="cn.gem.mydoctor.OrderDetailOneActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:id="@+id/order_lookdetail_toolbar"
+        android:background="@color/blue"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/address_name"
+            android:text="预约详情"
+            android:textSize="20dp"
+            android:layout_gravity="center"/>
+        />
+    </android.support.v7.widget.Toolbar>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/order_lookdetail_toolbar"
+        android:layout_weight="1"
+        android:id="@+id/ttttttttttmp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/order_detail_one_r"
+      >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="预约信息"
+            android:id="@+id/order_lookdetail_temp"
+            android:textSize="20dp"
+            android:textColor="@color/textcolor"
+            android:gravity="center"
+            android:background="@mipmap/search_bottom_bg"/>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/order_lookdetail_temp_r"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingBottom="@dimen/activity_horizontal_margin"
+            android:paddingTop="@dimen/activity_horizontal_margin"
+            android:layout_below="@+id/order_lookdetail_temp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="就医医院:       "
+            android:id="@+id/order_lookdetail_temp1"
+           />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="医院名称"
+            android:layout_toRightOf="@+id/order_lookdetail_temp1"
+            android:id="@+id/order_lookdetail_name"
+            android:textColor="@color/textcolor"/>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="就诊科室       "
+            android:id="@+id/order_lookdetail_temp2"
+            android:layout_below="@+id/order_lookdetail_temp1"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="科室名称"
+            android:layout_toRightOf="@+id/order_lookdetail_temp1"
+            android:layout_below="@+id/order_lookdetail_name"
+            android:id="@+id/order_lookdetail_subjectname"
+            android:textColor="@color/textcolor"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="就诊医生       "
+            android:id="@+id/order_lookdetail_temo12"
+            android:layout_below="@+id/order_lookdetail_temp2"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="医生名称"
+            android:layout_toRightOf="@+id/order_lookdetail_temp1"
+            android:layout_below="@+id/order_lookdetail_subjectname"
+            android:id="@+id/order_lookdetail_doctorname"
+            android:textColor="@color/textcolor"/>
+
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="预约人信息"
+            android:id="@+id/order_lookdetail_temp8"
+            android:textSize="20dp"
+            android:textColor="@color/textcolor"
+            android:gravity="center"
+            android:layout_below="@+id/order_lookdetail_temp_r"
+            android:background="@mipmap/search_bottom_bg"
+            />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/order_lookdetail_temp8"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingBottom="@dimen/activity_horizontal_margin"
+            android:paddingTop="@dimen/activity_horizontal_margin">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="就诊人            "
+            android:id="@+id/order_lookdetail_temp3"
+           />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="人名称"
+            android:id="@+id/order_lookdetail_user_name"
+            android:layout_toRightOf="@+id/order_lookdetail_temp3"
+            android:textColor="@color/textcolor"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="身份证号       "
+            android:id="@+id/order_lookdetail_temp4"
+            android:layout_below="@+id/order_lookdetail_temp3"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="省份证号"
+            android:layout_toRightOf="@+id/order_lookdetail_temp3"
+            android:id="@+id/order_lookdetail_user_number"
+            android:layout_below="@+id/order_lookdetail_user_name"
+            android:textColor="@color/textcolor"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="手机号码       "
+            android:id="@+id/order_lookdetail_temp5"
+            android:layout_below="@+id/order_lookdetail_temp4"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="手机号码"
+            android:layout_toRightOf="@+id/order_lookdetail_temp3"
+            android:id="@+id/order_lookdetail_user_phone"
+            android:layout_below="@+id/order_lookdetail_user_number"
+            android:textColor="@color/textcolor"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="症状描述      "
+            android:id="@+id/order_lookdetail_temp6"
+            android:layout_below="@+id/order_lookdetail_temp5"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="症状描述"
+            android:layout_toRightOf="@+id/order_lookdetail_temp3"
+            android:id="@+id/order_lookdetail_user_ill"
+            android:layout_below="@+id/order_lookdetail_user_phone"
+            android:textColor="@color/textcolor"/>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="支付金额      "
+            android:id="@+id/order_lookdetail_temp7"
+            android:layout_below="@+id/order_lookdetail_temp6"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="支付金额"
+            android:layout_toRightOf="@+id/order_lookdetail_temp3"
+            android:id="@+id/order_lookdetail_pay_money"
+            android:layout_below="@+id/order_lookdetail_user_ill"
+            android:textColor="@color/colorAccent"/>
+
+        </RelativeLayout>
+    </RelativeLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="8dp"
+        android:background="@color/splitbar"
+        android:layout_below="@+id/order_detail_one_r"
+        android:id="@+id/order_detail_one_temp10"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/order_detail_one_temp10"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingBottom="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_horizontal_margin">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="取消预约"
+            android:gravity="center"
+            android:background="@mipmap/wallet_base_bg_input_red"/>
+    </RelativeLayout>
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:background="@mipmap/wallet_base_id_detect_scan"
+        android:layout_below="@+id/ttttttttttmp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="再次预约"
+            android:textSize="20dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginLeft="270dp"/>
+    </RelativeLayout>
+</RelativeLayout>
