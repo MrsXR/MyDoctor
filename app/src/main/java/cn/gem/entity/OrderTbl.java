@@ -20,7 +20,7 @@ public class OrderTbl {
 	private String orderMessageTime;
 	private Timestamp orderMessageWriteTime;
 	private int orderPayState;
-	private int orderState;
+	private float ordertimeDetailPrice;
 	private String orderIllPhotoOne;
 	private String orderIllPhotoTwo;
 
@@ -28,8 +28,35 @@ public class OrderTbl {
 
 
 
+
+
+
+	public OrderTbl(String userPhone, String orderIllSname, String orderMessage, int orderPayState,
+					float ordertime_detail_price) {
+		super();
+		this.userPhone = userPhone;
+		this.orderIllSname = orderIllSname;
+		this.orderMessage = orderMessage;
+		this.orderPayState = orderPayState;
+		this.ordertimeDetailPrice = ordertime_detail_price;
+	}
 	public OrderTbl(int userId, int doctorsId, String userPhone, String orderIllSname, String orderMessage,
-					String orderMessageTime, Timestamp orderMessageWriteTime, int orderPayState, int orderState,
+					String orderMessageTime, Timestamp orderMessageWriteTime, int orderPayState, float orderState,
+					String orderIllPhotoOne) {
+		super();
+		this.userId = userId;
+		this.doctorsId = doctorsId;
+		this.userPhone = userPhone;
+		this.orderIllSname = orderIllSname;
+		this.orderMessage = orderMessage;
+		this.orderMessageTime = orderMessageTime;
+		this.orderMessageWriteTime = orderMessageWriteTime;
+		this.orderPayState = orderPayState;
+		this.ordertimeDetailPrice = orderState;
+		this.orderIllPhotoOne = orderIllPhotoOne;
+	}
+	public OrderTbl(int userId, int doctorsId, String userPhone, String orderIllSname, String orderMessage,
+					String orderMessageTime, Timestamp orderMessageWriteTime, int orderPayState, float orderState,
 					String orderIllPhotoOne, String orderIllPhotoTwo) {
 		super();
 		this.userId = userId;
@@ -40,7 +67,7 @@ public class OrderTbl {
 		this.orderMessageTime = orderMessageTime;
 		this.orderMessageWriteTime = orderMessageWriteTime;
 		this.orderPayState = orderPayState;
-		this.orderState = orderState;
+		this.ordertimeDetailPrice = orderState;
 		this.orderIllPhotoOne = orderIllPhotoOne;
 		this.orderIllPhotoTwo = orderIllPhotoTwo;
 	}
@@ -57,8 +84,9 @@ public class OrderTbl {
 		this.orderIllPhotoTwo = orderIllPhotoTwo;
 	}
 
+
 	public OrderTbl(int userId, int doctorsId, String userPhone, String orderIllSname, String orderMessage,
-					String orderMessageTime, Timestamp orderMessageWriteTime, int orderPayState, int orderState) {
+					String orderMessageTime, Timestamp orderMessageWriteTime, int orderPayState, float orderState) {
 		super();
 		this.userId = userId;
 		this.doctorsId = doctorsId;
@@ -68,10 +96,10 @@ public class OrderTbl {
 		this.orderMessageTime = orderMessageTime;
 		this.orderMessageWriteTime = orderMessageWriteTime;
 		this.orderPayState = orderPayState;
-		this.orderState = orderState;
+		this.ordertimeDetailPrice = orderState;
 	}
 	public OrderTbl(int orderId, int userId, int doctorsId, String userPhone, String orderIllSname, String orderMessage,
-					String orderMessageTime, Timestamp orderMessageWriteTime, int orderPayState, int orderState) {
+					String orderMessageTime, Timestamp orderMessageWriteTime, int orderPayState, float orderState) {
 		super();
 		this.orderId = orderId;
 		this.userId = userId;
@@ -82,9 +110,8 @@ public class OrderTbl {
 		this.orderMessageTime = orderMessageTime;
 		this.orderMessageWriteTime = orderMessageWriteTime;
 		this.orderPayState = orderPayState;
-		this.orderState = orderState;
+		this.ordertimeDetailPrice = orderState;
 	}
-
 	public int getOrderId() {
 		return orderId;
 	}
@@ -139,57 +166,15 @@ public class OrderTbl {
 	public void setOrderPayState(int orderPayState) {
 		this.orderPayState = orderPayState;
 	}
-	public int getOrderState() {
-		return orderState;
+	public double getOrderState() {
+		return ordertimeDetailPrice;
 	}
-	public void setOrderState(int orderState) {
-		this.orderState = orderState;
-	}
-
-
-	private String userSname;
-	private String doctorsSname;
-	private int doctorsPosition;
-	private String hospitalSname;
-	private String departmentsSname;
-
-	public String getUserSname() {
-		return userSname;
+	public void setOrderState(float orderState) {
+		this.ordertimeDetailPrice = orderState;
 	}
 
-	public void setUserSname(String userSname) {
-		this.userSname = userSname;
-	}
 
-	public String getDoctorsSname() {
-		return doctorsSname;
-	}
 
-	public void setDoctorsSname(String doctorsSname) {
-		this.doctorsSname = doctorsSname;
-	}
 
-	public int getDoctorsPosition() {
-		return doctorsPosition;
-	}
 
-	public void setDoctorsPosition(int doctorsPosition) {
-		this.doctorsPosition = doctorsPosition;
-	}
-
-	public String getHospitalSname() {
-		return hospitalSname;
-	}
-
-	public void setHospitalSname(String hospitalSname) {
-		this.hospitalSname = hospitalSname;
-	}
-
-	public String getDepartmentsSname() {
-		return departmentsSname;
-	}
-
-	public void setDepartmentsSname(String departmentsSname) {
-		this.departmentsSname = departmentsSname;
-	}
 }
