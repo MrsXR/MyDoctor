@@ -143,11 +143,11 @@ public class OrderDoctorActivity extends AppCompatActivity {
         mYear += "-" + sendDate;//年-月-日
 
         orderDataShowtime.setText(mYear);
-/*
+
         doctorId = bundle.getInt("doctorId");//医生
-        orderDetailTblId=bundle.getInt("orderDetailTblId");*/
-        doctorId = 1;
-        orderDetailTblId = 1;
+        orderDetailTblId=bundle.getInt("orderDetailTblId");
+    /*    doctorId = 1;
+        orderDetailTblId = 1;*/
         getUserData(this);
     }
 
@@ -488,9 +488,8 @@ public class OrderDoctorActivity extends AppCompatActivity {
     private void insertSql(final Context context) {
         //获取当前时间
         Timestamp d = new Timestamp(System.currentTimeMillis());
-        //int userId= MyApplication.getUserTbl().getUserId();
-        int userId = 1;
-        orderTbl = new OrderTbl(userId, doctorId, userPhone, userIllSname, userIllContent, mYear, d, 1, 1);
+        int userId= MyApplication.getUserTbl().getUserId();
+        orderTbl = new OrderTbl(userId, doctorId, userPhone, userIllSname, userIllContent, mYear, d, 1, 0,orderDetailTblId);
         Gson g = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
         String data = g.toJson(orderTbl);
 
