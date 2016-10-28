@@ -1,7 +1,9 @@
 package cn.gem.mydoctor;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.app.ShareCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -26,6 +28,7 @@ import java.util.List;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import cn.gem.entity.OrderTbl;
+import cn.gem.entity1.OrderUserDetail;
 import cn.gem.util.CommonAdapter;
 import cn.gem.util.NetUtil;
 import cn.gem.util.ViewHolder;
@@ -44,9 +47,11 @@ public class yuyue_Activity extends AppCompatActivity implements newlistview.Onl
     @InjectView(R.id.activity_yuyue)
     RelativeLayout activityYuyue;
 
-    List<OrderTbl> list = new ArrayList<OrderTbl>();
-    CommonAdapter<OrderTbl> order_tblCommonAdapter;
+    List<OrderUserDetail> list = new ArrayList<OrderUserDetail>();
+    CommonAdapter<OrderUserDetail> order_tblCommonAdapter;
     Handler handler=new Handler();
+    int pageNum=5;
+    int temp=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,43 +80,43 @@ public class yuyue_Activity extends AppCompatActivity implements newlistview.Onl
         int id=netUtil.getUser().getUserId();
 
         requestParams.addQueryStringParameter("userid",id+"");
-
+        requestParams.addQueryStringParameter("pageNumTo",temp+"");
+        requestParams.addQueryStringParameter("pageNumFrom",pageNum+"");
         x.http().get(requestParams, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
                 Gson gson = new Gson();
 
-                Type type = new TypeToken<List<OrderTbl>>() {
+                Type type = new TypeToken<List<OrderUserDetail>>() {
                 }.getType();
 
 
-                List<OrderTbl> new_list = gson.fromJson(result, type);
+                List<OrderUserDetail> new_list = gson.fromJson(result, type);
 
                 list.clear();
                 list.addAll(new_list);
                 Log.i("1111", "onSuccess: "+list);
 
                 if (order_tblCommonAdapter == null) {
-                    order_tblCommonAdapter = new CommonAdapter<OrderTbl>(yuyue_Activity.this, list, R.layout.yuyue_itme) {
+                    order_tblCommonAdapter = new CommonAdapter<OrderUserDetail>(yuyue_Activity.this, list, R.layout.yuyue_itme) {
                         @Override
-                        public void convert(ViewHolder viewHolder, OrderTbl order_tbl, int position) {
+                        public void convert(ViewHolder viewHolder, OrderUserDetail order_tbl, int position) {
                             String name = null;
                             String index = null;
                             TextView t1 = viewHolder.getViewById(R.id.yuyue_list_item_tv_jiuzhengren);
                             t1.setText(" 就诊人     " + order_tbl.getUserSname());
-
-
-                            switch (order_tbl.getOrderState()) {
-                                case 1:
-                                    name = "预约中";
-                                    break;
-                                case 2:
-                                    name = "预约成功";
-                                    break;
-                                case 3:
-                                    name = "取消预约";
-                                    break;
+//1.未支付；2、预约到医生，取消预约；3:就医成功，可评论，4:评论成功，可删除；5、预约已取消6、申请退款7、删除订单
+                            if(order_tbl.getOrderTbl().getOrderPayState()==1){
+                                name="未支付";
+                            }else if(order_tbl.getOrderTbl().getOrderPayState()==2||order_tbl.getOrderTbl().getOrderPayState()==3||
+                                    order_tbl.getOrderTbl().getOrderPayState()==4){
+                                name="预约成功";
+                            }else if(order_tbl.getOrderTbl().getOrderPayState()==5){
+                                name="预约已取消";
+                            }else if(order_tbl.getOrderTbl().getOrderPayState()==6){
+                                name="申请退款";
                             }
+
                             TextView t2 = viewHolder.getViewById(R.id.yuyue_list_item_tv_yuyuezhuangtai);
                             t2.setText(" " + name);
                             Log.i("1111", "convert: "+name);
@@ -143,7 +148,7 @@ public class yuyue_Activity extends AppCompatActivity implements newlistview.Onl
                             t6.setText(" " + order_tbl.getDepartmentsSname());
 
                             TextView t7 = viewHolder.getViewById(R.id.yuyue_list_item_tv_shijian);
-                            t7.setText(" " + order_tbl.getOrderMessageTime());
+                            t7.setText(" " + order_tbl.getOrderTbl().getOrderMessageTime());
                         }
                     };
 
@@ -158,7 +163,13 @@ public class yuyue_Activity extends AppCompatActivity implements newlistview.Onl
                 yuyueList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        list.get(position).getOrderId();//订单的ID
+                        if(newlistview.isTag()==false&&position!=0&&position<=list.size()) {
+                            OrderUserDetail orderUserDetail = list.get(position-1);//订单的ID
+                            Intent intent = new Intent(yuyue_Activity.this, OrderDetailOneActivity.class);
+                            intent.putExtra("orderUserDetail", orderUserDetail);
+                            intent.putExtra("position",(position-1));
+                            startActivityForResult(intent, 120);
+                        }
                     }
                 });
 
@@ -187,18 +198,21 @@ public class yuyue_Activity extends AppCompatActivity implements newlistview.Onl
         NetUtil netUtil=new NetUtil();
         int id=netUtil.getUser().getUserId();
 
-        requestParams.addQueryStringParameter("userid",id+"");
+        temp++;
 
+        requestParams.addQueryStringParameter("userid",id+"");
+        requestParams.addQueryStringParameter("pageNumTo",temp+"");
+        requestParams.addQueryStringParameter("pageNumFrom",pageNum*temp+"");
         x.http().get(requestParams, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
                 Gson gson = new Gson();
 
-                Type type = new TypeToken<List<OrderTbl>>() {
+                Type type = new TypeToken<List<OrderUserDetail>>() {
                 }.getType();
 
 
-                List<OrderTbl> new_list = gson.fromJson(result, type);
+                List<OrderUserDetail> new_list = gson.fromJson(result, type);
 
                 if(new_list.size()==list.size()){
                     Toast.makeText(yuyue_Activity.this, "没有更多数据", Toast.LENGTH_SHORT).show();
@@ -206,31 +220,28 @@ public class yuyue_Activity extends AppCompatActivity implements newlistview.Onl
                     return;
                 }
 
-
                 list.addAll(new_list);
-                Log.i("1111", "onSuccess: "+list);
 
                 if (order_tblCommonAdapter == null) {
-                    order_tblCommonAdapter = new CommonAdapter<OrderTbl>(yuyue_Activity.this, list, R.layout.yuyue_itme) {
+                    order_tblCommonAdapter = new CommonAdapter<OrderUserDetail>(yuyue_Activity.this, list, R.layout.yuyue_itme) {
                         @Override
-                        public void convert(ViewHolder viewHolder, OrderTbl order_tbl, int position) {
+                        public void convert(ViewHolder viewHolder, OrderUserDetail order_tbl, int position) {
                             String name = null;
                             String index = null;
                             TextView t1 = viewHolder.getViewById(R.id.yuyue_list_item_tv_jiuzhengren);
                             t1.setText(" 就诊人     " + order_tbl.getUserSname());
 
-
-                            switch (order_tbl.getOrderState()) {
-                                case 1:
-                                    name = "预约中";
-                                    break;
-                                case 2:
-                                    name = "预约成功";
-                                    break;
-                                case 3:
-                                    name = "取消预约";
-                                    break;
+                            if(order_tbl.getOrderTbl().getOrderPayState()==1){
+                                name="未支付";
+                            }else if(order_tbl.getOrderTbl().getOrderPayState()==2||order_tbl.getOrderTbl().getOrderPayState()==3||
+                                    order_tbl.getOrderTbl().getOrderPayState()==4){
+                                name="预约成功";
+                            }else if(order_tbl.getOrderTbl().getOrderPayState()==5){
+                                name="预约已取消";
+                            }else if(order_tbl.getOrderTbl().getOrderPayState()==6){
+                                name="申请退款";
                             }
+
                             TextView t2 = viewHolder.getViewById(R.id.yuyue_list_item_tv_yuyuezhuangtai);
                             t2.setText(" " + name);
                             Log.i("1111", "convert: "+name);
@@ -262,7 +273,7 @@ public class yuyue_Activity extends AppCompatActivity implements newlistview.Onl
                             t6.setText(" " + order_tbl.getDepartmentsSname());
 
                             TextView t7 = viewHolder.getViewById(R.id.yuyue_list_item_tv_shijian);
-                            t7.setText(" " + order_tbl.getOrderMessageTime());
+                            t7.setText(" " + order_tbl.getOrderTbl().getOrderMessageTime());
                         }
                     };
 
@@ -307,8 +318,18 @@ public class yuyue_Activity extends AppCompatActivity implements newlistview.Onl
 
     @Override
     public void onup() {
-
         get();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        //结果码
+        if (resultCode==RESULT_OK){
+            int orderId=Integer.parseInt(data.getStringExtra("back"));
+            list.remove(orderId);
+            order_tblCommonAdapter.notifyDataSetChanged();
+        }
 
     }
 }

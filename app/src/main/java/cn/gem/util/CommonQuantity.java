@@ -11,6 +11,7 @@ public class CommonQuantity {
     public static final int FOURTH=4;
     public static final int FIFTH=5;
     public static final int SIXTH=6;
+    public static final int SEVENTH=7;
 
 
 }

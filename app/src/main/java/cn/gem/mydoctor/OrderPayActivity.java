@@ -31,7 +31,10 @@ import butterknife.OnClick;
 import c.b.BP;
 import c.b.PListener;
 import c.b.QListener;
+import cn.gem.application.MyApplication;
 import cn.gem.entity.DoctorInHospital;
+import cn.gem.entity1.OrderUserDetail;
+import cn.gem.util.CommonQuantity;
 import cn.gem.util.NetUtil;
 
 public class OrderPayActivity extends AppCompatActivity {
@@ -68,6 +71,9 @@ public class OrderPayActivity extends AppCompatActivity {
     String userIllContent;
     String orderID;
     boolean isChanged = false;
+    OrderUserDetail orderUserDetail;
+    MyApplication myApplication= (MyApplication) getApplication();
+    Intent intent;
 
     // 此为测试Appid,请将Appid改成你自己的Bmob AppId   3b2c117189017eecb2f443a2656e016f
     String APPID = "3deb8788a4a0035d1c6ad2454900dfe6";
@@ -85,15 +91,9 @@ public class OrderPayActivity extends AppCompatActivity {
         toolbar.setNavigationIcon(R.mipmap.back6);
         setSupportActionBar(toolbar);
 
-        Intent intent = getIntent();
-        doctorInHospital = intent.getParcelableExtra("doctorInHospital");
-        orderId =intent.getIntExtra("orderId", 0);
-        price = intent.getFloatExtra("orderDetailPrice", 0);
-        userIllContent = "nic";
-
-                //intent.getStringExtra("userIllContent");
-
-
+        intent = getIntent();
+        //判断是那个界面传过来的值
+        initData();
         //支付
         BP.init(this,APPID);
         int pluginVersion = BP.getPluginVersion();
@@ -104,21 +104,6 @@ public class OrderPayActivity extends AppCompatActivity {
                             : "监测到本机的支付插件不是最新版,最好进行更新,请先更新插件(无流量消耗)", Toast.LENGTH_SHORT).show();
             installBmobPayPlugin("bp.db");
         }
-
-
-        initView();
-    }
-
-    private void initView() {
-
-        orderDetailPrice.setText(doctorInHospital.getHospitalSname());
-        orderPaySubjectName.setText(doctorInHospital.getSubjectSname());
-        orderPayDoctorName.setText(doctorInHospital.getDoctorsSname());
-        //orderPayUserName.setText();
-
-        orderPayUserIll.setText(userIllContent);
-        orderPayMoney.setText("共 ￥" + price + "元");
-
         //返回上一个界面
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -126,6 +111,50 @@ public class OrderPayActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+    }
+
+    private void initData(){
+        if(intent.getParcelableExtra("doctorInHospital")!=null){
+        doctorInHospital = intent.getParcelableExtra("doctorInHospital");
+        orderId =intent.getIntExtra("orderId", 0);
+        price = intent.getFloatExtra("orderDetailPrice", 0);
+        userIllContent =intent.getStringExtra("userIllContent");
+            initView(1);
+        }else if(intent.getParcelableExtra("orderUserDetail")!=null){
+            orderUserDetail=getIntent().getParcelableExtra("orderUserDetail");
+
+            initView(2);
+        }
+    }
+
+
+
+    private void initView(int k) {
+
+        if(k== CommonQuantity.FIRST){
+        orderDetailPrice.setText(doctorInHospital.getHospitalSname());
+        orderPaySubjectName.setText(doctorInHospital.getSubjectSname());
+        orderPayDoctorName.setText(doctorInHospital.getDoctorsSname());
+        orderPayUserName.setText(myApplication.getUserTbl1().getUserSname());
+        orderPayUserNumber.setText(myApplication.getUserTbl1().getUserCard());
+        orderPayUserPhone.setText(myApplication.getUserTbl1().getUserPhone());
+
+        orderPayUserIll.setText(userIllContent);
+        orderPayMoney.setText("共 ￥" + price + "元");}
+        if(k==CommonQuantity.SECOND){
+
+            orderDetailPrice.setText(orderUserDetail.getHospitalSname());
+            orderPaySubjectName.setText(orderUserDetail.getDepartmentsSname());
+            orderPayDoctorName.setText(orderUserDetail.getDoctorsSname());
+            orderPayUserName.setText(myApplication.getUserTbl().getUserSname());
+            orderPayUserNumber.setText(myApplication.getUserTbl().getUserCard());
+            orderPayUserPhone.setText(myApplication.getUserTbl().getUserPhone());
+
+            orderPayUserIll.setText(orderUserDetail.getOrderTbl().getOrderMessage());
+            orderPayMoney.setText("共 ￥" + orderUserDetail.getOrderTbl().getOrderState() + "元");
+        }
+
 
     }
 
@@ -156,10 +185,12 @@ public class OrderPayActivity extends AppCompatActivity {
 
     void updateState(int orderId){
 
-        String stl= NetUtil.url+"";
+        String stl= NetUtil.url+"UpdateOrderServlet";
         RequestParams requestParams=new RequestParams(stl);
         requestParams.addQueryStringParameter("orderId",orderId+"");
         requestParams.addQueryStringParameter("state",2+"");
+        requestParams.addQueryStringParameter("price",price+"");
+
         x.http().get(requestParams, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {

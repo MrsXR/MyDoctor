@@ -1,9 +1,12 @@
 package cn.gem.entity1;
 
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import cn.gem.entity.OrderTbl;
 
-public class OrderUserDetail {
+public class OrderUserDetail implements Parcelable {
 
 	private OrderTbl orderTbl;
 	private String userSname;
@@ -75,7 +78,45 @@ public class OrderUserDetail {
 	public void setUserCard(String userCard) {
 		this.userCard = userCard;
 	}
-	
-	
-	
+
+
+	@Override
+	public int describeContents() {
+		return 0;
+	}
+
+	@Override
+	public void writeToParcel(Parcel dest, int flags) {
+		dest.writeParcelable(this.orderTbl, flags);
+		dest.writeString(this.userSname);
+		dest.writeString(this.doctorsSname);
+		dest.writeInt(this.doctorsPosition);
+		dest.writeString(this.hospitalSname);
+		dest.writeString(this.departmentsSname);
+		dest.writeString(this.hospitalAddress);
+		dest.writeString(this.userCard);
+	}
+
+	protected OrderUserDetail(Parcel in) {
+		this.orderTbl = in.readParcelable(OrderTbl.class.getClassLoader());
+		this.userSname = in.readString();
+		this.doctorsSname = in.readString();
+		this.doctorsPosition = in.readInt();
+		this.hospitalSname = in.readString();
+		this.departmentsSname = in.readString();
+		this.hospitalAddress = in.readString();
+		this.userCard = in.readString();
+	}
+
+	public static final Parcelable.Creator<OrderUserDetail> CREATOR = new Parcelable.Creator<OrderUserDetail>() {
+		@Override
+		public OrderUserDetail createFromParcel(Parcel source) {
+			return new OrderUserDetail(source);
+		}
+
+		@Override
+		public OrderUserDetail[] newArray(int size) {
+			return new OrderUserDetail[size];
+		}
+	};
 }

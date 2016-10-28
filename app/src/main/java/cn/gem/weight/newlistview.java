@@ -25,18 +25,6 @@ import cn.gem.mydoctor.R;
 
 public class newlistview extends ListView implements AbsListView.OnScrollListener {
 
-
-
-  /*  @InjectView(R.id.iv_refresher)
-    ImageView ivRefresher;
-    @InjectView(R.id.pb_refresher)
-    ProgressBar pbRefresher;
-    @InjectView(R.id.tv_refreshertext)
-    TextView tvRefreshertext;
-    @InjectView(R.id.tv_refreshtime)
-    TextView tvRefreshtime;
-*/
-
     ImageView ivRefresher;
     ProgressBar pbRefresher;
     TextView tvRefreshertext;
@@ -52,7 +40,7 @@ public class newlistview extends ListView implements AbsListView.OnScrollListene
     private static final int zhengzai=2;//正在刷新状态
     private RotateAnimation upAnimation;//箭头向上
     private RotateAnimation downAnimation;//箭头向下
-    private boolean flag=false;
+    private  static boolean flag=false;//默认为false，为ListView的点击事件
     private Onlister onlister;
     private int firstviewitme;
 
@@ -62,6 +50,10 @@ public class newlistview extends ListView implements AbsListView.OnScrollListene
     private TextView footTv;
     //是否下拉
     private boolean loading=false;
+
+    public static boolean isTag(){
+        return flag;
+    }
 
     public newlistview(Context context) {
         this(context, null);

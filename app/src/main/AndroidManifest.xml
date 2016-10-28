@@ -123,7 +123,9 @@
         <activity android:name=".GetLocationActivity" />
         <activity android:name=".GoFastConsultActivity" />
         <activity android:name=".ExpertConsultActivity" />
-        <activity android:name=".OrderDetailOneActivity"></activity>
+        <activity android:name=".OrderDetailOneActivity">
+
+        </activity>
     </application>
 
 </manifest>
