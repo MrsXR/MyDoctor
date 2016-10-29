@@ -30,6 +30,7 @@ import butterknife.InjectView;
 import cn.gem.entity.OrderTbl;
 import cn.gem.entity1.OrderUserDetail;
 import cn.gem.util.CommonAdapter;
+import cn.gem.util.CommonQuantity;
 import cn.gem.util.NetUtil;
 import cn.gem.util.ViewHolder;
 import cn.gem.weight.newlistview;
@@ -78,7 +79,7 @@ public class yuyue_Activity extends AppCompatActivity implements newlistview.Onl
         RequestParams requestParams = new RequestParams(NetUtil.url + "order_tbl_servlet");
         NetUtil netUtil=new NetUtil();
         int id=netUtil.getUser().getUserId();
-
+        temp=0;
         requestParams.addQueryStringParameter("userid",id+"");
         requestParams.addQueryStringParameter("pageNumTo",temp+"");
         requestParams.addQueryStringParameter("pageNumFrom",pageNum+"");
@@ -199,10 +200,9 @@ public class yuyue_Activity extends AppCompatActivity implements newlistview.Onl
         int id=netUtil.getUser().getUserId();
 
         temp++;
-
         requestParams.addQueryStringParameter("userid",id+"");
         requestParams.addQueryStringParameter("pageNumTo",temp+"");
-        requestParams.addQueryStringParameter("pageNumFrom",pageNum*temp+"");
+        requestParams.addQueryStringParameter("pageNumFrom",pageNum+"");
         x.http().get(requestParams, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
@@ -214,7 +214,7 @@ public class yuyue_Activity extends AppCompatActivity implements newlistview.Onl
 
                 List<OrderUserDetail> new_list = gson.fromJson(result, type);
 
-                if(new_list.size()==list.size()){
+                if(new_list.size()==0){
                     Toast.makeText(yuyue_Activity.this, "没有更多数据", Toast.LENGTH_SHORT).show();
                     yuyueList.completeLoad();//没获取到数据也要改变界面
                     return;
@@ -318,7 +318,14 @@ public class yuyue_Activity extends AppCompatActivity implements newlistview.Onl
 
     @Override
     public void onup() {
-        get();
+        //原来数据基础上增加
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                get();
+            }
+        },1000);
+
     }
 
     @Override
@@ -329,7 +336,10 @@ public class yuyue_Activity extends AppCompatActivity implements newlistview.Onl
             int orderId=Integer.parseInt(data.getStringExtra("back"));
             list.remove(orderId);
             order_tblCommonAdapter.notifyDataSetChanged();
+        }else if(resultCode== CommonQuantity.ORDEEANGIN){
+            order_tblCommonAdapter.notifyDataSetChanged();
         }
+
 
     }
 }

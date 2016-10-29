@@ -17,7 +17,8 @@
             android:layout_height="wrap_content"
             android:id="@+id/address_name"
             android:text="预约详情"
-            android:textSize="20dp"
+            android:textColor="@color/colorWhite"
+            android:textSize="25dp"
             android:layout_gravity="center"/>
         />
     </android.support.v7.widget.Toolbar>
@@ -100,6 +101,20 @@
             android:layout_below="@+id/order_lookdetail_subjectname"
             android:id="@+id/order_lookdetail_doctorname"
             android:textColor="@color/textcolor"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/order_hospital_address_temp"
+                android:layout_below="@+id/order_lookdetail_temo12"
+                android:text="就医地址"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/order_hospital_address"
+                android:text="医院的地址"
+                android:layout_toRightOf="@+id/order_lookdetail_temp1"
+                android:layout_below="@+id/order_lookdetail_doctorname"/>
 
         </RelativeLayout>
 
@@ -221,6 +236,20 @@
             android:layout_height="wrap_content"
             android:text="取消预约"
             android:gravity="center"
+            android:padding="5dp"
+            android:id="@+id/order_detail_user_cancel"
+            android:background="@mipmap/wallet_base_bg_input_red"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="预约"
+            android:gravity="center"
+            android:padding="5dp"
+            android:id="@+id/order_detail_user_cance2"
+            android:layout_toRightOf="@+id/order_detail_user_cancel"
+            android:layout_marginLeft="20dp"
+            android:visibility="gone"
             android:background="@mipmap/wallet_base_bg_input_red"/>
     </RelativeLayout>
     </RelativeLayout>
@@ -231,14 +260,16 @@
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:background="@mipmap/wallet_base_id_detect_scan"
-        android:layout_below="@+id/ttttttttttmp">
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="再次预约"
             android:textSize="20dp"
-            android:layout_marginTop="25dp"
+            android:id="@+id/order_detail_user_again"
+            android:layout_marginTop="20dp"
             android:layout_marginLeft="270dp"/>
     </RelativeLayout>
 </RelativeLayout>

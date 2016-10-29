@@ -53,6 +53,7 @@ import cn.gem.entity.OrderPrice;
 import cn.gem.entity.OrderTbl;
 import cn.gem.util.CommonGson;
 import cn.gem.util.IpChangeAddress;
+import cn.gem.util.MaxLengthWatcher;
 
 public class OrderDoctorActivity extends AppCompatActivity {
 
@@ -87,6 +88,7 @@ public class OrderDoctorActivity extends AppCompatActivity {
     @InjectView(R.id.order_to_photo_rlt)
     RelativeLayout orderToPhotoRlt;
 
+    TextView textView;
     Toolbar toolbar;
 
     int doctorId = 0;
@@ -121,6 +123,11 @@ public class OrderDoctorActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_doctor);
         ButterKnife.inject(this);
+
+        textView= (TextView) findViewById(R.id.order_ill_content_number);
+        editTextPhone.addTextChangedListener(new MaxLengthWatcher(11,null,this));
+        editTextIll.addTextChangedListener(new MaxLengthWatcher(11,null,this));
+        orderIllContent.addTextChangedListener(new MaxLengthWatcher(11,textView,this));
         //选择拍照或者从照片获取
         imageButtonOne = (ImageView) findViewById(R.id.order_ill_photo_one);
         imageButtonTwo = (ImageView) findViewById(R.id.order_ill_photo_two);
@@ -521,6 +528,7 @@ public class OrderDoctorActivity extends AppCompatActivity {
                 intent.putExtra("userIllContent",userIllContent);
                 intent.putExtra("orderDetailPrice",op.getPrice());
                 startActivity(intent);
+                finish();
             }
 
             @Override

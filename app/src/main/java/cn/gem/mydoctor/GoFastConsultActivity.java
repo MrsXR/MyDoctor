@@ -39,6 +39,7 @@ import butterknife.InjectView;
 import butterknife.OnClick;
 import cn.gem.application.MyApplication;
 import cn.gem.util.IpChangeAddress;
+import cn.gem.util.MaxLengthWatcher;
 
 public class GoFastConsultActivity extends AppCompatActivity {
 
@@ -56,6 +57,7 @@ public class GoFastConsultActivity extends AppCompatActivity {
     CheckBox goFastConsultAgree;
     @InjectView(R.id.go_fast_consult)
     Button goFastConsult;
+    TextView textView;
 
     boolean isCheck=false;
 
@@ -75,6 +77,8 @@ public class GoFastConsultActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_go_fast_consult);
         ButterKnife.inject(this);
+        textView= (TextView) findViewById(R.id.go_fast_consult_number);
+        goFastConsultEdittext.addTextChangedListener(new MaxLengthWatcher(500,textView,this));
 
         goFastConsultSname.setText(myApplication.getUserTbl().getUserSname());
     }

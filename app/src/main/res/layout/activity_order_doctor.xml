@@ -183,6 +183,7 @@
                     android:layout_marginLeft="100dp"
                     android:id="@+id/edit_text_phone"
                     android:hint="188****8843"
+                    android:maxLength="11"
                     android:inputType="phone|number"
                     android:background="@null"/>
             </RelativeLayout>
@@ -212,7 +213,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="100dp"
-                    android:hint="请填写所患疾病"
+                    android:hint="请填写所患疾病(11字以内)"
+                    android:maxLength="11"
                     android:id="@+id/edit_text_ill"
                     android:background="@null"/>
 
@@ -232,9 +234,19 @@
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
-                    android:hint="请填写所患疾病"
+                    android:hint="请填写所患疾病详情(请在300字以内)"
                     android:background="@null"
+                    android:maxLength="300"
                     android:id="@+id/order_ill_content"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/order_ill_content_number"
+                    android:layout_below="@+id/order_ill_content"
+                    android:text="还有"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="40dp"/>
+
             </RelativeLayout>
                 <TextView
                     android:layout_width="match_parent"

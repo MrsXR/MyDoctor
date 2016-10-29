@@ -127,7 +127,10 @@ public class DoctorsActivity extends AppCompatActivity {
         checkToolbar();
         initView();
 
+        buttonOnCheck();//评价+咨询的跳转界面
     }
+
+
 
     //设置初始显示的fragment+医生的信息展示
     public void initView() {
@@ -209,10 +212,7 @@ public class DoctorsActivity extends AppCompatActivity {
                 public void convert(ViewHolder viewHolder, ConsultTbl consultTbl, int position) {
 
                     TextView tvUser = viewHolder.getViewById(R.id.doctor_user_informatoin);//医患信息
-                    TextView tv1 = viewHolder.getViewById(R.id.doctor_user_temp);
-                    tv1.setVisibility(View.GONE);
-                    RatingBar ratingBar = viewHolder.getViewById(R.id.doctor_user_comment);//评星
-                    ratingBar.setVisibility(View.GONE);
+
                     TextView tvComment = viewHolder.getViewById(R.id.doctor_user_consult);//咨询内容
 
                     String sex =null;
@@ -233,24 +233,25 @@ public class DoctorsActivity extends AppCompatActivity {
 
         //评价
         if (commonR == null) {
-
             commonR = new CommonAdapter<CommentOrderDetailTbl>(this, commentOrderDetailTbls, R.layout.doctor_user_informatoin) {
                 @Override
                 public void convert(ViewHolder viewHolder, CommentOrderDetailTbl commentOrderDetailTbl, int position) {
                     TextView tvUser = viewHolder.getViewById(R.id.doctor_user_informatoin);//医患信息
-                    RatingBar ratingBar = viewHolder.getViewById(R.id.doctor_user_comment);//评星
+                    LinearLayout linearLayout=viewHolder.getViewById(R.id.doctor_user_informatoin_temp);
+                    linearLayout.setVisibility(View.VISIBLE);
+                    LinearLayout linearLayout2=viewHolder.getViewById(R.id.doctor_user_informatoin_temp2);
+                    linearLayout2.setVisibility(View.VISIBLE);
+                    TextView tvIllName=viewHolder.getViewById(R.id.doctor_user_ill_name);
+                    RatingBar ratingBar = viewHolder.getViewById(R.id.doctor_user_attitude);//医生态度评星
+                    RatingBar ratingBarT = viewHolder.getViewById(R.id.doctor_user_treat);//治疗评星
+                    RatingBar ratingBarC = viewHolder.getViewById(R.id.doctor_user_comment);//推荐评星
                     TextView tvComment = viewHolder.getViewById(R.id.doctor_user_consult);//咨询内容
 
-                    String sex =null;
-                    if(consultTbls.get(position).getUserTbl().getUserSex()==0){
-                        sex="男";
-                    }else {
-                        sex="女";
-                    }
-
-                    tvUser.setText("患者" + consultTbls.get(position).getUserTbl().getUserAge() + "岁 * " +sex);
-                    int k = commentOrderDetailTbl.getCommentOrderDetailType();
-                    ratingBar.setRating(k);
+                    tvUser.setText("来自患者" +commentOrderDetailTbl.getUserSname()+"的评论");
+                    tvIllName.setText(commentOrderDetailTbl.getOrderIllSname());
+                    ratingBar.setRating(commentOrderDetailTbl.getCommentOrderDetailAttitude());
+                    ratingBarT.setRating(commentOrderDetailTbl.getCommentOrderDetailTreat());
+                    ratingBarC.setRating(commentOrderDetailTbl.getCommentOrderDetailType());
                     tvComment.setText(commentOrderDetailTbl.getCommentOrderDetailContent());
 
                 }
@@ -359,6 +360,17 @@ public class DoctorsActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.doctors_toolbar, menu);
         return super.onCreateOptionsMenu(menu);
+    }
+
+    private void buttonOnCheck(){
+        doctorGoInto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(DoctorsActivity.this,MangCommentActivity.class);
+                intent.putExtra("doctotId",doctorsId);
+                startActivity(intent);
+            }
+        });
     }
 
 }

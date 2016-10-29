@@ -98,15 +98,6 @@ public class OrderTbl implements Parcelable {
 		this.ordertimeDetailId = ordertimeDetailId;
 	}
 
-	public OrderTbl(String userPhone, String orderIllSname, String orderMessage, int orderPayState,
-					float ordertime_detail_price) {
-		super();
-		this.userPhone = userPhone;
-		this.orderIllSname = orderIllSname;
-		this.orderMessage = orderMessage;
-		this.orderPayState = orderPayState;
-		this.ordertimeDetailPrice = ordertime_detail_price;
-	}
 
 	public String getOrderIllPhotoOne() {
 		return orderIllPhotoOne;
@@ -119,6 +110,19 @@ public class OrderTbl implements Parcelable {
 	}
 	public void setOrderIllPhotoTwo(String orderIllPhotoTwo) {
 		this.orderIllPhotoTwo = orderIllPhotoTwo;
+	}
+	public OrderTbl(int orderId,int doctorsId, String userPhone,String orderIllSname,String orderMessage, String orderMessageTime, int orderPayState,
+					float ordertimeDetailPrice, int ordertimeDetailId) {
+		super();
+		this.orderId = orderId;
+		this.doctorsId = doctorsId;
+		this.userPhone = userPhone;
+		this.orderIllSname=orderIllSname;
+		this.orderMessage = orderMessage;
+		this.orderMessageTime = orderMessageTime;
+		this.orderPayState = orderPayState;
+		this.ordertimeDetailPrice = ordertimeDetailPrice;
+		this.ordertimeDetailId = ordertimeDetailId;
 	}
 
 

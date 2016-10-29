@@ -14,4 +14,7 @@ public class CommonQuantity {
     public static final int SEVENTH=7;
 
 
+    public static final int ORDEEONE=111;//从订单--支付
+    public static final int ORDEEANGIN=112;//从订单--再次预约-----结果码
+    public static final int ORDERCOMMRNT=113;//从订单---评论----请求码
 }

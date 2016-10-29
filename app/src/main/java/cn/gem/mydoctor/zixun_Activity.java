@@ -72,14 +72,10 @@ public class zixun_Activity extends AppCompatActivity implements newlistview.Onl
 
     public void initof() {
         RequestParams requestParams = new RequestParams(NetUtil.url + "consult_item_servlet");
-        Log.i("zixun_Activity", "initof: " + NetUtil.url);
         NetUtil netUtil = new NetUtil();
         int id = netUtil.getUser().getUserId();
         //requestParams.addQueryStringParameter("zixun",1+"");
         requestParams.addQueryStringParameter("userid", id + "");
-        Log.i("zixun_Activity", "initof: " + id);
-        Log.i("zixun_Activity", "initof: " + requestParams);
-
         x.http().get(requestParams, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {

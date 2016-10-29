@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:padding="@dimen/activity_horizontal_margin">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="12dp"
+        android:background="@color/belowback"
+        android:id="@+id/many_comment_list_temp1"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/many_comment_list_temp2"
+        android:layout_below="@+id/many_comment_list_temp1">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="患者"
+            android:textSize="@dimen/padding_text_size"
+            android:id="@+id/many_comment_username"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="患者"
+            android:id="@+id/many_comment_time"
+            android:layout_toRightOf="@+id/many_comment_username"
+            android:layout_marginLeft="25dp"
+            android:textSize="15dp"
+            android:textColor="@color/grey"
+            android:layout_alignBottom="@+id/many_comment_username"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/many_comment_temp"
+            android:layout_below="@+id/many_comment_username"
+            android:layout_marginTop="5dp"
+            android:text="治疗疾病:   "
+            android:textSize="15dp"
+            android:textColor="@color/grey"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/many_comment_temp"
+            android:textSize="15dp"
+            android:layout_alignBottom="@+id/many_comment_temp"
+            android:id="@+id/mang_comment_user_ill"
+            android:text="疾病名称"/>
+
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/many_comment_list_temp"
+        android:layout_below="@+id/many_comment_list_temp2"
+        android:layout_marginTop="@dimen/padding_search_bar"
+        android:layout_marginBottom="@dimen/padding_search_bar"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="医生态度:"
+            android:textColor="@color/grey"
+            android:textSize="12dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            />
+        <RatingBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/many_comment_list_attitude"
+            android:numStars="5"
+            android:isIndicator="true"
+            android:paddingTop="5dp"
+            style="@style/foodRatingBar"
+
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="治疗效果:"
+            android:textColor="@color/grey"
+            android:textSize="12dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            />
+        <RatingBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/many_comment_list_treat"
+            style="@style/foodRatingBar"
+            android:paddingTop="5dp"
+            android:numStars="5"
+            android:isIndicator="true"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="推荐指数:"
+            android:textColor="@color/grey"
+            android:textSize="12dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            />
+        <RatingBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/many_comment_list_comment"
+            style="@style/foodRatingBar"
+            android:paddingTop="5dp"
+            android:numStars="5"
+            android:isIndicator="true"
+            />
+    </LinearLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/many_comment_list_consult"
+        android:text="*******************"
+        android:layout_below="@+id/many_comment_list_temp"
+        android:textSize="@dimen/activity_text_size"
+        android:textColor="@color/textcolor"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"/>
+
+</RelativeLayout>

@@ -8,31 +8,107 @@
         android:layout_height="wrap_content"
         android:text="患者的1号"
         android:id="@+id/doctor_user_informatoin"
+        android:textSize="15dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        />
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/doctor_user_informatoin_temp2"
+    android:layout_below="@+id/doctor_user_informatoin"
+    android:visibility="gone">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="治疗疾病:  "
+        android:textColor="@color/grey"
+        android:id="@+id/doctor_user_ill_name_temp"
+
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="患者所患疾病"
+        android:id="@+id/doctor_user_ill_name"
+        android:layout_toRightOf="@+id/doctor_user_ill_name_temp"
+        android:layout_below="@+id/doctor_user_informatoin"
         android:paddingTop="5dp"
         android:paddingBottom="5dp"
         />
 
+</LinearLayout>
+    <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/doctor_user_informatoin_temp"
+        android:layout_below="@+id/doctor_user_informatoin_temp2"
+        android:visibility="gone">
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="用户评星:"
+        android:text="医生态度:"
         android:id="@+id/doctor_user_temp"
-        android:layout_below="@+id/doctor_user_informatoin"
+        android:textColor="@color/grey"
+        android:textSize="10dp"
         android:paddingTop="5dp"
         android:paddingBottom="5dp"
       />
     <RatingBar
-        android:layout_width="100dp"
-        android:layout_height="20dp"
-        android:text="用户评星"
-        android:id="@+id/doctor_user_comment"
-        android:layout_toRightOf="@+id/doctor_user_temp"
-        android:layout_below="@+id/doctor_user_informatoin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/doctor_user_attitude"
         android:numStars="5"
         android:isIndicator="true"
+        android:paddingTop="5dp"
         style="@style/foodRatingBar"
-        />
 
+        />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="治疗效果:"
+            android:id="@+id/doctor_user_temp1"
+            android:textColor="@color/grey"
+            android:textSize="10dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            />
+        <RatingBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/doctor_user_treat"
+            style="@style/foodRatingBar"
+            android:paddingTop="5dp"
+            android:numStars="5"
+            android:isIndicator="true"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="推荐指数:"
+            android:id="@+id/doctor_user_temp3"
+            android:textColor="@color/grey"
+            android:textSize="10dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            />
+        <RatingBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/doctor_user_comment"
+            style="@style/foodRatingBar"
+            android:paddingTop="5dp"
+            android:numStars="5"
+            android:isIndicator="true"
+            />
+
+    </LinearLayout>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -41,7 +117,7 @@
         android:ellipsize="end"
         android:maxEms="20"
         android:singleLine="true"
-        android:layout_below="@+id/doctor_user_comment"
+        android:layout_below="@+id/doctor_user_informatoin_temp"
         android:textSize="17dp"
         android:textColor="@color/textcolor"
         android:paddingTop="5dp"

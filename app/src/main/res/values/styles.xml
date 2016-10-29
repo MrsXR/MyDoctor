@@ -44,10 +44,9 @@
 
     <style name="foodRatingBar" parent="@android:style/Widget.RatingBar">
         <item name="android:progressDrawable">@drawable/ratingstars</item>
-        <item name="android:minHeight">18dip</item>
-        <item name="android:maxHeight">18dip</item>
+        <item name="android:minHeight">12dip</item>
+        <item name="android:maxHeight">12dip</item>
     </style>
-
 
     <!-- view分割线样式 -->
     <style name="bg_line">
@@ -56,5 +55,16 @@
         <item name="android:background">@color/splitbar</item>
     </style>
 
+    <!-- dialog设置为透明色-->
+    <style name="CustomDialog" parent="android:style/Theme.Dialog">
+        <!--背景颜色及透明程度-->
+        <item name="android:windowBackground">@android:color/background_light</item>
+        <!--是否有标题 -->
+        <item name="android:windowNoTitle">true</item>
+        <!--是否浮现在activity之上-->
+        <item name="android:windowIsFloating">true</item>
+        <!--是否模糊-->
+        <item name="android:backgroundDimEnabled">false</item>
+    </style>
 
 </resources>

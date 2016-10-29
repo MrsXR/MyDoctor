@@ -85,7 +85,7 @@
             android:name=".OrderFirstMainActivity"
             android:launchMode="singleTask" />
         <activity android:name=".HospitalBriefActivity" />
-        <activity android:name=".OrderPayActivity"></activity>
+        <activity android:name=".OrderPayActivity" />
         <activity android:name=".shezhi_Activity" />
         <activity android:name=".qianbao_yuechongzhi_Activity" />
         <activity android:name=".dangantianjia_Activity" />
@@ -123,9 +123,10 @@
         <activity android:name=".GetLocationActivity" />
         <activity android:name=".GoFastConsultActivity" />
         <activity android:name=".ExpertConsultActivity" />
-        <activity android:name=".OrderDetailOneActivity">
-
-        </activity>
+        <activity android:name=".OrderDetailOneActivity" />
+        <activity android:name=".UserCommentDetailActivity"></activity>
+        <activity android:name=".MangCommentActivity"></activity>
+        <activity android:name=".LookUserCommentActivity"></activity>
     </application>
 
 </manifest>

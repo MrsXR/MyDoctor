@@ -3,6 +3,7 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="bottom_tab_padding_drawable">2.0dip</dimen>
+    <dimen name="activity_text_size">20dp</dimen>
     <dimen name="rdo1">0dp</dimen>
     <dimen name="rdo2">96dp</dimen>
     <dimen name="rdo3">192dp</dimen>
@@ -15,6 +16,7 @@
     <dimen name="rdo10">864dp</dimen>
     <dimen name="rdo11">960dp</dimen>
     <dimen name="padding_search_bar">5dp</dimen>
+    <dimen name="padding_text_size">25dp</dimen>
 
 
     <dimen name="rdt1">128dp</dimen>

@@ -79,6 +79,18 @@ public class OrderDetailOneActivity extends AppCompatActivity {
 
         Log.i("OrderDetailOneActivity", "initView: ----"+orderUserDetail.getOrderTbl().getOrderPayState());
         buttonInit(orderUserDetail.getOrderTbl().getOrderPayState());
+
+
+        orderLookdetailToolbar.setTitle("");
+        orderLookdetailToolbar.setNavigationIcon(R.mipmap.back6);
+        setSupportActionBar(orderLookdetailToolbar);
+        //返回上一个界面
+        orderLookdetailToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
 
@@ -92,23 +104,25 @@ public class OrderDetailOneActivity extends AppCompatActivity {
                     case CommonQuantity.FIRST:
                         Intent intent = new Intent(OrderDetailOneActivity.this, OrderPayActivity.class);
                         intent.putExtra("orderUserDetail", orderUserDetail);
-                        startActivityForResult(intent, 130);
+                        startActivityForResult(intent,CommonQuantity.ORDEEONE);
                         break;
                     case CommonQuantity.SECOND:
                        //链接数据库取消预约，并且在医生表预约人减一
                         dialogContent("您确定取消此次预约吗？",5);
 
                         break;
-                    case CommonQuantity.FOURTH:
+                    case CommonQuantity.THIRD:
                         //预约成功后，可以进行评价页面，评价结束按钮改为删除订单 和 查看评论
-
-
-
+                        Intent intent2=new Intent(OrderDetailOneActivity.this,UserCommentDetailActivity.class);
+                        intent2.putExtra("userIll",orderUserDetail.getOrderTbl().getOrderIllSname());
+                        intent2.putExtra("orderId",orderUserDetail.getOrderTbl().getOrderId());//订单ID
+                        intent2.putExtra("doctorId",orderUserDetail.getOrderTbl().getDoctorsId());//医生ID
+                        startActivityForResult(intent2,CommonQuantity.ORDERCOMMRNT);
 
                         break;
-                    case CommonQuantity.THIRD:
-                        //删除此订单，对数据库改变
-                        dialogContent("您确定删除此次预约信息吗？",7);
+                    case CommonQuantity.FOURTH:
+                        //查看此订单的评论，评论可修改，可删除
+                        
 
                         break;
 
@@ -120,6 +134,8 @@ public class OrderDetailOneActivity extends AppCompatActivity {
                 break;
             case R.id.order_detail_user_again:
                 //再次预约
+                Intent intent =new Intent(OrderDetailOneActivity.this,DoctorsActivity.class);
+                startActivity(intent);
                 break;
             case R.id.order_detail_user_cance2:
                 //取消预约后的 可删除预约信息
@@ -262,7 +278,8 @@ public class OrderDetailOneActivity extends AppCompatActivity {
                 orderDetailUserCance2.setVisibility(View.VISIBLE);
                 orderDetailUserCance2.setText("删除预约");
                 break;
-            case CommonQuantity.FIFTH://1.未支付；2、预约到医生，取消预约；3:就医成功，可评论，4:评论成功，可删除；5、预约已取消6、申请退款7、删除订单
+            case CommonQuantity.FIFTH:
+                //1.未支付；2、预约到医生，取消预约；3:就医成功，可评论，4:评论成功，可删除；5、预约已取消6、申请退款7、删除订单
                 orderDetailUserCancel.setText("预约已取消");
                 orderDetailUserCance2.setVisibility(View.VISIBLE);
                 orderDetailUserCance2.setText("删除预约");
@@ -272,6 +289,14 @@ public class OrderDetailOneActivity extends AppCompatActivity {
                 orderDetailUserCancel.setText("申请退款");
                 break;
 
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==CommonQuantity.ORDEEONE){
+            orderDetailUserCancel.setText("取消预约");
         }
     }
 }

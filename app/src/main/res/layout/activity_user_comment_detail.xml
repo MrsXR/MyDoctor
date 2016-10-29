@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="cn.gem.mydoctor.UserCommentDetailActivity">
+
+
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:id="@+id/user_comment_detail_toolbar"
+        android:background="@color/blue"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="发表评论"
+            android:textSize="25dp"
+            android:textColor="@color/colorWhite"
+            android:layout_gravity="center"/>
+        />
+    </android.support.v7.widget.Toolbar>
+
+
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:id="@+id/user_comment_detail_edittext"
+        android:layout_below="@+id/user_comment_detail_toolbar"
+        android:background="@null"
+        android:padding="15dp"
+        android:maxLength="300"
+        android:hint="评论就医医生，帮助他人了解医生(请在300字以内)"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/user_comment_detail_number"
+        android:layout_below="@+id/user_comment_detail_edittext"
+        android:text="还有"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="40dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_below="@+id/user_comment_detail_number"
+        android:background="@color/lightblue"
+        android:id="@+id/user_comment_detail_temp4"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/user_comment_detail_temp4"
+        android:padding="15dp">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="医生态度:"
+        android:id="@+id/user_comment_detail_temp"
+        android:textColor="@color/grey"
+        android:textSize="20dp"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
+        />
+    <RatingBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/user_comment_detail_attitude"
+        android:layout_toRightOf="@+id/user_comment_detail_temp"
+        android:numStars="5"
+        android:isIndicator="false"
+        android:progressTint="@color/starColor"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="治疗效果:"
+        android:id="@+id/user_comment_detail_temp1"
+        android:layout_below="@+id/user_comment_detail_temp"
+        android:textColor="@color/grey"
+        android:textSize="20dp"
+        android:paddingTop="20dp"
+        android:paddingBottom="15dp"
+        />
+    <RatingBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/user_comment_detail_treat"
+        android:layout_below="@+id/user_comment_detail_attitude"
+        android:layout_toRightOf="@+id/user_comment_detail_temp"
+        android:paddingTop="5dp"
+        android:numStars="5"
+        android:isIndicator="false"
+        android:progressTint="@color/starColor"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="推荐指数:"
+        android:id="@+id/user_comment_detail_temp3"
+        android:layout_below="@+id/user_comment_detail_temp1"
+        android:textColor="@color/grey"
+        android:textSize="20dp"
+        android:paddingTop="20dp"
+        android:paddingBottom="15dp"
+        />
+    <RatingBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/user_comment_detail_comment"
+        android:layout_below="@+id/user_comment_detail_treat"
+        android:layout_toRightOf="@+id/user_comment_detail_temp3"
+        android:paddingTop="5dp"
+        android:numStars="5"
+        android:isIndicator="false"
+        android:progressTint="@color/starColor"
+        />
+
+
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:padding="10dp">
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/user_comment_detail_radioButton"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="20dp"
+            android:button="@drawable/checkbox_change"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/user_comment_detail_radioButton"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="18dp"
+            android:textSize="22dp"
+            android:text="匿名评论"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/blue"
+            android:text="发表评论"
+            android:id="@+id/user_comment_detail_publish"
+            android:textColor="@color/colorWhite"
+            android:layout_alignParentRight="true"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>

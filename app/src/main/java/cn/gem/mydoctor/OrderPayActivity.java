@@ -176,6 +176,11 @@ public class OrderPayActivity extends AppCompatActivity {
                 if(isChanged) {
                     pay(false);
                     updateState(orderId);
+
+                    //如果是再次预约
+                    setResult(CommonQuantity.ORDEEANGIN);
+
+                    finish();
                 }
                 break;
         }

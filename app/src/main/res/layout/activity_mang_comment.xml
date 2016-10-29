@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="cn.gem.mydoctor.MangCommentActivity">
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:id="@+id/many_comment_toolbar"
+        android:background="@color/blue"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="患者评论"
+            android:id="@+id/mang_comment_number"
+            android:textSize="25dp"
+            android:textColor="@color/colorWhite"
+            android:layout_gravity="center"/>
+        />
+    </android.support.v7.widget.Toolbar>
+
+    <cn.gem.weight.MyReflashList
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/many_comment_toolbar"
+        android:id="@+id/many_comment_myreflashlist">
+
+    </cn.gem.weight.MyReflashList>
+
+</RelativeLayout>
