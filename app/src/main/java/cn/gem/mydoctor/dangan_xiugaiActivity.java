@@ -204,9 +204,12 @@ public class dangan_xiugaiActivity extends AppCompatActivity {
                 if(flag==CommonQuantity.SECOND) {
                     Toast.makeText(dangan_xiugaiActivity.this, "修改成功", Toast.LENGTH_SHORT).show();
 
+                    //修改刷新界面
+
                     finish();
                 }else if(flag==CommonQuantity.FIRST){
                     Toast.makeText(dangan_xiugaiActivity.this, "添加成功", Toast.LENGTH_SHORT).show();
+                    //添加完刷新界面
                     finish();
                 }
 

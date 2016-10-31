@@ -36,7 +36,6 @@
 
         <TextView
             android:padding="10dp"
-            android:gravity="center_vertical"
             android:layout_below="@+id/ll_user"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -44,8 +43,35 @@
             android:textSize="18dp"
             android:textColor="@color/text"
             android:id="@+id/tv_forum_title" />
+     <LinearLayout
+         android:orientation="horizontal"
+         android:layout_below="@+id/tv_forum_title"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:id="@+id/ll_theme_image">
+        <ImageView
+            android:padding="5dp"
+            android:layout_weight="1"
+            android:src="@mipmap/ic_launcher"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/iv_themeImage1"/>
+        <ImageView
+            android:padding="5dp"
+            android:layout_weight="1"
+            android:src="@mipmap/ic_launcher"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/iv_themeImage2"/>
+        <ImageView
+            android:padding="5dp"
+            android:layout_weight="1"
+            android:src="@mipmap/ic_launcher"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/iv_themeImage3"/>
 
-
+     </LinearLayout>
             <TextView
                 android:textSize="10dp"
                 android:gravity="center_vertical"
@@ -53,11 +79,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/tv_themetime"
-                android:layout_below="@+id/tv_forum_title"
+                android:layout_below="@+id/ll_theme_image"
                 />
             <ImageView
                 android:layout_alignBottom="@+id/tv_theme_readnumber"
-                android:layout_below="@+id/tv_forum_title"
+                android:layout_below="@+id/ll_theme_image"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/im_theme_readnumber"
@@ -65,7 +91,7 @@
                 android:src="@mipmap/readnumber"/>
             <TextView
                 android:textSize="10dp"
-                android:layout_below="@+id/tv_forum_title"
+                android:layout_below="@+id/ll_theme_image"
                 android:layout_width="50dp"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
@@ -73,7 +99,7 @@
                 android:id="@+id/tv_theme_readnumber"/>
             <ImageView
                 android:layout_alignBottom="@+id/tv_answertheme_number"
-                android:layout_below="@+id/tv_forum_title"
+                android:layout_below="@+id/ll_theme_image"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/iv_answertheme_number"
@@ -81,7 +107,7 @@
                 android:src="@mipmap/answer"/>
             <TextView
                 android:textSize="10dp"
-                android:layout_below="@+id/tv_forum_title"
+                android:layout_below="@+id/ll_theme_image"
                 android:gravity="center_vertical"
                 android:layout_width="50dp"
                 android:layout_height="wrap_content"
