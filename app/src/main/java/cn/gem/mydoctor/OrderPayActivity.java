@@ -75,7 +75,7 @@ public class OrderPayActivity extends AppCompatActivity {
     MyApplication myApplication= (MyApplication) getApplication();
     Intent intent;
 
-    // 此为测试Appid,请将Appid改成你自己的Bmob AppId   3b2c117189017eecb2f443a2656e016f
+    // 此为测试Appid,请将Appid改成你自己的Bmob AppId   3deb8788a4a0035d1c6ad2454900dfe6
     String APPID = "3deb8788a4a0035d1c6ad2454900dfe6";
     // 此为支付插件的官方最新版本号,请在更新时留意更新说明
     int PLUGINVERSION = 7;
@@ -177,9 +177,6 @@ public class OrderPayActivity extends AppCompatActivity {
                     pay(false);
                     updateState(orderId);
 
-                    //如果是再次预约
-                    setResult(CommonQuantity.ORDEEANGIN);
-                    finish();
                 }
                 break;
         }
@@ -242,8 +239,10 @@ public class OrderPayActivity extends AppCompatActivity {
             @Override
             public void succeed() {
                 Toast.makeText(OrderPayActivity.this, "支付成功!", Toast.LENGTH_SHORT).show();
-
                 hideDialog();
+                //如果是再次预约
+                setResult(CommonQuantity.ORDEEANGIN);
+                finish();
             }
 
             // 无论成功与否,返回订单号
