@@ -136,9 +136,9 @@ public class OrderPayActivity extends AppCompatActivity {
         orderDetailPrice.setText(doctorInHospital.getHospitalSname());
         orderPaySubjectName.setText(doctorInHospital.getSubjectSname());
         orderPayDoctorName.setText(doctorInHospital.getDoctorsSname());
-        orderPayUserName.setText(myApplication.getUserTbl1().getUserSname());
-        orderPayUserNumber.setText(myApplication.getUserTbl1().getUserCard());
-        orderPayUserPhone.setText(myApplication.getUserTbl1().getUserPhone());
+        orderPayUserName.setText(myApplication.getUserTbl().getUserSname());
+        orderPayUserNumber.setText(myApplication.getUserTbl().getUserCard());
+        orderPayUserPhone.setText(myApplication.getUserTbl().getUserPhone());
 
         orderPayUserIll.setText(userIllContent);
         orderPayMoney.setText("共 ￥" + price + "元");}
@@ -179,7 +179,6 @@ public class OrderPayActivity extends AppCompatActivity {
 
                     //如果是再次预约
                     setResult(CommonQuantity.ORDEEANGIN);
-
                     finish();
                 }
                 break;

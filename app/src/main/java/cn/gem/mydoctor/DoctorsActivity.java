@@ -119,17 +119,55 @@ public class DoctorsActivity extends AppCompatActivity {
 
         //获取选择医生的信息
         Intent intent = getIntent();
-        doctorsTbl = intent.getParcelableExtra("doctorOne");
-        doctorsId = doctorsTbl.getDoctorsId();
+        if(intent.getParcelableExtra("doctorOne")!=null){
+            doctorsTbl = intent.getParcelableExtra("doctorOne");
+            doctorsId = doctorsTbl.getDoctorsId();
+            initView();
+        }else if(intent.getIntExtra("doctorsId",0)!=0){
+            doctorsId = intent.getIntExtra("doctorsId",0);
+            Log.i("DoctorsActivity", "onCreate: ------------------------");
+            getOneDoctor();
+        }
+
 
 
         //toolbar上的导航事件按钮点击事件
         checkToolbar();
-        initView();
-
         buttonOnCheck();//评价+咨询的跳转界面
     }
 
+    //从再次预约界面跳转进来
+    private void getOneDoctor(){
+
+        String stl = IpChangeAddress.ipChangeAddress + "OneDoctorsTblServlet";
+        RequestParams requestParams = new RequestParams(stl);
+        requestParams.addQueryStringParameter("doctorsId", doctorsId + "");
+
+        x.http().get(requestParams, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                Gson gson=CommonGson.getGson();
+                doctorsTbl=gson.fromJson(result,DoctorsTbl.class);
+
+                initView();
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+        });
+    }
 
 
     //设置初始显示的fragment+医生的信息展示

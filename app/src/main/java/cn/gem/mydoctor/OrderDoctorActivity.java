@@ -69,8 +69,6 @@ public class OrderDoctorActivity extends AppCompatActivity {
     TextView orderDataShowtime;
     @InjectView(R.id.order_user_sname)
     TextView orderUserSname;
-    @InjectView(R.id.order_to_file)
-    ImageButton orderToFile;
     @InjectView(R.id.edit_text_phone)
     EditText editTextPhone;
     @InjectView(R.id.edit_text_ill)
@@ -208,14 +206,9 @@ public class OrderDoctorActivity extends AppCompatActivity {
         });
     }
 
-    @OnClick({R.id.order_to_file,  R.id.order_ill_photo_one,R.id.order_to_photo_rlt,R.id.order_ill_photo_two})
+    @OnClick({  R.id.order_ill_photo_one,R.id.order_to_photo_rlt,R.id.order_ill_photo_two})
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.order_to_file:
-                //修改就医档案
-
-
-                break;
             case R.id.order_to_photo_rlt:
                 if(flag==false){
                     if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {

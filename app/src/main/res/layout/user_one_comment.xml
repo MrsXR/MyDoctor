@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:padding="@dimen/activity_horizontal_margin"
+    android:background="@color/colorWhite">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/user_one_ill_temp2"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="患者"
+            android:textSize="@dimen/padding_text_size"
+            android:id="@+id/user_one_username"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="患者"
+            android:id="@+id/user_one_ill_time"
+            android:layout_toRightOf="@+id/user_one_username"
+            android:layout_marginLeft="25dp"
+            android:textSize="15dp"
+            android:textColor="@color/grey"
+            android:layout_alignBottom="@+id/user_one_username"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/user_one_temp"
+            android:layout_below="@+id/user_one_username"
+            android:layout_marginTop="5dp"
+            android:text="治疗疾病:   "
+            android:textSize="15dp"
+            android:textColor="@color/grey"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/user_one_temp"
+            android:textSize="15dp"
+            android:layout_alignBottom="@+id/user_one_temp"
+            android:id="@+id/user_one_ill"
+            android:text="疾病名称"/>
+
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/user_one_ill_temp"
+        android:layout_below="@+id/user_one_ill_temp2"
+        android:layout_marginTop="@dimen/padding_search_bar"
+        android:layout_marginBottom="@dimen/padding_search_bar"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="医生态度:"
+            android:textColor="@color/grey"
+            android:textSize="12dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            />
+        <RatingBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/user_one_ill_attitude"
+            android:numStars="5"
+            android:isIndicator="false"
+            android:paddingTop="5dp"
+            style="@style/foodRatingBar"
+
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="治疗效果:"
+            android:textColor="@color/grey"
+            android:textSize="12dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            />
+        <RatingBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/user_one_ill_treat"
+            style="@style/foodRatingBar"
+            android:paddingTop="5dp"
+            android:numStars="5"
+            android:isIndicator="false"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="推荐指数:"
+            android:textColor="@color/grey"
+            android:textSize="12dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            />
+        <RatingBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/user_one_ill_comment"
+            style="@style/foodRatingBar"
+            android:paddingTop="5dp"
+            android:numStars="5"
+            android:isIndicator="false"
+            />
+    </LinearLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/user_one_ill_consult"
+        android:text="*******************"
+        android:layout_below="@+id/user_one_ill_temp"
+        android:textSize="@dimen/activity_text_size"
+        android:textColor="@color/textcolor"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/blue"
+        android:text="返回"
+        android:id="@+id/user_comment_one1"
+        android:textColor="@color/colorWhite"
+        android:layout_alignParentBottom="true"
+       android:layout_toLeftOf="@+id/user_comment_one2"
+        android:layout_marginRight="30dp"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/blue"
+        android:text="删除评论"
+        android:id="@+id/user_comment_one2"
+        android:textColor="@color/colorWhite"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"/>
+
+</RelativeLayout>

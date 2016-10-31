@@ -166,13 +166,6 @@ public class dangantianjia_Activity extends Activity implements View.OnClickList
                             }
                         }).setNegativeButton("取消", null).show();
                 break;
-            case R.id.liner_xingming:
-                break;
-            case R.id.liner_shouji:
-                break;
-            case R.id.liner_nianlin:
-
-                break;
             case R.id.liner_xinbie:
 
                 new AlertDialog.Builder(this).setTitle("选择性别").setIcon(
@@ -277,10 +270,7 @@ public class dangantianjia_Activity extends Activity implements View.OnClickList
     public void onClick() {
         RequestParams requestParams = new RequestParams(NetUtil.url + "user_record_tianjia_servlet_photo");//user_record_tianjia_servlet
 
-        Log.i("dangan", "onClick:------------------ "+tianjiadananXingming.getText());
-
         requestParams.addBodyParameter("userid", new NetUtil().getUser().getUserId() + "");
-        Log.i("dangantianjia_Activity", "onClick: "+new NetUtil().getUser().getUserId());
         requestParams.addBodyParameter("username", tianjiadananXingming.getText() + "");
         requestParams.addBodyParameter("userphone", tianjiadananShouji.getText() + "");
         requestParams.addBodyParameter("userage", tianjiadananNianlin.getText() + "");

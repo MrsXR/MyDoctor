@@ -11,6 +11,7 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -132,12 +133,13 @@ public class GoFastConsultActivity extends AppCompatActivity {
         x.http().post(requestParams, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
-
+               Toast.makeText(GoFastConsultActivity.this,"咨询成功，请耐心等待",Toast.LENGTH_LONG).show();
+                finish();
             }
 
             @Override
             public void onError(Throwable ex, boolean isOnCallback) {
-
+                Log.i("GoFastConsultActivity", "onError: "+ex.getMessage());
             }
 
             @Override

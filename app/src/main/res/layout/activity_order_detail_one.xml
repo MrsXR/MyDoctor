@@ -251,6 +251,18 @@
             android:layout_marginLeft="20dp"
             android:visibility="gone"
             android:background="@mipmap/wallet_base_bg_input_red"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="预约"
+            android:gravity="center"
+            android:padding="5dp"
+            android:id="@+id/order_detail_user_cance3"
+            android:layout_toRightOf="@+id/order_detail_user_cance2"
+            android:layout_marginLeft="20dp"
+            android:visibility="gone"
+            android:background="@mipmap/wallet_base_bg_input_red"/>
+
     </RelativeLayout>
     </RelativeLayout>
 

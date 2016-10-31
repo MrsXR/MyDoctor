@@ -111,7 +111,6 @@ public class FirstMyFragment extends Fragment {
         int id=new NetUtil().getUser().getUserId();
         switch (view.getId()) {
             case R.id.imageButton8:
-                Log.i("111333", "onClick: ");
                 Intent intent=new Intent(getActivity(),login_mydoctorActivity.class);
                 startActivity(intent);
                 break;
@@ -128,7 +127,6 @@ public class FirstMyFragment extends Fragment {
 
                 break;
             case R.id.imageButton13:
-                Log.i("111333", "onClick: ");
 
                 Intent intent3=new Intent(getActivity(),xiaoxi_Activity.class);
                 startActivity(intent3);
@@ -141,21 +139,17 @@ public class FirstMyFragment extends Fragment {
 
                 break;
             case R.id.linearlayout1:
-                Log.i("111333", "onClick: ");
 
                 Intent intent5=new Intent(getActivity(),yuyue_Activity.class);
                 startActivity(intent5);
 
                 break;
             case R.id.linearlayout2:
-                Log.i("111333", "onClick: ");
-
                 Intent intent6=new Intent(getActivity(),jifen_Activity.class);
                 startActivity(intent6);
 
                 break;
             case R.id.linearlayout3:
-                Log.i("111333", "onClick: ");
 
                 Intent intent7=new Intent(getActivity(),qianbao_Activity.class);
                 startActivity(intent7);

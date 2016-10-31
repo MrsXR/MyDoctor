@@ -90,20 +90,12 @@ public class GetLocationActivity extends FragmentActivity implements
         mBaiduMap = ((SupportMapFragment) (getSupportFragmentManager()
                 .findFragmentById(R.id.bmapView_fragment))).getBaiduMap();//bmapView
 
-        //普通地图
-        mBaiduMap.setMapType(BaiduMap.MAP_TYPE_NORMAL);
-
         mLocationClient = new LocationClient(getApplicationContext());     //声明LocationClient类
         mLocationClient.registerLocationListener(myListener);    //注册监听函数
 
         initPosition();//d定位
         mLocationClient.start();
 
-        // 开启定位图层
-        mBaiduMap.setMyLocationEnabled(true);
-        // 构造定位数据
-        getLocation(altitude, longitude);
-//  getLocationHospital(null);
 
         // 初始化搜索模块，注册搜索事件监听
         mPoiSearch = PoiSearch.newInstance();
@@ -150,17 +142,17 @@ public class GetLocationActivity extends FragmentActivity implements
     }
 
     private void getLocation(double altitude, double longitude) {
+
         // 构造定位数据
         MyLocationData locData = new MyLocationData.Builder()
                 .accuracy(150)
                 //此处设置开发者获取到的方向信息，顺时针0-360.direction(location.getDirection())
                 .direction(1).latitude(altitude)
                 .longitude(longitude).build();
-//        Log.i("MyLocationListener", "纬度: "+location.getLatitude()+"经度:"+location.getLongitude());
         //设置定位数据
         mBaiduMap.setMyLocationData(locData);
         //跳转到当前位置
-        LatLng ll = new LatLng(31.281843, 120.749582);//地理坐标数据
+        LatLng ll = new LatLng(altitude, longitude);//地理坐标数据
         MapStatusUpdate u = MapStatusUpdateFactory.newLatLngZoom(ll, 15.0f);//设置地图中心点以及缩放级别
         mBaiduMap.animateMapStatus(u);
 
@@ -274,6 +266,12 @@ public class GetLocationActivity extends FragmentActivity implements
 
         @Override
         public void onReceiveLocation(BDLocation location) {
+
+            // 开启定位图层
+            mBaiduMap.setMyLocationEnabled(true);
+            // 构造定位数据
+            getLocation(altitude, longitude);
+
             //Receive Location
             altitude = location.getAltitude();
             longitude = location.getLatitude();

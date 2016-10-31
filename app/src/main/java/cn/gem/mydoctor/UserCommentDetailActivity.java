@@ -144,6 +144,8 @@ public class UserCommentDetailActivity extends AppCompatActivity {
             @Override
             public void onSuccess(String result) {
 
+                Toast.makeText(UserCommentDetailActivity.this, "评论成功", Toast.LENGTH_SHORT).show();
+                finish();
             }
 
             @Override

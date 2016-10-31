@@ -80,15 +80,12 @@ public class zixun_Activity extends AppCompatActivity implements newlistview.Onl
             @Override
             public void onSuccess(String result) {
                 Gson gson = new Gson();
-                Log.i("zixun_Activity", "onSuccess: 111111");
                 Type type = new TypeToken<List<ConsultTbl>>() {}.getType();
-                Log.i("zixun_Activity", "onSuccess: 222222");
                 List<ConsultTbl> new_list_consult_tbl = gson.fromJson(result, type);
-                Log.i("zixun_Activity", "onSuccess: "+new_list_consult_tbl);
 
                 list_consult_tbl.clear();
                 list_consult_tbl.addAll(new_list_consult_tbl);
-                Log.i("zixun_Activity", "onSuccess: 33333333");
+
                 if (consult_tblAdapter==null) {
 
                     consult_tblAdapter=new CommonAdapter<ConsultTbl>(zixun_Activity.this,list_consult_tbl,R.layout.zixun_item) {

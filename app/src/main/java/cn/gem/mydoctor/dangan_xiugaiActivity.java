@@ -22,17 +22,25 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+
 import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
+import cn.gem.application.MyApplication;
+import cn.gem.entity.UserRecordTbl;
+import cn.gem.util.CommonQuantity;
 import cn.gem.util.NetUtil;
 
 import static cn.gem.mydoctor.dangantianjia_Activity.CROP_PHOTO;
@@ -91,60 +99,116 @@ public class dangan_xiugaiActivity extends AppCompatActivity {
 
     int user_sex;
     int userrecordid;
+    int user_identity=0;
     private Uri imageUri;
-    int user_identity;
-    private ImageView iv;
+    private File file;
+
+    AlertDialog alertDialog;
+    int flag=0;
+    MyApplication myApplication= (MyApplication) getApplication();
+
+    UserRecordTbl user_record_tbl;
+    boolean ischange=false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dangan_xiugai);
         ButterKnife.inject(this);
 
+        //判断sd卡是否存在，存在
+        if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+            //目录，文件名Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM)
+            file = new File(Environment.getExternalStorageDirectory(), getPhotoFileName());
+            imageUri = Uri.fromFile(file);
+        }
+
         Intent intent = getIntent();
-        String name = intent.getStringExtra("name");
-        String num = intent.getStringExtra("num");
-        String age = intent.getStringExtra("age");
 
-        userrecordid = Integer.parseInt(intent.getStringExtra("userrecordid"));
+        flag = intent.getIntExtra("flag", 0);
+        if (flag==CommonQuantity.SECOND) {
+            user_record_tbl = intent.getParcelableExtra("user_record_tbl");
 
-        Log.i("aaa", "onCreate: "+userrecordid);
+            danganxiugaiEdittextXingming.setText(user_record_tbl.getUserrecordName());
+            danganxiugaiEdittextNianlin.setText(user_record_tbl.getUserrecordAge() + "");
+            danganxiugaiEdittextShouji.setText(user_record_tbl.getUserrecordPhone());
+            danganxiugaiEdittextXinbie.setText(init(user_record_tbl.getUserrecordSex(), 1));
+            danganxiugaiEdittextShenfenzheng.setText(user_record_tbl.getUserrecordCard());
+            danganxiugaiEdittextShengfen.setText(init(user_record_tbl.getUserrecordIdentity(), 0));
+            danganxiugaiEdittextShenggao.setText(user_record_tbl.getUserrecordHeight() + "");
+            danganxiugaiEdittextTizhong.setText(user_record_tbl.getUserrecordWeight() + "");
+        }
+    }
 
-        danganxiugaiEdittextXingming.setText(name);
-        danganxiugaiEdittextNianlin.setText(age);
-        danganxiugaiEdittextShouji.setText(num);
+    private String getPhotoFileName() {
+        Date date = new Date(System.currentTimeMillis());
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmss");
+        return sdf.format(date) + ".png";
     }
 
     public void initio() {
-        RequestParams requestParams = new RequestParams(NetUtil.url + "user_record_update_servlet");
-        //String userid = new NetUtil().getUser().getUserid() + "";
 
-
+        int userId=myApplication.getUserTbl().getUserId();
         String username = danganxiugaiEdittextXingming.getText() + "";
-        String usertouxiang = null;
         String usershouji = danganxiugaiEdittextShouji.getText() + "";
-        String userage = danganxiugaiEdittextNianlin.getText() + "";
+        int userage = Integer.parseInt(danganxiugaiEdittextNianlin.getText() + "");
+        int usersex=0;
+        if(danganxiugaiEdittextXinbie.getText().equals("女")){
+            usersex=1;
+        }
+
+        int usershenfen =user_identity ;
+        float usershenggao = Float.parseFloat(danganxiugaiEdittextShenggao.getText().toString());
+        float usertizhong = Float.parseFloat(danganxiugaiEdittextTizhong.getText().toString());
         String usercard = danganxiugaiEdittextShenfenzheng.getText() + "";
-        String usersex = user_sex+"";
-        String usershenfen =user_identity + "";
-        String usershenggao = danganxiugaiEdittextShenggao.getText() + "";
-        String usertizhong = danganxiugaiEdittextTizhong.getText() + "";
+        UserRecordTbl userRecordTbl=new UserRecordTbl(userId,null,usershouji,username,userage,usersex,
+                usershenggao,usertizhong,usershenfen,usercard);
 
+        Gson gson=new Gson();
+        String sendData=gson.toJson(userRecordTbl);
 
-        requestParams.addQueryStringParameter("userrecordid",userrecordid+"");
-        requestParams.addQueryStringParameter("username", username);
-        requestParams.addQueryStringParameter("usertouxiang", usertouxiang);
-        requestParams.addQueryStringParameter("usershouji", usershouji);
-        requestParams.addQueryStringParameter("userage", userage);
-        requestParams.addQueryStringParameter("usercard", usercard);
-        requestParams.addQueryStringParameter("usersex", usersex);
-        requestParams.addQueryStringParameter("usershenfen", usershenfen);
-        requestParams.addQueryStringParameter("usershenggao", usershenggao);
-        requestParams.addQueryStringParameter("usertizhong", usertizhong);
+       Log.i("dangan_xiugaiActivity", "initio: "+sendData);
 
-        x.http().get(requestParams, new Callback.CommonCallback<String>() {
+        RequestParams requestParams =null;
+        if(flag==CommonQuantity.SECOND) {
+            //修改档案
+            requestParams=new RequestParams(NetUtil.url + "user_record_update_servlet");
+            requestParams.setMultipart(true);//上传照片一定要设置
+
+            requestParams.addBodyParameter("userrecordId",user_record_tbl.getUserrecordId()+"");
+            requestParams.addBodyParameter("sendData",sendData);
+
+            if(ischange) {
+                requestParams.addBodyParameter("userphoto", file);
+                Log.i("dangan_xiugaiActivity", "initio: ---------------------------"+file);
+            }
+
+        }else if(flag==CommonQuantity.FIRST){
+
+            //添加档案
+            requestParams = new RequestParams(NetUtil.url + "user_record_tianjia_servlet_photo");
+            requestParams.setMultipart(true);//上传照片一定要设置
+
+            requestParams.addBodyParameter("sendData",sendData);
+
+            if(ischange){
+                requestParams.addBodyParameter("userphoto",file);
+            }
+        }
+
+        Log.i("dangan_xiugaiActivity", "initio: "+requestParams.toString());
+
+        x.http().post(requestParams, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
-                Toast.makeText(dangan_xiugaiActivity.this, "修改成功", Toast.LENGTH_SHORT).show();
+                if(flag==CommonQuantity.SECOND) {
+                    Toast.makeText(dangan_xiugaiActivity.this, "修改成功", Toast.LENGTH_SHORT).show();
+
+                    finish();
+                }else if(flag==CommonQuantity.FIRST){
+                    Toast.makeText(dangan_xiugaiActivity.this, "添加成功", Toast.LENGTH_SHORT).show();
+                    finish();
+                }
 
             }
 
@@ -165,23 +229,44 @@ public class dangan_xiugaiActivity extends AppCompatActivity {
         });
     }
 
-    /*
-        @OnClick({R.id.bianjidanganxinxi_button, R.id.danganxiugai_edittext_button})
-        public void onClick(View view) {
-            switch (view.getId()) {
-                case R.id.bianjidanganxinxi_button:
-                    initio();
-                    break;
-                case R.id.danganxiugai_edittext_button:
-                    initof();
-                    break;
-            }
+
+    private String init(int k,int flag){
+        String string=null;
+        switch (k){
+            case 0:
+                if(flag==0){
+                string="本人";
+                } else {
+                    string="男";
+                }
+                break;
+            case 1:
+                if(flag==0){
+                    string="父母";
+                } else {
+                    string="女";
+                }
+                break;
+            case 2:
+                string="子女";
+                break;
+            case 3:
+                string="朋友";
+                break;
+            case 4:
+                string="其他";
+                break;
+
         }
-    */
+        return string;
+    }
+
     public void initof() {
         RequestParams r = new RequestParams(NetUtil.url + "user_record_drop_servlet");
+
         r.addQueryStringParameter("userrecordid", userrecordid+"");
-        x.http().get(r, new Callback.CommonCallback<String>() {
+
+        x.http().post(r, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
                 Toast.makeText(dangan_xiugaiActivity.this, "删除成功", Toast.LENGTH_SHORT).show();
@@ -214,49 +299,29 @@ public class dangan_xiugaiActivity extends AppCompatActivity {
                 initio();
                 break;
             case R.id.danganxiugai_liner_touxiang:
-                new AlertDialog.Builder(this).setTitle("头像选择").setIcon(
+                ischange=true;
+                alertDialog= new AlertDialog.Builder(this).setTitle("头像选择").setIcon(
                         android.R.drawable.ic_dialog_info).setSingleChoiceItems(
                         new String[]{"从手机相册中选择", "相机"}, 0,
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-                                File file = new File(Environment.getExternalStorageDirectory(), "temp.jpg");
                                 imageUri = Uri.fromFile(file);
-                                if (which == 0) {
-                                    Intent intent = new Intent();
-                                    intent.setAction(Intent.ACTION_PICK);
-                                    intent.setType("image/*");
-                                    //裁剪
-                                    intent.putExtra("crop", "true");
-                                    //宽高比例
-                                    intent.putExtra("aspectX", 1);
-                                    intent.putExtra("aspectY", 1);
-                                    //定义宽和高
-                                    intent.putExtra("outputX", 300);
-                                    intent.putExtra("outputY", 300);
-                                    //图片是否缩放
-                                    intent.putExtra("scale", true);
-                                    //是否要返回值
-                                    intent.putExtra("return-data", false);
-                                    //把图片存放到imageUri
-                                    intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
-                                    //图片输出格式
-                                    intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
-                                    intent.putExtra("noFaceDetection", true); // no face detection
-                                    startActivityForResult(intent, SELECT_PIC);
-                                } else {//拍照
-                                    // api guide: cemera
-                                    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                                    intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
-                                    startActivityForResult(intent, TAKE_PHOTO);
+                              if(which==0){
+                                  //相册选择，不裁剪
+                                  Intent intent = new Intent(Intent.ACTION_PICK, null);
+                                  intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                                          "image/*");
+                                  intent.putExtra("return-data", true);
+                                  startActivityForResult(intent, SELECT_PIC);
+
+                              } else {//拍照
+                                  //拍照
+                                  Intent intent2 = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                                  intent2.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(file));
+                                  startActivityForResult(intent2,TAKE_PHOTO);
                                 }
                             }
-                        }).setNegativeButton("取消", null).show();
-                break;
-            case R.id.danganxiugai_liner_xingming:
-                break;
-            case R.id.danganxiugai_liner_shouji:
-                break;
-            case R.id.danganxiugai_liner_nianlin:
+                        }).show();
                 break;
             case R.id.danganxiugai_liner_xinbie:
                 new AlertDialog.Builder(this).setTitle("选择性别").setIcon(
@@ -266,14 +331,14 @@ public class dangan_xiugaiActivity extends AppCompatActivity {
                             public void onClick(DialogInterface dialog, int which) {
                                 if (which == 0) {
                                     user_sex = 0;
+                                    danganxiugaiEdittextXinbie.setText("男");
                                 } else {
                                     user_sex = 1;
+                                    danganxiugaiEdittextXinbie.setText("女");
                                 }
                                 dialog.dismiss();
                             }
-                        }).setNegativeButton("取消", null).show();
-                break;
-            case R.id.danganxiugai_shenfenzheng:
+                        }).show();
                 break;
             case R.id.danganxiugai_liner_shenfen:
                 new AlertDialog.Builder(this).setTitle("选择身份").setIcon(
@@ -284,28 +349,29 @@ public class dangan_xiugaiActivity extends AppCompatActivity {
                                 switch (which) {
                                     case 0:
                                         user_identity = 0;
+                                        danganxiugaiEdittextShengfen.setText("本人");
                                         break;
                                     case 1:
                                         user_identity = 1;
+                                        danganxiugaiEdittextShengfen.setText("父母");
                                         break;
                                     case 2:
                                         user_identity = 2;
+                                        danganxiugaiEdittextShengfen.setText("子女");
                                         break;
                                     case 3:
                                         user_identity = 3;
+                                        danganxiugaiEdittextShengfen.setText("亲属");
                                         break;
                                     case 4:
                                         user_identity = 4;
+                                        danganxiugaiEdittextShengfen.setText("朋友");
                                         break;
 
                                 }
                                 dialog.dismiss();
                             }
-                        }).setNegativeButton("取消", null).show();
-                break;
-            case R.id.danganxiugai_liner_shenggao:
-                break;
-            case R.id.danganxiugai_liner_tizhong:
+                        }).show();
                 break;
             case R.id.danganxiugai_edittext_button:
                 initof();
@@ -313,44 +379,53 @@ public class dangan_xiugaiActivity extends AppCompatActivity {
         }
     }
 
+    //裁剪
+    public void getPhoto(Uri uri) {
+        Intent intent = new Intent("com.android.camera.action.CROP");
+        intent.setDataAndType(uri, "image/*");
+        intent.putExtra("crop", "true");
+        //宽高比例
+        intent.putExtra("aspectX", 1);
+        intent.putExtra("aspectY", 1);
+        //定义宽和高
+        intent.putExtra("outputX", 300);
+        intent.putExtra("outputY", 300);
+        //图片是否缩放
+        intent.putExtra("scale", true);
+        //是否要返回值
+        intent.putExtra("return-data", true);
+        //裁剪
+        startActivityForResult(intent, CROP_PHOTO);
+    }
+
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode != RESULT_OK) {
-            Log.i("MainActivity", "select pic error!");
             return;
         }
         if (requestCode == SELECT_PIC) {
-            if (imageUri != null) {
-                InputStream is = null;
-                try {
-                    //读取图片到io流
-                    is = getContentResolver().openInputStream(imageUri);
-                    //内存中的图片
-                    Bitmap bm = BitmapFactory.decodeStream(is);
-                    iv.setImageBitmap(bm);
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                }
+            if(data!=null){
+                getPhoto(data.getData());
             }
         } else if (requestCode == TAKE_PHOTO) {
-            Intent intent = new Intent("com.android.camera.action.CROP");
-            intent.setDataAndType(imageUri, "image/*");
-            intent.putExtra("crop", "true");
-            intent.putExtra("aspectX", 1);
-            intent.putExtra("aspectY", 1);
-            intent.putExtra("outputX", 200);
-            intent.putExtra("outputY", 200);
-            intent.putExtra("scale", true);
-            intent.putExtra("return-data", true);
-            startActivityForResult(intent, CROP_PHOTO);//启动裁剪
+            getPhoto(Uri.fromFile(file));
         } else if (requestCode == CROP_PHOTO) {//获取裁剪后的结果
             Bundle bundle = data.getExtras();
             if (bundle != null) {
                 Bitmap bm = bundle.getParcelable("data");//  bundle.putParceable("data",bm);
-//				bm.compress(CompressFormat.JPEG, 100, new FileOutputStream());
-                iv.setImageBitmap(bm);
+
+                try {
+                    FileOutputStream fos=new FileOutputStream(file);
+                    bm.compress(Bitmap.CompressFormat.JPEG,50,fos);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+                danganxiugaiImageviewTouxiang.setImageBitmap(bm);
+
+                alertDialog.dismiss();//关闭对话框
             }
         }
     }

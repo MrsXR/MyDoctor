@@ -32,6 +32,8 @@ import butterknife.InjectView;
 import butterknife.OnClick;
 import cn.gem.entity.UserRecordTbl;
 import cn.gem.util.CommonAdapter;
+import cn.gem.util.CommonQuantity;
+import cn.gem.util.IpChangeAddress;
 import cn.gem.util.NetUtil;
 import cn.gem.util.ViewHolder;
 import cn.gem.weight.newlistview;
@@ -66,6 +68,9 @@ public class dangan_Activity extends AppCompatActivity implements newlistview.On
     String num;
     String userrecordid;
 
+    int pageNo=0;
+    int pageSize=5;
+    int flag=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,7 +91,8 @@ public class dangan_Activity extends AppCompatActivity implements newlistview.On
                 finish();
                 break;
             case R.id.imageButton_dangan_tianjia:
-                Intent intent = new Intent(this, dangantianjia_Activity.class);
+                Intent intent = new Intent(this, dangan_xiugaiActivity.class);
+                intent.putExtra("flag", CommonQuantity.FIRST);
                 startActivity(intent);
                 break;
 
@@ -98,6 +104,8 @@ public class dangan_Activity extends AppCompatActivity implements newlistview.On
         RequestParams requestParams = new RequestParams(NetUtil.url+"user_record_show_servlet");
 
         requestParams.addQueryStringParameter("userid",new NetUtil().getUser().getUserId()+"");
+        requestParams.addQueryStringParameter("pageNo", 0 + "");
+        requestParams.addQueryStringParameter("pageSize", pageSize + "");
 
         x.http().get(requestParams, new Callback.CommonCallback<String>() {
             @Override
@@ -114,7 +122,7 @@ public class dangan_Activity extends AppCompatActivity implements newlistview.On
                 if (userrecordtblcommonadapter == null) {
                     userrecordtblcommonadapter = new CommonAdapter<UserRecordTbl>(dangan_Activity.this, list, R.layout.userrecord_itme) {
                         @Override
-                        public void convert(ViewHolder viewHolder, UserRecordTbl user_record_tbl, int position) {
+                        public void convert(ViewHolder viewHolder, final UserRecordTbl user_record_tbl, int position) {
 
                             name=user_record_tbl.getUserrecordName();
                             age=user_record_tbl.getUserrecordAge()+"";
@@ -134,10 +142,8 @@ public class dangan_Activity extends AppCompatActivity implements newlistview.On
                                 public void onClick(View v) {
                                     Intent intent=new Intent(dangan_Activity.this,dangan_xiugaiActivity.class);
                                     Bundle bundle=new Bundle();
-                                    intent.putExtra("name",name);
-                                    intent.putExtra("age",age);
-                                    intent.putExtra("num",num);
-                                    intent.putExtra("userrecordid",userrecordid);
+                                    intent.putExtra("flag", CommonQuantity.SECOND);
+                                    intent.putExtra("user_record_tbl",user_record_tbl);
                                     startActivity(intent);
                                 }
                             });
@@ -167,17 +173,15 @@ public class dangan_Activity extends AppCompatActivity implements newlistview.On
                             tv3.setText(string);
 
 
-                             ImageView imageView=viewHolder.getViewById(R.id.dangan_list_item_tupian);
+                            ImageView imageView=viewHolder.getViewById(R.id.dangan_list_item_tupian);
 
-                            String str= NetUtil.image+user_record_tbl.getUserrecordPhoto();
+                            String str= IpChangeAddress.ipChangeAddress+user_record_tbl.getUserrecordPhoto();
                             ImageOptions imageOptions = new ImageOptions.Builder()
                                     .setSquare(true)
                                     .setCrop(true).setSize(100,100).build();
 
 
                             x.image().bind(imageView,str,imageOptions);
-
-
 
 
                         }
@@ -234,7 +238,14 @@ public class dangan_Activity extends AppCompatActivity implements newlistview.On
 
     @Override
     public void onup() {
-        get();
+        pageNo++;
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                get();
+                danganNewlistview.fanghui();
+            }
+        },1000);
     }
 
 
@@ -243,6 +254,8 @@ public class dangan_Activity extends AppCompatActivity implements newlistview.On
         RequestParams requestParams = new RequestParams(NetUtil.url + "user_record_show_servlet");
 
         requestParams.addQueryStringParameter("userid", new NetUtil().getUser().getUserId()+ "");
+        requestParams.addQueryStringParameter("pageNo", pageNo + "");
+        requestParams.addQueryStringParameter("pageSize", pageSize + "");
 
         x.http().get(requestParams, new Callback.CommonCallback<String>() {
             @Override
@@ -296,11 +309,11 @@ public class dangan_Activity extends AppCompatActivity implements newlistview.On
 
                             ImageView imageView=viewHolder.getViewById(R.id.dangan_list_item_tupian);
 
-                            String str= NetUtil.image+user_record_tbl.getUserrecordPhoto();
+                            String str= IpChangeAddress.ipChangeAddress+user_record_tbl.getUserrecordPhoto();
+
                             ImageOptions imageOptions = new ImageOptions.Builder()
                                     .setSquare(true)
                                     .setCrop(true).setSize(100,100).build();
-
 
                             x.image().bind(imageView,str,imageOptions);
                         }

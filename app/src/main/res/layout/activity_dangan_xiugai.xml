@@ -55,28 +55,24 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_weight="1"
+            android:padding="10dp"
             android:id="@+id/danganxiugai_liner_touxiang">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="头像"
-
+                android:id="@+id/danganxiugai_liner_show"
                 android:textSize="18dp"
                 android:gravity="center|left"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="17dp"/>
-
-
-
+                />
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:srcCompat="@mipmap/xiayiye"
+                android:background="@mipmap/xiayiye"
                 android:id="@+id/danganxiugai_imageview_touxiang"
-                android:layout_marginTop="15dp"
-                android:layout_marginLeft="250dp"/>
+                android:layout_marginLeft="280dp"/>
 
         </LinearLayout>
         <LinearLayout
@@ -85,17 +81,16 @@
             android:orientation="horizontal"
             android:layout_weight="1"
             android:id="@+id/danganxiugai_liner_xingming"
+            android:padding="10dp"
             android:weightSum="1">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="姓名"
-
                 android:textSize="18dp"
                 android:gravity="center|left"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="17dp"/>
+              />
 
 
 
@@ -104,9 +99,9 @@
                 android:layout_height="wrap_content"
                 android:hint="必填"
                 android:background="@null"
+                android:layout_marginLeft="20dp"
                 android:id="@+id/danganxiugai_edittext_xingming"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="240dp"/>
+                />
 
         </LinearLayout>
         <LinearLayout
@@ -114,6 +109,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_weight="1"
+            android:padding="10dp"
             android:id="@+id/danganxiugai_liner_shouji">
 
             <TextView
@@ -122,17 +118,16 @@
                 android:text="手机"
                 android:textSize="18dp"
                 android:gravity="center|left"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="17dp"/>
+              />
 
             <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:hint="必填"
                 android:background="@null"
+                android:layout_marginLeft="20dp"
                 android:id="@+id/danganxiugai_edittext_shouji"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="240dp"/>
+              />
 
         </LinearLayout>
         <LinearLayout
@@ -140,6 +135,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_weight="1"
+            android:padding="10dp"
             android:id="@+id/danganxiugai_liner_nianlin">
 
             <TextView
@@ -148,17 +144,16 @@
                 android:text="年龄"
                 android:textSize="18dp"
                 android:gravity="center|left"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="17dp"/>
+               />
 
             <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:hint="选填"
                 android:background="@null"
+                android:layout_marginLeft="20dp"
                 android:id="@+id/danganxiugai_edittext_nianlin"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="240dp"/>
+                />
 
 
         </LinearLayout>
@@ -167,6 +162,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_weight="1"
+            android:padding="10dp"
             android:id="@+id/danganxiugai_liner_xinbie">
 
             <TextView
@@ -175,17 +171,16 @@
                 android:text="性别"
                 android:textSize="18dp"
                 android:gravity="center|left"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="17dp"/>
+                />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:hint="选填"
                 android:textSize="18dp"
+                android:layout_marginLeft="20dp"
                 android:id="@+id/danganxiugai_edittext_xinbie"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="245dp"/>
+                />
 
         </LinearLayout>
         <LinearLayout
@@ -193,6 +188,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_weight="1"
+            android:padding="10dp"
             android:id="@+id/danganxiugai_shenfenzheng">
 
             <TextView
@@ -201,17 +197,16 @@
                 android:text="身份证"
                 android:textSize="18dp"
                 android:gravity="center|left"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="17dp"/>
+                />
 
             <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:hint="选填"
                 android:background="@null"
+                android:layout_marginLeft="20dp"
                 android:id="@+id/danganxiugai_edittext_shenfenzheng"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="220dp"/>
+                />
 
         </LinearLayout>
         <LinearLayout
@@ -219,6 +214,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_weight="1"
+            android:padding="10dp"
             android:id="@+id/danganxiugai_liner_shenfen">
 
             <TextView
@@ -227,17 +223,16 @@
                 android:text="身份"
                 android:textSize="18dp"
                 android:gravity="center|left"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="17dp"/>
+                />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:hint="必填"
                 android:textSize="18dp"
+                android:layout_marginLeft="20dp"
                 android:id="@+id/danganxiugai_edittext_shengfen"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="240dp"/>
+                />
 
         </LinearLayout>
 
@@ -246,6 +241,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_weight="1"
+            android:padding="10dp"
             android:id="@+id/danganxiugai_liner_shenggao">
 
             <TextView
@@ -254,17 +250,16 @@
                 android:text="身高"
                 android:textSize="18dp"
                 android:gravity="center|left"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="17dp"/>
+                />
 
             <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:hint="选填"
                 android:background="@null"
+                android:layout_marginLeft="20dp"
                 android:id="@+id/danganxiugai_edittext_shenggao"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="240dp"/>
+                />
 
         </LinearLayout>
         <LinearLayout
@@ -272,6 +267,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_weight="1"
+            android:padding="10dp"
             android:id="@+id/danganxiugai_liner_tizhong">
 
             <TextView
@@ -280,24 +276,19 @@
                 android:text="体重"
                 android:textSize="18dp"
                 android:gravity="center|left"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="17dp"/>
+                />
 
             <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:hint="选填"
                 android:background="@null"
+                android:layout_marginLeft="20dp"
                 android:id="@+id/danganxiugai_edittext_tizhong"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="240dp"/>
+               />
 
         </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="40"
-            android:orientation="horizontal">
+
 
 <Button
     android:layout_width="140dp"
@@ -307,9 +298,11 @@
     android:textColor="#ffffff"
     android:layout_marginLeft="120dp"
     android:layout_marginTop="20dp"
-    android:id="@+id/danganxiugai_edittext_button"/>
+    android:id="@+id/danganxiugai_edittext_button"
+    android:layout_alignParentBottom="true"
+    android:layout_marginBottom="10dp"/>
 
-        </LinearLayout>
+
 
 
     </LinearLayout>
