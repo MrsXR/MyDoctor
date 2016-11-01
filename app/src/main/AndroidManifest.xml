@@ -46,6 +46,7 @@
     <!-- 访问网络，网络定位需要上网 -->
     <uses-permission android:name="android.permission.INTERNET" />
 
+
     <application
         android:name="cn.gem.application.MyApplication"
         android:allowBackup="true"

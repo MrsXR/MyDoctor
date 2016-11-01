@@ -7,9 +7,9 @@ import cn.gem.entity.UserTbl;
  */
 public class NetUtil {
 
-    public static final String url="http://192.168.198.1:8080/MyDoctor/";
+    public static final String url="http://192.168.191.1:8080/MyDoctor/";
 
-    public static final String image="http://192.168.198.1:8080/image/";
+    public static final String image="http://192.168.191.1:8080/image/";
 
 
     public UserTbl getUser() {

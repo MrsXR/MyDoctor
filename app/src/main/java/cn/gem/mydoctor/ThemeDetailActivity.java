@@ -259,8 +259,8 @@ public class ThemeDetailActivity extends AppCompatActivity {
         String url = NetUtil.url + "QueryPraiseServlet";
         RequestParams requestParams = new RequestParams(url);
         requestParams.addQueryStringParameter("themeId", themeId + "");
-        requestParams.addQueryStringParameter("userId", ((MyApplication) getApplication()).getUserTbl().getUserId() + "");
-        Log.i("ThemeDetailActivity", "ThemeDetailActivity: UserId" + ((MyApplication) getApplication()).getUserTbl().getUserId());
+        requestParams.addQueryStringParameter("userId", ((MyApplication) getApplication()).getUserTbl1().getUserId() + "");
+        Log.i("ThemeDetailActivity", "ThemeDetailActivity: UserId" + ((MyApplication) getApplication()).getUserTbl1().getUserId());
         x.http().get(requestParams, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
@@ -272,7 +272,7 @@ public class ThemeDetailActivity extends AppCompatActivity {
                 tvZan.setText(praiseTbls.size() + "");
                 praiseNum = praiseTbls.size();
                 for (PraiseTbl praise : praiseTbls) {
-                    if (praise.getUserId() == ((MyApplication) getApplication()).getUserTbl().getUserId()) {
+                    if (praise.getUserId() == ((MyApplication) getApplication()).getUserTbl1().getUserId()) {
                         ivZan.setVisibility(View.GONE);
                         ivZanis.setVisibility(View.VISIBLE);
                     } else {
@@ -303,7 +303,7 @@ public class ThemeDetailActivity extends AppCompatActivity {
     public void insertThemePraise() {
         String url = NetUtil.url + "InsertThemePraiseServlet";
         RequestParams requestParams = new RequestParams(url);
-        PraiseTbl praiseTbl = new PraiseTbl(themeId, ((MyApplication) getApplication()).getUserTbl().getUserId());
+        PraiseTbl praiseTbl = new PraiseTbl(themeId, ((MyApplication) getApplication()).getUserTbl1().getUserId());
         Gson gson = new Gson();
         String jsonThemePraiseInfo = gson.toJson(praiseTbl);
         requestParams.addBodyParameter("praiseInfo", jsonThemePraiseInfo);
@@ -334,7 +334,7 @@ public class ThemeDetailActivity extends AppCompatActivity {
     public void deleteThemePraise() {
         String url = NetUtil.url + "DeleteThemePraiseServlet";
         RequestParams requestParams = new RequestParams(url);
-        PraiseTbl praiseTbl = new PraiseTbl(themeId, ((MyApplication) getApplication()).getUserTbl().getUserId());
+        PraiseTbl praiseTbl = new PraiseTbl(themeId, ((MyApplication) getApplication()).getUserTbl1().getUserId());
         Gson gson = new Gson();
         String jsonThemePraiseInfo = gson.toJson(praiseTbl);
         requestParams.addBodyParameter("praiseInfo", jsonThemePraiseInfo);
@@ -388,7 +388,7 @@ public class ThemeDetailActivity extends AppCompatActivity {
     public void insertToThemeDetail() {
         String url = NetUtil.url + "InsertThemeDetailServlet";
         RequestParams requestParams = new RequestParams(url);
-        ThemeDetailTbl themeDetailTbl = new ThemeDetailTbl(themeId, ((MyApplication) getApplication()).getUserTbl(), null, etHuifulouzhu.getText().toString(), new Timestamp(System.currentTimeMillis()), 1);
+        ThemeDetailTbl themeDetailTbl = new ThemeDetailTbl(themeId, ((MyApplication) getApplication()).getUserTbl1(), null, etHuifulouzhu.getText().toString(), new Timestamp(System.currentTimeMillis()), 1);
         Gson gson = new Gson();
         String jsonThemeDetailInfo = gson.toJson(themeDetailTbl);
         requestParams.addBodyParameter("themeDetailInfo", jsonThemeDetailInfo);
@@ -516,7 +516,7 @@ public class ThemeDetailActivity extends AppCompatActivity {
     public void insertThemeDetailDuoJi() {
         String url = NetUtil.url + "InsertThemeDetailDuoJiServlet";
         RequestParams requestParams = new RequestParams(url);
-        ThemeDetailTbl themeDetailTbl = new ThemeDetailTbl(themeId, ((MyApplication) getApplication()).getUserTbl(), themeDetailTbl1, etHuifu.getText().toString(), new Timestamp(System.currentTimeMillis()), 1);
+        ThemeDetailTbl themeDetailTbl = new ThemeDetailTbl(themeId, ((MyApplication) getApplication()).getUserTbl1(), themeDetailTbl1, etHuifu.getText().toString(), new Timestamp(System.currentTimeMillis()), 1);
         Gson gson = new Gson();
         String jsonThemeDetailDuoJi = gson.toJson(themeDetailTbl);
         requestParams.addBodyParameter("themeDetailDuoJiInfo", jsonThemeDetailDuoJi);
