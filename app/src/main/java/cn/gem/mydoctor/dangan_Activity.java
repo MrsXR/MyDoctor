@@ -265,7 +265,7 @@ public class dangan_Activity extends AppCompatActivity implements newlistview.On
                 }.getType();
                 List<UserRecordTbl> new_list = gson.fromJson(result, type);
 
-                if (new_list.size() == list.size()) {
+                if (new_list.size() == 0) {
                     Toast.makeText(dangan_Activity.this, "没有更多数据", Toast.LENGTH_SHORT).show();
                     danganNewlistview.completeLoad();//没获取到数据也要改变界面
                     return;

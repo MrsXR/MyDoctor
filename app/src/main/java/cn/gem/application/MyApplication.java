@@ -5,9 +5,6 @@ import android.app.Application;
 
 import android.util.Log;
 
-
-
-
 import org.xutils.x;
 
 import cn.gem.entity.UserTbl;
@@ -64,6 +61,7 @@ public class MyApplication extends Application {
         super.onCreate();
         Log.i("MyApplication", "onCreate: ");
         x.Ext.init(this);
+        //Fresco.initialize(this);//需要对com.facebook.drawee.view.SimpleDraweeView添加依赖
     }
 
 }

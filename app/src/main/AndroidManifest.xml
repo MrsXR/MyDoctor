@@ -46,6 +46,7 @@
     <!-- 访问网络，网络定位需要上网 -->
     <uses-permission android:name="android.permission.INTERNET" />
 
+
     <application
         android:name="cn.gem.application.MyApplication"
         android:allowBackup="true"
@@ -67,10 +68,11 @@
         <activity android:name=".AnswerActivity" />
         <activity android:name=".ArticleDetailActivity" />
         <activity android:name=".MainActivity">
-           <intent-filter>
-               <action android:name="android.intent.action.MAIN"/>
-               <category android:name="android.intent.category.LAUNCHER"/>
-           </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name=".HintActivity" />
         <activity android:name=".ExpressThemeActivity" />
@@ -123,9 +125,9 @@
         <activity android:name=".GoFastConsultActivity" />
         <activity android:name=".ExpertConsultActivity" />
         <activity android:name=".OrderDetailOneActivity" />
-        <activity android:name=".UserCommentDetailActivity" />
-        <activity android:name=".MangCommentActivity" />
-        <activity android:name=".LookUserCommentActivity" />
+        <activity android:name=".UserCommentDetailActivity"></activity>
+        <activity android:name=".MangCommentActivity"></activity>
+        <activity android:name=".LookUserCommentActivity"></activity>
     </application>
 
 </manifest>

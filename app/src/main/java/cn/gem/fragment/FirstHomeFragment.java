@@ -60,7 +60,7 @@ public class FirstHomeFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.home_layout_x, container, false);
+        View view = inflater.inflate(R.layout.home_layout_x, null);// container,
         slideShowView = (SlideShowView) view.findViewById(R.id.slideshowView);
         ButterKnife.inject(this, view);
 
@@ -90,6 +90,8 @@ public class FirstHomeFragment extends Fragment {
                 break;
             case R.id.search_to_content:
                 //搜索
+                Log.i("FirstHomeFragment", "onClick: ---------------------");
+
 
                 break;
             case R.id.home_consult:
