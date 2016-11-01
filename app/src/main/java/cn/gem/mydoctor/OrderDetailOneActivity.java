@@ -126,6 +126,7 @@ public class OrderDetailOneActivity extends AppCompatActivity {
                         Intent intent = new Intent(OrderDetailOneActivity.this, OrderPayActivity.class);
                         intent.putExtra("orderUserDetail", orderUserDetail);
                         startActivityForResult(intent, CommonQuantity.ORDEEONE);
+                        finish();
                         break;
                     case CommonQuantity.SECOND:
                         //链接数据库取消预约，并且在医生表预约人减一
@@ -166,7 +167,7 @@ public class OrderDetailOneActivity extends AppCompatActivity {
                 dialogContent("您确定删除此次预约信息吗？", 7);
                 break;
             case R.id.order_detail_user_cance3:
-                dialogContent("您确定删除条评论吗？", 9);
+                dialogContent("您确定删除这条评论吗？", 9);
                 break;
         }
     }
@@ -179,7 +180,7 @@ public class OrderDetailOneActivity extends AppCompatActivity {
         getDetail();
         popupWindow.setOutsideTouchable(true);
         popupWindow.setBackgroundDrawable(new BitmapDrawable());
-        popupWindow.showAsDropDown(findViewById(R.id.order_lookdetail_temp));
+        popupWindow.showAsDropDown(orderLookdetailTemp);
 
     }
 
@@ -203,13 +204,11 @@ public class OrderDetailOneActivity extends AppCompatActivity {
                 }.getType();
                 listNew = gson.fromJson(result, type);
 
-                Log.i("OrderDetailOneActivity", "onSuccess: -------------------------"+listNew.get(0).getUserSname());
-
                 TextView userSname = (TextView) view1.findViewById(R.id.user_one_username);
                 userSname.setText(listNew.get(0).getUserSname());
 
                 TextView userTime = (TextView) view1. findViewById(R.id.user_one_ill_time);
-                userTime.setText(listNew.get(0).getCommentOrderDetailTime().toString());
+                userTime.setText(listNew.get(0).getCommentOrderDetailTime()+"");
                 TextView illSname = (TextView)  view1.findViewById(R.id.user_one_ill);
                 illSname.setText(listNew.get(0).getOrderIllSname());
                 RatingBar attitudeNumber = (RatingBar) view1. findViewById(R.id.user_one_ill_attitude);
@@ -418,6 +417,8 @@ public class OrderDetailOneActivity extends AppCompatActivity {
         switch (number) {
             case CommonQuantity.FIRST:
                 orderDetailUserCancel.setText("未支付");
+                orderDetailUserCance2.setVisibility(View.VISIBLE);
+                orderDetailUserCance2.setText("删除预约");
                 break;
             case CommonQuantity.SECOND:
                 orderDetailUserCancel.setText("取消预约");
@@ -451,15 +452,22 @@ public class OrderDetailOneActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == CommonQuantity.ORDEEONE) {
+      /*  if (requestCode == CommonQuantity.ORDEEONE) {
             orderDetailUserCancel.setText("取消预约");
-        }
+        }*/
         if(requestCode == CommonQuantity.ORDERCOMMRNT){
             orderDetailUserCancel.setText("查看评论");
             orderDetailUserCance2.setVisibility(View.VISIBLE);
             orderDetailUserCance2.setText("删除预约");
             orderDetailUserCance3.setVisibility(View.VISIBLE);
             orderDetailUserCance3.setText("删除评论");
+
+            orderDetailUserCancel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    getPopupWindow(OrderDetailOneActivity.this);
+                }
+            });
         }
 
     }

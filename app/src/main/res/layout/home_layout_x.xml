@@ -10,7 +10,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <cn.gem.weight.SlideShowView
+          <cn.gem.weight.SlideShowView
                 android:id="@+id/slideshowView"
                 android:layout_width="match_parent"
                 android:layout_height="180dp"
@@ -100,13 +100,14 @@
                         android:background="@drawable/icon_search_by_disease_big"
                         android:id="@+id/home_temp4"
                         android:layout_gravity="center_horizontal"
+                        android:layout_marginLeft="20dp"
                         />
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="搜索"
                         android:layout_below="@+id/home_temp4"
-                        android:layout_marginLeft="20dp"
+                        android:layout_marginLeft="40dp"
                         android:layout_marginTop="10dp"
                         android:gravity="center"/>
                 </RelativeLayout>
@@ -153,12 +154,13 @@
                         android:layout_height="wrap_content"
                         android:background="@drawable/icon_nearby_hospital_big"
                         android:id="@+id/home_temp7"
+                        android:layout_marginLeft="20dp"
                         />
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="附近"
-                        android:layout_marginLeft="20dp"
+                        android:layout_marginLeft="40dp"
                         android:layout_marginTop="10dp"
                         android:layout_below="@+id/home_temp7"/>
                 </RelativeLayout>
