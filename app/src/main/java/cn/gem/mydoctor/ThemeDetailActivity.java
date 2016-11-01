@@ -436,8 +436,12 @@ public class ThemeDetailActivity extends AppCompatActivity {
                     themeDetailTblCommonAdapter = new CommonAdapter<ThemeDetailTbl>(ThemeDetailActivity.this, themeDetailTbls, R.layout.theme_detail_item) {
                         @Override
                         public void convert(ViewHolder viewHolder, ThemeDetailTbl themeDetailTbl, int position) {
+//                            ImageView iv=viewHolder.getViewById(R.id.iv_userimage);
+//                            String userImage=IpChangeAddress.ipChangeAddress+themeDetailTbl.getUserTbl().getUserPhone();
+//                            ImageOptions imageOptions = new ImageOptions.Builder().setCrop(true).setCircular(true).setSize(30, 30).build();
+//                            x.image().bind(iv,userImage,imageOptions);
                             TextView tvName1 = viewHolder.getViewById(R.id.tv_name1);
-                            tvName1.setText(themeDetailTbl.getUserTbl().getUserSname());
+                             tvName1.setText(themeDetailTbl.getUserTbl().getUserSname());
                             TextView tvParentName = viewHolder.getViewById(R.id.tv_name2);
                             TextView tvHuifu = viewHolder.getViewById(R.id.tv_dui);
                             if (themeDetailTbl.getFatherThemeDetail() == null) {
@@ -478,15 +482,16 @@ public class ThemeDetailActivity extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 if (which == 0) {
-                                    if (themeDetailTbls.get(position).getThemeDetailIs() == 1 && themeDetailTbls.get(position).getUserTbl().getUserId() == ((MyApplication) getApplication()).getUserTbl().getUserId()) {
+                                    if (themeDetailTbls.get(position).getThemeDetailIs() == 1 && themeDetailTbls.get(position).getUserTbl().getUserId() == ((MyApplication) getApplication()).getUserTbl1().getUserId()) {
                                         Log.i("ThemeDetailActivity", "onClick: ppppppppppppppppppp");
                                         deleteThemeDetail();
+                                        getThemeDetail();
                                     } else {
                                         Log.i("ThemeDetailActivity", "onClick: qqqqqqqqqqqqq");
                                         Toast.makeText(ThemeDetailActivity.this, "你不能删除此评论", Toast.LENGTH_SHORT).show();
                                     }
                                     Log.i("ThemeDetailActivity", "onClick:11111 "+themeDetailTbls.get(position).getUserTbl().getUserId());
-                                    Log.i("ThemeDetailActivity", "onClick:2 222222"+((MyApplication) getApplication()).getUserTbl().getUserId());
+                                    Log.i("ThemeDetailActivity", "onClick:2 222222"+((MyApplication) getApplication()).getUserTbl1().getUserId());
                                 }
 
                             }

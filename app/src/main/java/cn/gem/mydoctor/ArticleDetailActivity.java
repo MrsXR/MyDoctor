@@ -26,9 +26,12 @@ public class ArticleDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_article_detail);
         ButterKnife.inject(this);
 
-        webView.loadUrl("http://www.baikemy.com/jiankangkepu/23277760908545");
-        webView.setWebViewClient(new WebViewClient());
-        webView.getSettings().setJavaScriptEnabled(false);
+        String url="http://www.baikemy.com/jiankangkepu/23277760908545";
+        
+
+//        webView.loadUrl("http://www.baikemy.com/jiankangkepu/23277760908545");
+//        webView.setWebViewClient(new WebViewClient());
+//        webView.getSettings().setJavaScriptEnabled(false);
 
         // toolbarArticleDetail.setLogo(R.mipmap.fanhui1);
         toolbarArticleDetail.setTitle("文章详情");
@@ -61,4 +64,5 @@ public class ArticleDetailActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         return super.onOptionsItemSelected(item);
     }
+
 }
