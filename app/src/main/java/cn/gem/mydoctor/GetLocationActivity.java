@@ -5,6 +5,7 @@ import android.support.v4.app.FragmentActivity;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -294,6 +295,9 @@ public class GetLocationActivity extends FragmentActivity implements
             // if (poi.hasCaterDetails) {
            mPoiSearch.searchPoiDetail((new PoiDetailSearchOption())
                    .poiUid(poi.uid));
+            Log.i("MyPoiOverlay", "onPoiClick: "+poi.name);
+
+
 
             // }
             return true;
