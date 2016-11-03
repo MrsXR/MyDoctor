@@ -1,5 +1,7 @@
 package cn.gem.mydoctor;
 
+import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.text.Editable;
@@ -9,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -40,12 +43,17 @@ import com.baidu.mapapi.search.sug.OnGetSuggestionResultListener;
 import com.baidu.mapapi.search.sug.SuggestionResult;
 import com.baidu.mapapi.search.sug.SuggestionSearch;
 
+import org.xutils.common.Callback;
+import org.xutils.http.RequestParams;
+import org.xutils.x;
+
 import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
 import cn.gem.overlayutil.PoiOverlay;
+import cn.gem.util.IpChangeAddress;
 
 public class GetLocationActivity extends FragmentActivity implements
         OnGetPoiSearchResultListener, OnGetSuggestionResultListener {
@@ -292,18 +300,89 @@ public class GetLocationActivity extends FragmentActivity implements
         public boolean onPoiClick(int index) {
             super.onPoiClick(index);
             PoiInfo poi = getPoiResult().getAllPoi().get(index);
-            // if (poi.hasCaterDetails) {
-           mPoiSearch.searchPoiDetail((new PoiDetailSearchOption())
-                   .poiUid(poi.uid));
-            Log.i("MyPoiOverlay", "onPoiClick: "+poi.name);
+           if (poi.hasCaterDetails) {
 
+               getHospital(poi.name);
+               Log.i("MyPoiOverlay", "onPoiClick: --------------------------");
 
-
-            // }
+           }
             return true;
         }
     }
 
+
+    private void toHospitabl(final int hospitalId,String name){
+        final Dialog dialog = new Dialog(GetLocationActivity.this, R.style.CustomDialog);
+        dialog.setContentView(R.layout.dialog_layout);
+        dialog.setTitle("提示");
+        dialog.setCancelable(true);
+
+        TextView textView = (TextView) dialog.findViewById(R.id.dialog_layout_content);
+        textView.setText("是否调到"+name);
+        Button buttonE = (Button) dialog.findViewById(R.id.dialog_layout_ensure);
+
+        buttonE.setText("确定");
+        dialog.show();
+        buttonE.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i("MyPoiOverlay", "onPoiClick: --------9999999999999999------------------");
+                Intent intent=new Intent(GetLocationActivity.this,HospitalBriefActivity.class);
+                Bundle bundle=new Bundle();
+                bundle.putInt("hospitalId",hospitalId);
+                intent.putExtras(bundle);
+                startActivity(intent);
+                dialog.dismiss();
+                finish();
+            }
+        });
+
+        //取消按钮
+        final Button buttonC = (Button) dialog.findViewById(R.id.dialog_layout_cancel);
+        buttonC.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.cancel();
+            }
+        });
+    }
+
+    private void getHospital(final String hospitalname){
+
+        String stl= IpChangeAddress.ipChangeAddress+"MapHospitalServlet";
+
+        RequestParams requestParams=new RequestParams(stl);
+        requestParams.addQueryStringParameter("hospitalname",hospitalname);
+        Log.i("MyPoiOverlay", "onPoiClick: --------------------------"+requestParams);
+        x.http().get(requestParams, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                if(result==null){
+                    Log.i("MyPoiOverlay", "onPoiClick: --------------------------"+hospitalname);
+                    Toast.makeText(GetLocationActivity.this,"暂不提供"+hospitalname+"的信息，敬请谅解!",Toast.LENGTH_LONG);
+                }else {
+                   int  hospitalId=Integer.parseInt(result);
+                    Log.i("MyPoiOverlay", "onPoiClick: ----------888888888----------------");
+                    toHospitabl(hospitalId,hospitalname);//跳转事件
+                }
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+        });
+    }
 
     //重写Text的长度改变的事件
     class  TextChange implements TextWatcher {
