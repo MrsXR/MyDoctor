@@ -54,7 +54,7 @@
             android:layout_weight="1"
             android:text="综合排序"
             android:textSize="15dp"
-            android:background="@color/belowback"/>
+            android:background="@color/colorWhite"/>
         </RelativeLayout>
         <TextView
             android:layout_width="1dp"
@@ -64,7 +64,7 @@
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/belowback"
+            android:background="@color/lightblue"
             android:id="@+id/change_doctor_position_r">
         <Button
             android:layout_width="180dp"
@@ -73,7 +73,7 @@
             android:layout_weight="1"
             android:text="全部职称"
             android:textSize="15dp"
-            android:background="@color/belowback"/>
+            android:background="@color/lightblue"/>
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -83,6 +83,16 @@
                 android:layout_centerInParent="true"/>
         </RelativeLayout>
     </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/idchange_doctor_emtry"
+        android:layout_below="@+id/change_temp"
+       android:text="该科室暂无医生资源，敬请谅解"
+        android:gravity="center_horizontal"
+        android:padding="@dimen/activity_horizontal_margin"
+        android:visibility="gone"/>
 
  <ListView
      android:layout_width="match_parent"

@@ -83,22 +83,22 @@
             android:layout_height="wrap_content"
             android:id="@+id/hospital_order"
             android:text="预约挂号"
-            android:background="@color/colorWhite"
-            android:textColor="@color/blue"
+            android:background="@color/lightblue"
+            android:textColor="@color/darkGrey"
             android:layout_weight="1"
             />
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/hospital_brief"
-            android:background="@color/belowback"
+            android:background="@color/lightblue"
             android:text="医院简介"
             android:textColor="@color/darkGrey"
             android:layout_weight="1"/>
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/belowback"
+            android:background="@color/lightblue"
             android:text="预约规则"
             android:id="@+id/hospital_regulation"
             android:textColor="@color/darkGrey"

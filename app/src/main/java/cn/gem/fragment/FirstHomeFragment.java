@@ -21,6 +21,7 @@ import butterknife.InjectView;
 import butterknife.OnClick;
 import cn.gem.application.MyApplication;
 import cn.gem.mydoctor.ExpertConsultActivity;
+import cn.gem.mydoctor.FindSourceActivity;
 import cn.gem.mydoctor.GetLocationActivity;
 import cn.gem.mydoctor.GoFastConsultActivity;
 import cn.gem.mydoctor.HospitalBriefActivity;
@@ -60,7 +61,7 @@ public class FirstHomeFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.home_layout_x, null);// container,
+        View view = inflater.inflate(R.layout.home_layout_x, container,false);// container,
         slideShowView = (SlideShowView) view.findViewById(R.id.slideshowView);
         ButterKnife.inject(this, view);
 
@@ -91,8 +92,8 @@ public class FirstHomeFragment extends Fragment {
             case R.id.search_to_content:
                 //搜索
                 Log.i("FirstHomeFragment", "onClick: ---------------------");
-
-
+                Intent intent4=new Intent(getContext(),FindSourceActivity.class);
+                startActivity(intent4);
                 break;
             case R.id.home_consult:
                 //专家咨询

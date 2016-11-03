@@ -4,11 +4,11 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="New Text"
         android:textSize="20dp"
-        android:textColor="@color/colorWhite"
+        android:textColor="@color/grey"
         android:id="@+id/change_province_listview_item_text"
         android:paddingRight="10dp"
         android:paddingLeft="20dp"

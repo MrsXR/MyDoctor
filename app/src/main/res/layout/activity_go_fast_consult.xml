@@ -82,6 +82,7 @@
                     android:layout_height="200dp"
                     android:hint="请描述您当前发的病症，以及希望得到什么样的的帮助。MyDoctor将确保你的隐私安全(10~500字)"
                    android:id="@+id/go_fast_consult_edittext"
+                    android:padding="10dp"
                     android:maxLength="500"
                     android:background="@null"
                     />
@@ -90,7 +91,7 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/go_fast_consult_number"
                     android:layout_below="@+id/go_fast_consult_edittext"
-                    android:text="还有"
+                    android:text="还有500字"
                     android:layout_alignParentRight="true"
                     android:layout_marginRight="40dp"/>
 
@@ -138,6 +139,7 @@
                     android:layout_height="wrap_content"
                     android:text="同意 My.Doctor 用户协议"
                     android:textSize="17dp"
+                    android:id="@+id/fast_user_look"
                     android:textColor="@color/colorAccent"
                     android:layout_toRightOf="@+id/go_fast_consult_agree"
                     android:layout_alignBottom="@+id/go_fast_consult_agree"

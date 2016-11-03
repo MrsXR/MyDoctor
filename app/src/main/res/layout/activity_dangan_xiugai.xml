@@ -21,7 +21,7 @@
         <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/image_yuyue"
+            android:id="@+id/image_back_xiugai"
             app:srcCompat="@mipmap/fanghui_baise"
             android:background="@android:color/transparent"
             android:layout_marginLeft="10dp"
@@ -98,6 +98,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:hint="必填"
+                android:textColor="@color/textcolor"
                 android:background="@null"
                 android:layout_marginLeft="20dp"
                 android:id="@+id/danganxiugai_edittext_xingming"
@@ -124,9 +125,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:hint="必填"
+                android:textColor="@color/textcolor"
                 android:background="@null"
                 android:layout_marginLeft="20dp"
                 android:id="@+id/danganxiugai_edittext_shouji"
+                android:inputType="phone"
               />
 
         </LinearLayout>
@@ -152,6 +155,7 @@
                 android:hint="选填"
                 android:background="@null"
                 android:layout_marginLeft="20dp"
+                android:inputType="number"
                 android:id="@+id/danganxiugai_edittext_nianlin"
                 />
 
@@ -202,10 +206,12 @@
             <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="选填"
+                android:hint="必填"
                 android:background="@null"
+                android:textColor="@color/textcolor"
                 android:layout_marginLeft="20dp"
                 android:id="@+id/danganxiugai_edittext_shenfenzheng"
+                android:inputType="number"
                 />
 
         </LinearLayout>
@@ -228,7 +234,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="必填"
+                android:hint="选填"
                 android:textSize="18dp"
                 android:layout_marginLeft="20dp"
                 android:id="@+id/danganxiugai_edittext_shengfen"
@@ -258,7 +264,16 @@
                 android:hint="选填"
                 android:background="@null"
                 android:layout_marginLeft="20dp"
+                android:inputType="number"
                 android:id="@+id/danganxiugai_edittext_shenggao"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="CM"
+                android:textSize="18dp"
+                android:layout_marginLeft="230dp"
                 />
 
         </LinearLayout>
@@ -284,9 +299,17 @@
                 android:hint="选填"
                 android:background="@null"
                 android:layout_marginLeft="20dp"
+                android:inputType="number"
                 android:id="@+id/danganxiugai_edittext_tizhong"
                />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="KG"
+                android:textSize="18dp"
+                android:layout_marginLeft="230dp"
+                />
         </LinearLayout>
 
 
@@ -300,9 +323,8 @@
     android:layout_marginTop="20dp"
     android:id="@+id/danganxiugai_edittext_button"
     android:layout_alignParentBottom="true"
-    android:layout_marginBottom="10dp"/>
-
-
+    android:layout_marginBottom="10dp"
+    android:visibility="gone"/>
 
 
     </LinearLayout>

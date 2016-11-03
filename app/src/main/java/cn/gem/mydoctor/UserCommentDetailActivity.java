@@ -1,11 +1,14 @@
 package cn.gem.mydoctor;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -28,6 +31,7 @@ import butterknife.InjectView;
 import butterknife.OnClick;
 import cn.gem.application.MyApplication;
 import cn.gem.entity.CommentOrderDetailTbl;
+import cn.gem.util.CommonQuantity;
 import cn.gem.util.IpChangeAddress;
 import cn.gem.util.MaxLengthWatcher;
 import cn.gem.weight.MyReflashList;
@@ -51,7 +55,7 @@ public class UserCommentDetailActivity extends AppCompatActivity {
     @InjectView(R.id.user_comment_detail_publish)
     Button userCommentDetailPublish;
 
-    int number=0;
+    boolean isKeep=false;
     int orderId;
     int doctorId;
     String userComment=null;
@@ -75,7 +79,7 @@ public class UserCommentDetailActivity extends AppCompatActivity {
         userCommentDetailToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+               isBack();
             }
         });
 
@@ -86,12 +90,7 @@ public class UserCommentDetailActivity extends AppCompatActivity {
         //输入文字监听事件
         userCommentDetailEdittext.addTextChangedListener(new MaxLengthWatcher(300,userCommentDetailNumber,this));
 
-    }
 
-    private void initData(){
-        myApplication= (MyApplication) getApplication();
-        //用户输入的信息
-        userComment= userCommentDetailEdittext.getText().toString();
         //医生态度
         userCommentDetailAttitude.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
@@ -114,6 +113,14 @@ public class UserCommentDetailActivity extends AppCompatActivity {
             }
         });
 
+
+    }
+
+    private void initData(){
+        myApplication= (MyApplication) getApplication();
+        //用户输入的信息
+        userComment= userCommentDetailEdittext.getText().toString();
+
         if(userCommentDetailRadioButton.isChecked()){
             userSname=myApplication.getUserTbl1().getUserSname().substring(0,1).trim()+"***";
         }else {
@@ -130,7 +137,11 @@ public class UserCommentDetailActivity extends AppCompatActivity {
 
     @OnClick(R.id.user_comment_detail_publish)
     public void onClick() {
-        initData();
+        if(!userCommentDetailEdittext.getText().toString().equals("")){
+            initData();
+        }else {
+            Toast.makeText(UserCommentDetailActivity.this, "请填写评价内容！", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void sendData(){
@@ -143,8 +154,9 @@ public class UserCommentDetailActivity extends AppCompatActivity {
         x.http().post(requestParams, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
-
                 Toast.makeText(UserCommentDetailActivity.this, "评论成功", Toast.LENGTH_SHORT).show();
+                setResult(CommonQuantity.ORDERCOMMRNT);
+                isKeep=true;
                 finish();
             }
 
@@ -165,5 +177,56 @@ public class UserCommentDetailActivity extends AppCompatActivity {
         });
 
     }
+
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            moveTaskToBack(false);//true对任何Activity都适用
+            isBack();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+
+    private void isBack(){
+
+        if(isKeep==false){
+            if(!userCommentDetailEdittext.getText().toString().equals("")) {
+                final Dialog dialog = new Dialog(this, R.style.CustomDialog);
+                dialog.setContentView(R.layout.dialog_layout);
+                dialog.setTitle("提示");
+                dialog.setCancelable(true);
+
+                TextView textView = (TextView) dialog.findViewById(R.id.dialog_layout_content);
+                textView.setText("信息尚未发布，确定退出吗？");
+                Button buttonE = (Button) dialog.findViewById(R.id.dialog_layout_ensure);
+
+                buttonE.setText("确定");
+                dialog.show();
+                buttonE.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                        finish();
+                    }
+                });
+
+                //取消按钮
+                final Button buttonC = (Button) dialog.findViewById(R.id.dialog_layout_cancel);
+                buttonC.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.cancel();
+                    }
+                });
+            }else if(userCommentDetailEdittext.getText().toString().equals("")){
+                finish();
+            }
+        }
+    }
+
+
 
 }

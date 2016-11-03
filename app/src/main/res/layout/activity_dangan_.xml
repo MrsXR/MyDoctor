@@ -52,15 +52,25 @@
 
     </android.support.v7.widget.Toolbar>
 
-    <cn.gem.weight.newlistview
+    <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/dangan_newlistview"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/dangan_toolbar">
 
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+     >
 
+    <com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/dangan_newlistview"
+       >
+    </com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView>
+    </android.support.v4.widget.SwipeRefreshLayout>
 
-    </cn.gem.weight.newlistview>
-
-
+    </android.support.design.widget.CoordinatorLayout>
 </RelativeLayout>

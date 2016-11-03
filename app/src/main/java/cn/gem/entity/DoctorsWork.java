@@ -11,17 +11,28 @@ public class DoctorsWork {
     private List<CommentOrderDetailTbl> commentOrderDetailTbl;
     private DoctorInHospital doctorInHospital;
 
-
     public DoctorsWork() {
     }
 
+    private int isData;
+
+    public int getIsData() {
+        return isData;
+    }
+
+    public void setIsData(int isData) {
+        this.isData = isData;
+    }
+
     public DoctorsWork(List<ConsultTbl> consultTbl, List<CommentOrderDetailTbl> commentOrderDetailTbl,
-                       DoctorInHospital doctorInHospital) {
+                       DoctorInHospital doctorInHospital,int isData) {
         super();
         this.consultTbl = consultTbl;
         this.commentOrderDetailTbl = commentOrderDetailTbl;
         this.doctorInHospital = doctorInHospital;
+        this.isData=isData;
     }
+
 
     public DoctorsWork(List<ConsultTbl> consultTbl, List<CommentOrderDetailTbl> commentOrderDetailTbl) {
         super();

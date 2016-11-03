@@ -85,6 +85,8 @@ public class OrderDoctorActivity extends AppCompatActivity {
     TextView orderHospitalSname;
     @InjectView(R.id.order_to_photo_rlt)
     RelativeLayout orderToPhotoRlt;
+    @InjectView(R.id.order_look_protocol)
+    TextView orderLookProtocol;
 
     TextView textView;
     Toolbar toolbar;
@@ -101,20 +103,21 @@ public class OrderDoctorActivity extends AppCompatActivity {
 
     public static final int SELECT_PIC = 11;//选择相册
     public static final int TAKE_PHOTO = 12;//选择拍照
-    public static final int CROP=13;
+    public static final int CROP = 13;
     String items[] = {"相册选择", "拍照"};
+
 
     private File file;
     private File file2;
     private Uri imageUri;
     private Uri imageUri2;
-    boolean flag=false;
+    boolean flag = false;
     MyApplication my = (MyApplication) getApplication();
     ImageView imageButtonOne = null;
     ImageView imageButtonTwo = null;
 
-    int temp=0;
-    OrderPrice op=null;//获取订单的主键
+    int temp = 0;
+    OrderPrice op = null;//获取订单的主键
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,10 +125,11 @@ public class OrderDoctorActivity extends AppCompatActivity {
         setContentView(R.layout.activity_order_doctor);
         ButterKnife.inject(this);
 
-        textView= (TextView) findViewById(R.id.order_ill_content_number);
-        editTextPhone.addTextChangedListener(new MaxLengthWatcher(11,null,this));
-        editTextIll.addTextChangedListener(new MaxLengthWatcher(11,null,this));
-        orderIllContent.addTextChangedListener(new MaxLengthWatcher(11,textView,this));
+        textView = (TextView) findViewById(R.id.order_ill_content_number);
+        editTextPhone.addTextChangedListener(new MaxLengthWatcher(11, null, this));
+        editTextIll.addTextChangedListener(new MaxLengthWatcher(11, null, this));
+        //字数限制
+        orderIllContent.addTextChangedListener(new MaxLengthWatcher(300, textView, this));
         //选择拍照或者从照片获取
         imageButtonOne = (ImageView) findViewById(R.id.order_ill_photo_one);
         imageButtonTwo = (ImageView) findViewById(R.id.order_ill_photo_two);
@@ -150,13 +154,13 @@ public class OrderDoctorActivity extends AppCompatActivity {
         orderDataShowtime.setText(mYear);
 
         doctorId = bundle.getInt("doctorId");//医生
-        orderDetailTblId=bundle.getInt("orderDetailTblId");
+        orderDetailTblId = bundle.getInt("orderDetailTblId");
     /*    doctorId = 1;
         orderDetailTblId = 1;*/
         getUserData(this);
     }
 
-    void initToolbar(){
+    void initToolbar() {
         toolbar = (Toolbar) findViewById(R.id.doctors_detail_toolbar);
         toolbar.setTitle("");
         toolbar.setNavigationIcon(R.mipmap.back6);
@@ -206,22 +210,23 @@ public class OrderDoctorActivity extends AppCompatActivity {
         });
     }
 
-    @OnClick({  R.id.order_ill_photo_one,R.id.order_to_photo_rlt,R.id.order_ill_photo_two})
+    @OnClick({R.id.order_ill_photo_one, R.id.order_to_photo_rlt, R.id.order_ill_photo_two,R.id.order_look_protocol})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.order_to_photo_rlt:
-                if(flag==false){
+                if (flag == false) {
                     if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
                         //目录，文件名Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM)
                         file = new File(Environment.getExternalStorageDirectory(), getPhotoFileName());
                         imageUri = Uri.fromFile(file);
                         getSdPhoto();
-                    }}
+                    }
+                }
                 break;
 
 
             case R.id.order_ill_photo_one:
-                if(imageButtonOne.isShown()){
+                if (imageButtonOne.isShown()) {
 
                     if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
                         //目录，文件名Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM)
@@ -235,8 +240,8 @@ public class OrderDoctorActivity extends AppCompatActivity {
                 break;
             case R.id.order_ill_photo_two:
 
-                if(imageButtonTwo.isShown()){
-                    flag=true;
+                if (imageButtonTwo.isShown()) {
+                    flag = true;
                     //目录，文件名Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM)
                     file2 = new File(Environment.getExternalStorageDirectory(), getPhotoFileName());
                     imageUri2 = Uri.fromFile(file2);
@@ -246,6 +251,10 @@ public class OrderDoctorActivity extends AppCompatActivity {
                 }
                 break;
 
+            case R.id.order_look_protocol:
+                Intent intent1=new Intent(this,UserProtocolActivity.class);
+                startActivity(intent1);
+                break;
 
         }
     }
@@ -271,7 +280,7 @@ public class OrderDoctorActivity extends AppCompatActivity {
                         //拍照结束后裁剪
                         Intent intent2 = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                         intent2.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(file));
-                        startActivityForResult(intent2,TAKE_PHOTO);
+                        startActivityForResult(intent2, TAKE_PHOTO);
                         break;
                 }
             }
@@ -284,32 +293,32 @@ public class OrderDoctorActivity extends AppCompatActivity {
         ++temp;
         Date date = new Date(System.currentTimeMillis());
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmss");
-        return sdf.format(date)+(temp) + ".png";
+        return sdf.format(date) + (temp) + ".png";
     }
 
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-        File f=null;
-        f=file;
+        File f = null;
+        f = file;
         //最好用if语句 并且加上结果码
-        if(flag==true){
-            f=file2;
+        if (flag == true) {
+            f = file2;
         }
 
         switch (requestCode) {
             case SELECT_PIC:
                 if (data != null) {
                     Uri selectedImage = data.getData(); //获取系统返回的照片的Uri
-                    String[] filePathColumn = { MediaStore.Images.Media.DATA };
-                    Cursor cursor =getContentResolver().query(selectedImage,
+                    String[] filePathColumn = {MediaStore.Images.Media.DATA};
+                    Cursor cursor = getContentResolver().query(selectedImage,
                             filePathColumn, null, null, null);//从系统表中查询指定Uri对应的照片
                     cursor.moveToFirst();
                     int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
                     String picturePath = cursor.getString(columnIndex);  //获取照片路径
                     cursor.close();
-                    Bitmap bitmap= BitmapFactory.decodeFile(picturePath);
+                    Bitmap bitmap = BitmapFactory.decodeFile(picturePath);
                     showPhoto(bitmap);
                 }
                 break;
@@ -318,9 +327,9 @@ public class OrderDoctorActivity extends AppCompatActivity {
                 getPhoto(Uri.fromFile(f));
                 break;
             case CROP:
-                if(data!=null){
-                    Bundle b=data.getExtras();
-                    Bitmap bitmap=b.getParcelable("data");
+                if (data != null) {
+                    Bundle b = data.getExtras();
+                    Bitmap bitmap = b.getParcelable("data");
                     showPhoto(bitmap);
                 }
                 break;
@@ -330,18 +339,18 @@ public class OrderDoctorActivity extends AppCompatActivity {
 
     public void showPhoto(Bitmap bitmap) {
 
-        File f=null;
+        File f = null;
         //最好用if语句 并且加上结果码
-        if(flag==true){
-            f=file2;
-        }else {
-            f=file;
+        if (flag == true) {
+            f = file2;
+        } else {
+            f = file;
         }
 
-        FileOutputStream fos= null;
+        FileOutputStream fos = null;
         try {
             fos = new FileOutputStream(f);
-            saveFile(bitmap).compress(Bitmap.CompressFormat.JPEG,100,fos);
+            saveFile(bitmap).compress(Bitmap.CompressFormat.JPEG, 100, fos);
             fos.flush();
             fos.close();
         } catch (FileNotFoundException e) {
@@ -351,11 +360,11 @@ public class OrderDoctorActivity extends AppCompatActivity {
         }
 
         //对照片
-        if(flag==false) {
+        if (flag == false) {
             imageButtonOne.setVisibility(View.VISIBLE);
             imageButtonOne.setImageBitmap(saveFile(bitmap));
             imageButtonTwo.setVisibility(View.VISIBLE);
-        }else if(flag==true){
+        } else if (flag == true) {
             imageButtonTwo.setImageBitmap(bitmap);
         }
 
@@ -366,7 +375,7 @@ public class OrderDoctorActivity extends AppCompatActivity {
     public Bitmap saveFile(Bitmap image) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         image.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-        if( baos.toByteArray().length / 1024>1024) {//判断如果图片大于1M,进行压缩避免在生成图片（BitmapFactory.decodeStream）时溢出
+        if (baos.toByteArray().length / 1024 > 1024) {//判断如果图片大于1M,进行压缩避免在生成图片（BitmapFactory.decodeStream）时溢出
             baos.reset();//重置baos即清空baos
             image.compress(Bitmap.CompressFormat.JPEG, 50, baos);//这里压缩50%，把压缩后的数据存放到baos中
         }
@@ -405,7 +414,7 @@ public class OrderDoctorActivity extends AppCompatActivity {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         image.compress(Bitmap.CompressFormat.JPEG, 100, baos);//质量压缩方法，这里100表示不压缩，把压缩后的数据存放到baos中
         int options = 100;
-        while ( baos.toByteArray().length / 1024>100) {  //循环判断如果压缩后图片是否大于100kb,大于继续压缩
+        while (baos.toByteArray().length / 1024 > 100) {  //循环判断如果压缩后图片是否大于100kb,大于继续压缩
             baos.reset();//重置baos即清空baos
             image.compress(Bitmap.CompressFormat.JPEG, options, baos);//这里压缩options%，把压缩后的数据存放到baos中
             options -= 10;//每次都减少10
@@ -488,8 +497,8 @@ public class OrderDoctorActivity extends AppCompatActivity {
     private void insertSql(final Context context) {
         //获取当前时间
         Timestamp d = new Timestamp(System.currentTimeMillis());
-        int userId= MyApplication.getUserTbl().getUserId();
-        orderTbl = new OrderTbl(userId, doctorId, userPhone, userIllSname, userIllContent, mYear, d, 1, 0,orderDetailTblId);
+        int userId = MyApplication.getUserTbl().getUserId();
+        orderTbl = new OrderTbl(userId, doctorId, userPhone, userIllSname, userIllContent, mYear, d, 1, 0, orderDetailTblId);
         Gson g = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
         String data = g.toJson(orderTbl);
 
@@ -499,9 +508,9 @@ public class OrderDoctorActivity extends AppCompatActivity {
         requed.addBodyParameter("orderTbl", data);
         requed.addBodyParameter("orderDetailTblId", orderDetailTblId + "");
 
-        if(imageButtonOne.isShown()){
+        if (imageButtonOne.isShown()) {
             requed.addBodyParameter("file", file);
-            if(flag==true){
+            if (flag == true) {
                 requed.addBodyParameter("file2", file2);
             }
         }
@@ -510,16 +519,16 @@ public class OrderDoctorActivity extends AppCompatActivity {
             @Override
             public void onSuccess(String result) {
 
-                Gson gson=CommonGson.getGson();
-                op=gson.fromJson(result,OrderPrice.class);
+                Gson gson = CommonGson.getGson();
+                op = gson.fromJson(result, OrderPrice.class);
 
                 //跳转到支付界面
-                Intent intent =new Intent(context,OrderPayActivity.class);
+                Intent intent = new Intent(context, OrderPayActivity.class);
                 //intent.putExtra("",);---------------就诊人
-                intent.putExtra("doctorInHospital",doctorInHospital);//医生在医院的信息
-                intent.putExtra("orderId",op.getOrderId());//订单的ID
-                intent.putExtra("userIllContent",userIllContent);
-                intent.putExtra("orderDetailPrice",op.getPrice());
+                intent.putExtra("doctorInHospital", doctorInHospital);//医生在医院的信息
+                intent.putExtra("orderId", op.getOrderId());//订单的ID
+                intent.putExtra("userIllContent", userIllContent);
+                intent.putExtra("orderDetailPrice", op.getPrice());
                 startActivity(intent);
                 finish();
             }
@@ -539,7 +548,7 @@ public class OrderDoctorActivity extends AppCompatActivity {
 
             }
 
-        }  );
+        });
 
 
     }
@@ -562,7 +571,6 @@ public class OrderDoctorActivity extends AppCompatActivity {
         orderDoctorAddress.setText(doctorInHospital.getHospitalAddress());
 
     }
-
 
 
 }

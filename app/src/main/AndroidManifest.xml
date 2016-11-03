@@ -46,7 +46,6 @@
     <!-- 访问网络，网络定位需要上网 -->
     <uses-permission android:name="android.permission.INTERNET" />
 
-
     <application
         android:name="cn.gem.application.MyApplication"
         android:allowBackup="true"
@@ -122,12 +121,17 @@
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent" />
         <activity android:name=".GetLocationActivity" />
-        <activity android:name=".GoFastConsultActivity" />
+        <activity
+            android:name=".GoFastConsultActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <activity android:name=".ExpertConsultActivity" />
         <activity android:name=".OrderDetailOneActivity" />
-        <activity android:name=".UserCommentDetailActivity"></activity>
-        <activity android:name=".MangCommentActivity"></activity>
-        <activity android:name=".LookUserCommentActivity"></activity>
+        <activity android:name=".UserCommentDetailActivity" />
+        <activity android:name=".MangCommentActivity" />
+        <activity android:name=".LookUserCommentActivity" />
+        <activity android:name=".FindSourceActivity" />
+        <activity android:name=".UserProtocolActivity"></activity>
     </application>
 
 </manifest>

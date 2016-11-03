@@ -12,8 +12,9 @@ public class SubjectTbl {
 	
 	
 	
-	public SubjectTbl(String subjectSname) {
+	public SubjectTbl(int subjectId,String subjectSname) {
 		super();
+		this.subjectId=subjectId;
 		this.subjectSname = subjectSname;
 	}
 	public int getSubjectId() {

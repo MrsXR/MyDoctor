@@ -50,7 +50,7 @@ import static cn.gem.mydoctor.dangantianjia_Activity.TAKE_PHOTO;
 
 public class dangan_xiugaiActivity extends AppCompatActivity {
 
-    @InjectView(R.id.image_yuyue)
+    @InjectView(R.id.image_back_xiugai)
     ImageButton imageYuyue;
     @InjectView(R.id.bianjidanganxinxi_button)
     Button bianjidanganxinxiButton;
@@ -137,6 +137,8 @@ public class dangan_xiugaiActivity extends AppCompatActivity {
             danganxiugaiEdittextShengfen.setText(init(user_record_tbl.getUserrecordIdentity(), 0));
             danganxiugaiEdittextShenggao.setText(user_record_tbl.getUserrecordHeight() + "");
             danganxiugaiEdittextTizhong.setText(user_record_tbl.getUserrecordWeight() + "");
+
+            danganxiugaiEdittextButton.setVisibility(View.VISIBLE);
         }
     }
 
@@ -149,25 +151,32 @@ public class dangan_xiugaiActivity extends AppCompatActivity {
     public void initio() {
 
         int userId=myApplication.getUserTbl().getUserId();
-        String username = danganxiugaiEdittextXingming.getText() + "";
-        String usershouji = danganxiugaiEdittextShouji.getText() + "";
-        int userage = Integer.parseInt(danganxiugaiEdittextNianlin.getText() + "");
+        String username = danganxiugaiEdittextXingming.getText().toString();
+        String usershouji = danganxiugaiEdittextShouji.getText().toString();
+        int userage = 0;
+        if(danganxiugaiEdittextNianlin.getText().toString()!=null&&!danganxiugaiEdittextNianlin.getText().toString().equals("")){
+            userage = Integer.parseInt(danganxiugaiEdittextNianlin.getText().toString());
+        }
         int usersex=0;
         if(danganxiugaiEdittextXinbie.getText().equals("女")){
             usersex=1;
         }
 
         int usershenfen =user_identity ;
-        float usershenggao = Float.parseFloat(danganxiugaiEdittextShenggao.getText().toString());
-        float usertizhong = Float.parseFloat(danganxiugaiEdittextTizhong.getText().toString());
-        String usercard = danganxiugaiEdittextShenfenzheng.getText() + "";
+        float usershenggao =0;
+        if(danganxiugaiEdittextShenggao.getText().toString()!=null&&!danganxiugaiEdittextShenggao.getText().toString().equals("")){
+            usershenggao = Float.parseFloat(danganxiugaiEdittextShenggao.getText().toString());
+        }
+        float usertizhong = 0;
+        if(danganxiugaiEdittextTizhong.getText().toString()!=null&&!danganxiugaiEdittextTizhong.getText().toString().equals("")){
+            usertizhong = Float.parseFloat(danganxiugaiEdittextTizhong.getText().toString());
+        }
+        String usercard = danganxiugaiEdittextShenfenzheng.getText().toString();
         UserRecordTbl userRecordTbl=new UserRecordTbl(userId,null,usershouji,username,userage,usersex,
                 usershenggao,usertizhong,usershenfen,usercard);
 
         Gson gson=new Gson();
         String sendData=gson.toJson(userRecordTbl);
-
-       Log.i("dangan_xiugaiActivity", "initio: "+sendData);
 
         RequestParams requestParams =null;
         if(flag==CommonQuantity.SECOND) {
@@ -184,11 +193,9 @@ public class dangan_xiugaiActivity extends AppCompatActivity {
             }
 
         }else if(flag==CommonQuantity.FIRST){
-
             //添加档案
             requestParams = new RequestParams(NetUtil.url + "user_record_tianjia_servlet_photo");
             requestParams.setMultipart(true);//上传照片一定要设置
-
             requestParams.addBodyParameter("sendData",sendData);
 
             if(ischange){
@@ -203,13 +210,13 @@ public class dangan_xiugaiActivity extends AppCompatActivity {
             public void onSuccess(String result) {
                 if(flag==CommonQuantity.SECOND) {
                     Toast.makeText(dangan_xiugaiActivity.this, "修改成功", Toast.LENGTH_SHORT).show();
-
+                    setResult(CommonQuantity.SECOND);
                     //修改刷新界面
-
                     finish();
                 }else if(flag==CommonQuantity.FIRST){
                     Toast.makeText(dangan_xiugaiActivity.this, "添加成功", Toast.LENGTH_SHORT).show();
                     //添加完刷新界面
+                    setResult(CommonQuantity.FIRST);
                     finish();
                 }
 
@@ -295,11 +302,18 @@ public class dangan_xiugaiActivity extends AppCompatActivity {
     }
 
 
-    @OnClick({R.id.bianjidanganxinxi_button, R.id.danganxiugai_liner_touxiang, R.id.danganxiugai_liner_xingming, R.id.danganxiugai_liner_shouji, R.id.danganxiugai_liner_nianlin, R.id.danganxiugai_liner_xinbie, R.id.danganxiugai_shenfenzheng, R.id.danganxiugai_liner_shenfen, R.id.danganxiugai_liner_shenggao, R.id.danganxiugai_liner_tizhong, R.id.danganxiugai_edittext_button})
+    @OnClick({R.id.bianjidanganxinxi_button,R.id.image_back_xiugai, R.id.danganxiugai_liner_touxiang, R.id.danganxiugai_liner_xingming, R.id.danganxiugai_liner_shouji, R.id.danganxiugai_liner_nianlin, R.id.danganxiugai_liner_xinbie, R.id.danganxiugai_shenfenzheng, R.id.danganxiugai_liner_shenfen, R.id.danganxiugai_liner_shenggao, R.id.danganxiugai_liner_tizhong, R.id.danganxiugai_edittext_button})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.bianjidanganxinxi_button:
-                initio();
+                //先判断是否必填都写完
+                if(danganxiugaiEdittextXingming.getText()==null&&danganxiugaiEdittextShouji.getText()==null&&danganxiugaiEdittextShenfenzheng.getText()==null&&
+                danganxiugaiEdittextXingming.getText().equals("")&&danganxiugaiEdittextShouji.getText().equals("")&&danganxiugaiEdittextShenfenzheng.getText().equals("")){
+                    Toast.makeText(dangan_xiugaiActivity.this, "请将必填项目填写完整！", Toast.LENGTH_SHORT).show();
+                }else if(!danganxiugaiEdittextXingming.getText().equals("")&&!danganxiugaiEdittextShouji.getText().equals("")&&!danganxiugaiEdittextShenfenzheng.getText().equals("")){
+                    initio();
+                }
+
                 break;
             case R.id.danganxiugai_liner_touxiang:
                 ischange=true;
@@ -378,6 +392,9 @@ public class dangan_xiugaiActivity extends AppCompatActivity {
                 break;
             case R.id.danganxiugai_edittext_button:
                 initof();
+                break;
+            case R.id.image_back_xiugai:
+                finish();
                 break;
         }
     }

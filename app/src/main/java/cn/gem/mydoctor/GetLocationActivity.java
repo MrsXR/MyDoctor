@@ -292,8 +292,9 @@ public class GetLocationActivity extends FragmentActivity implements
             super.onPoiClick(index);
             PoiInfo poi = getPoiResult().getAllPoi().get(index);
             // if (poi.hasCaterDetails) {
-            mPoiSearch.searchPoiDetail((new PoiDetailSearchOption())
-                    .poiUid(poi.uid));
+           mPoiSearch.searchPoiDetail((new PoiDetailSearchOption())
+                   .poiUid(poi.uid));
+
             // }
             return true;
         }

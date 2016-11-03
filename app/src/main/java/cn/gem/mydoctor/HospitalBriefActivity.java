@@ -1,6 +1,7 @@
 package cn.gem.mydoctor;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -84,6 +85,7 @@ public class HospitalBriefActivity extends AppCompatActivity {
             getHospitalTbl(hospitalId);
         }
 
+        getColor(hospitalOrder,hospitalBrief,hospitalRegulation);//默认点击事件
     }
 
     //toolbar点击事件
@@ -121,6 +123,10 @@ public class HospitalBriefActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 changeFragmentOrder(departmentsTbl,hospitalTblOne.getHospitalTbl().getHospitalId());
+                hospitalOrder.setSelected(true);
+
+                getColor(hospitalOrder,hospitalBrief,hospitalRegulation);
+
             }
         });
         //医院简介
@@ -128,7 +134,9 @@ public class HospitalBriefActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String stl=hospitalTblOne.getHospitalTbl().getHospitalBrief();
+                getColor(hospitalBrief,hospitalRegulation,hospitalOrder);
                 changeFragment(stl);
+
             }
         });
         //预约规则的描述
@@ -136,10 +144,27 @@ public class HospitalBriefActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String temp=hospitalTblOne.getHospitalTbl().getHospitalOrderRule();
+                getColor(hospitalRegulation,hospitalOrder,hospitalBrief);
                 changeFragment(temp);
             }
         });
     }
+
+    private void getColor(Button button1,Button button2,Button button3){
+
+        button1.setSelected(true);
+        button1.setPressed(true);
+        button1.setBackgroundColor(Color.parseColor("#FFFFFF"));
+
+        button2.setSelected(false);
+        button2.setPressed(false);
+        button2.setBackgroundColor(Color.parseColor("#AADAF5"));
+
+        button3.setSelected(false);
+        button3.setPressed(false);
+        button3.setBackgroundColor(Color.parseColor("#AADAF5"));
+    }
+
 
     //医院简历和医院预约规则fragment被替换
     private void changeFragment(String brief){

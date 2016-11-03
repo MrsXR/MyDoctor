@@ -39,6 +39,8 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
 import cn.gem.application.MyApplication;
+import cn.gem.entity.UserRecordTbl;
+import cn.gem.util.CommonQuantity;
 import cn.gem.util.IpChangeAddress;
 import cn.gem.util.MaxLengthWatcher;
 
@@ -59,6 +61,7 @@ public class GoFastConsultActivity extends AppCompatActivity {
     @InjectView(R.id.go_fast_consult)
     Button goFastConsult;
     TextView textView;
+    TextView tvlook;
 
     boolean isCheck=false;
 
@@ -71,6 +74,7 @@ public class GoFastConsultActivity extends AppCompatActivity {
     public static final int TAKE_PHOTO = 12;//选择拍照
     public static final int CROP=13;
     int goConsult=0;
+    UserRecordTbl userRecordTbl=null;
 
 
     @Override
@@ -79,19 +83,21 @@ public class GoFastConsultActivity extends AppCompatActivity {
         setContentView(R.layout.activity_go_fast_consult);
         ButterKnife.inject(this);
         textView= (TextView) findViewById(R.id.go_fast_consult_number);
+        tvlook= (TextView) findViewById(R.id.fast_user_look);
         goFastConsultEdittext.addTextChangedListener(new MaxLengthWatcher(500,textView,this));
 
         goFastConsultSname.setText(myApplication.getUserTbl().getUserSname());
     }
 
 
-    @OnClick({R.id.go_fast_consult_r, R.id.go_fast_consult_add, R.id.go_fast_consult,R.id.go_fast_consult_back})
+    @OnClick({R.id.go_fast_consult_r, R.id.go_fast_consult_add, R.id.go_fast_consult,R.id.go_fast_consult_back,R.id.fast_user_look})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.go_fast_consult_r:
                 //选择就医人
                 Intent intent=new Intent(this,dangan_Activity.class);
-                startActivityForResult(intent,110);
+                intent.putExtra("isConsult",114);
+                startActivityForResult(intent,CommonQuantity.CONSULTFAST);
                 break;
             case R.id.go_fast_consult_add:
                 //添加照片
@@ -112,11 +118,17 @@ public class GoFastConsultActivity extends AppCompatActivity {
                     //跳转付钱界面
                     Toast.makeText(GoFastConsultActivity.this, "咨询成功", Toast.LENGTH_SHORT).show();
                    // GoFastConsultActivity.this.finish();
+                }else if(!goFastConsultAgree.isChecked()){
+                    Toast.makeText(GoFastConsultActivity.this, "请选择同意My.Doctor用户协议", Toast.LENGTH_SHORT).show();
                 }
                 break;
             case R.id.go_fast_consult_back:
                 //返回主页
                 finish();
+                break;
+            case R.id.fast_user_look:
+                Intent intent1=new Intent(this,UserProtocolActivity.class);
+                startActivity(intent1);
                 break;
         }
     }
@@ -192,19 +204,19 @@ public class GoFastConsultActivity extends AppCompatActivity {
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
+        Log.i("GoFastConsultActivity", "onActivityResult: --------------------------------");
         switch (requestCode) {
             case SELECT_PIC:
                 if (data != null) {
                     Uri selectedImage = data.getData(); //获取系统返回的照片的Uri
-                    String[] filePathColumn = { MediaStore.Images.Media.DATA };
-                    Cursor cursor =getContentResolver().query(selectedImage,
+                    String[] filePathColumn = {MediaStore.Images.Media.DATA};
+                    Cursor cursor = getContentResolver().query(selectedImage,
                             filePathColumn, null, null, null);//从系统表中查询指定Uri对应的照片
                     cursor.moveToFirst();
                     int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
                     String picturePath = cursor.getString(columnIndex);  //获取照片路径
                     cursor.close();
-                    Bitmap bitmap= BitmapFactory.decodeFile(picturePath);
+                    Bitmap bitmap = BitmapFactory.decodeFile(picturePath);
                     showPhoto(bitmap);
                 }
                 break;
@@ -213,20 +225,22 @@ public class GoFastConsultActivity extends AppCompatActivity {
                 getPhoto(Uri.fromFile(file));
                 break;
             case CROP:
-                if(data!=null){
-                    Bundle b=data.getExtras();
-                    Bitmap bitmap=b.getParcelable("data");
+                if (data != null) {
+                    Bundle b = data.getExtras();
+                    Bitmap bitmap = b.getParcelable("data");
                     showPhoto(bitmap);
                 }
                 break;
         }
 
-        if (resultCode==RESULT_OK) {
+        if(resultCode==CommonQuantity.CONSULTFAST){
+            Log.i("GoFastConsultActivity", "onActivityResult: --------------------------------");
             Bundle bundle=data.getExtras();
-            goFastConsultSname.setText( bundle.getString("userIllName"));//就医人姓名
-            goConsult=bundle.getInt("userRecordId");//档案ID
+            userRecordTbl= (UserRecordTbl) bundle.get("UserRecordTbl");
+            goFastConsultSname.setText(userRecordTbl.getUserrecordName());//就医人姓名
+            goConsult=userRecordTbl.getUserId();//档案ID
         }
-        super.onActivityResult(requestCode, resultCode, data);
+
     }
 
     public void showPhoto(Bitmap bitmap) {

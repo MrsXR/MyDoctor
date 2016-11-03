@@ -10,9 +10,6 @@
         android:id="@+id/change_city_fragment_content_list"
         android:layout_gravity="center_horizontal"
         android:background="@color/colorWhite"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin"
-        android:paddingTop="@dimen/activity_horizontal_margin"
-        android:paddingBottom="@dimen/activity_horizontal_margin"/>
+        android:padding="@dimen/activity_horizontal_margin"/>
 
 </LinearLayout>

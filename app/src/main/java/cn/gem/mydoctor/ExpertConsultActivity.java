@@ -2,6 +2,7 @@ package cn.gem.mydoctor;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -39,6 +41,7 @@ import cn.gem.entity.SubjectTbl;
 import cn.gem.util.CommonAdapter;
 import cn.gem.util.CommonGson;
 import cn.gem.util.IpChangeAddress;
+import cn.gem.util.ListSubject;
 import cn.gem.util.ViewHolder;
 
 public class ExpertConsultActivity extends AppCompatActivity {
@@ -97,6 +100,7 @@ public class ExpertConsultActivity extends AppCompatActivity {
         popContents.add("主治医师");
         popContents.add("普通医师");
 
+        getColor(expertConsultSyntheticalR,expertConsultPositionR,expertConsultSubjectR);
     }
 
 
@@ -111,17 +115,35 @@ public class ExpertConsultActivity extends AppCompatActivity {
                 //综合排序
                 synthetical=0;
                 positionD=0;
+                getColor(expertConsultSyntheticalR,expertConsultPositionR,expertConsultSubjectR);
                 getData(this);
                 break;
             case R.id.expert_consult_subject_r:
                 //科室排序
+                getColor(expertConsultSubjectR,expertConsultPositionR,expertConsultSyntheticalR);
                 getDepartments();
                 break;
             case R.id.expert_consult_position_r:
                 //综合排序+职位筛选
+                getColor(expertConsultPositionR,expertConsultSubjectR,expertConsultSyntheticalR);
                 getPopupWindow(this,POSITION);
                 break;
         }
+    }
+
+    private void getColor(RelativeLayout button1, RelativeLayout button2, RelativeLayout button3){
+
+        button1.setSelected(true);
+        button1.setPressed(true);
+        button1.setBackgroundColor(Color.parseColor("#FFFFFF"));
+
+        button2.setSelected(false);
+        button2.setPressed(false);
+        button2.setBackgroundColor(Color.parseColor("#AADAF5"));
+
+        button3.setSelected(false);
+        button3.setPressed(false);
+        button3.setBackgroundColor(Color.parseColor("#AADAF5"));
     }
 
     //获取数据库信息
@@ -296,8 +318,6 @@ public class ExpertConsultActivity extends AppCompatActivity {
             });
 
 
-
-
         }
 
         if(k==POSITION) {
@@ -333,38 +353,9 @@ public class ExpertConsultActivity extends AppCompatActivity {
 
     //获取科室信息
     public  void getDepartments(){
-        String stl= IpChangeAddress.ipChangeAddress+"DepartmentsTblDaoServlet";
-        RequestParams requestParams =new RequestParams(stl);
-        x.http().get(requestParams, new Callback.CacheCallback<String>() {
-            @Override
-            public void onSuccess(String result) {
-                Gson gson=CommonGson.getGson();
-                Type type=new TypeToken<List<DepartmentsTbl>>(){}.getType();
-                departmentsTbls=gson.fromJson(result,type);
+                departmentsTbls=new ListSubject().getDepartmentsTbls();
                 //赋值
                 getPopupWindow(ExpertConsultActivity.this,SUBJECT);
-            }
-
-            @Override
-            public void onError(Throwable ex, boolean isOnCallback) {
-
-            }
-
-            @Override
-            public void onCancelled(CancelledException cex) {
-
-            }
-
-            @Override
-            public void onFinished() {
-
-            }
-
-            @Override
-            public boolean onCache(String result) {
-                return false;
-            }
-        });
     }
 
 
@@ -372,10 +363,10 @@ public class ExpertConsultActivity extends AppCompatActivity {
     public void getSubject(int k){
         subjectTbls=departmentsTbls.get(k).getSubjectTbl();
         //科目
-        sAdapter=new CommonAdapter<SubjectTbl>(this,subjectTbls,R.layout.hospital_brief_common_text) {
+        sAdapter=new CommonAdapter<SubjectTbl>(this,subjectTbls,R.layout.hospital_brief_common_white_text) {
             @Override
             public void convert(ViewHolder viewHolder, SubjectTbl subjectTbl, int position) {
-                textView=viewHolder.getViewById(R.id.hospital_brief_common_item);
+                textView=viewHolder.getViewById(R.id.hospital_brief_common_item1);
                 textView.setText(subjectTbl.getSubjectSname());
             }
         };

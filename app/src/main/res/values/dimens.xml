@@ -22,4 +22,7 @@
     <dimen name="rdt1">128dp</dimen>
     <dimen name="rdt2">256dp</dimen>
     <dimen name="rdt3">384dp</dimen>
+
+    <dimen name="item_height">60dp</dimen>
+    <dimen name="item_margin">10dp</dimen>
 </resources>

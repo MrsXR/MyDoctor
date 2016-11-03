@@ -1,5 +1,6 @@
 package cn.gem.fragment;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -32,6 +33,8 @@ import cn.gem.util.ViewHolder;
  * 静态fragment存放医院中科室的信息
  */
 public class ChangeCityFragementTitle extends BaseFragment {
+
+    int selectedPosition = 0;// 选中的位置
 
     public interface OnChangeA{
        void OnChangeListener(Integer value);
@@ -78,6 +81,25 @@ public class ChangeCityFragementTitle extends BaseFragment {
             public void convert(ViewHolder viewHolder, ProvinceTbl provinceTbl, int position) {
                 textView=viewHolder.getViewById(R.id.change_province_listview_item_text);
                 textView.setText(provinceTbl.getProvinceSname());
+
+
+                if (selectedPosition == position) {
+                    textView.setSelected(true);
+                    textView.setPressed(true);
+                    textView.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                } else {
+                    textView.setSelected(false);
+                    textView.setPressed(false);
+                    textView.setBackgroundColor(Color.parseColor("#AADAF5"));
+
+                }
+                if(selectedPosition==0&&position==0){
+                    textView.setSelected(true);
+                    textView.setPressed(true);
+                    textView.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                }
+
+
             }
         };
 
@@ -100,6 +122,8 @@ public class ChangeCityFragementTitle extends BaseFragment {
                 Log.i("setOnItemClickListener", "setOnItemClickListener"+position);
                 //返回选择的省份对应的ID
                 setOnChangeListener(onChangeA,position+1);//items
+                selectedPosition=position;
+                provinceAdapter.notifyDataSetInvalidated();
 
             }
         });

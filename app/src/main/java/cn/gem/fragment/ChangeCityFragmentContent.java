@@ -61,7 +61,7 @@ public class ChangeCityFragmentContent extends Fragment {
                 public void convert(ViewHolder viewHolder, CityTbl cityTbl, int position) {
                     textView=viewHolder.getViewById(R.id.change_city_content_item_text);
                     textView.setText(cityTbl.getCitySname());
-                    cityPosition[i++]=cityTbl.getCitySname();//跳转页面的position与City对应的ID不一样
+                    //cityPosition[i++]=cityTbl.getCitySname();//跳转页面的position与City对应的ID不一样
                 }
             };
 
@@ -72,8 +72,8 @@ public class ChangeCityFragmentContent extends Fragment {
     listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            String cityName=cityPosition[position];
-            Log.i("ChangeCity", "onItemClick: -----------------》"+cityName);
+            String cityName=cityTblList.get(position).getCitySname();
+                    //cityPosition[position];
             Intent intent=new Intent(getContext(),OrderFirstMainActivity.class);
             intent.putExtra("cityName",cityName);
             getActivity().startActivity(intent);

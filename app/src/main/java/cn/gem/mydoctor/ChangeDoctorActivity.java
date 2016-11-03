@@ -6,6 +6,7 @@ package cn.gem.mydoctor;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -56,19 +57,24 @@ public class ChangeDoctorActivity extends AppCompatActivity {
     Button changeDSynthetical;
     @InjectView(R.id.change_doctor_position_r)
     RelativeLayout changeDoctorPositionR;
+    @InjectView(R.id.change_d_position)
+    Button changeDPosition;
+    @InjectView(R.id.idchange_doctor_emtry)
+    TextView idchangeDoctorEmtry;
 
 
     List<String> popContents = new ArrayList<String>();
-    List<DoctorsTbl> list=new ArrayList<>();//医生的集合
+    List<DoctorsTbl> list = new ArrayList<>();//医生的集合
 
     int changeSubject = 0;
     int hospitalId = 0;
-    Integer synthetical=0;//综合排序
-    Integer positionD=0;
+    Integer synthetical = 0;//综合排序
+    Integer positionD = 0;
 
-    int pageNumber=1;//分页页数
+    int pageNumber = 1;//分页页数
 
     CommonAdapter<DoctorsTbl> commonAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,6 +100,8 @@ public class ChangeDoctorActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        getColor(changeDSynthetical, changeDoctorPositionR, changeDPosition);
     }
 
     //获取数据库信息
@@ -102,8 +110,8 @@ public class ChangeDoctorActivity extends AppCompatActivity {
         RequestParams requestParams = new RequestParams(stl);
         requestParams.addQueryStringParameter("hospitalId", hospitalId + "");//科目
         requestParams.addQueryStringParameter("changeSubject", changeSubject + "");//科室
-        if (synthetical!=null)
-        requestParams.addQueryStringParameter("synthetical", synthetical + "");//综合排序
+        if (synthetical != null)
+            requestParams.addQueryStringParameter("synthetical", synthetical + "");//综合排序
 
         if (positionD != 0) {
             requestParams.addQueryStringParameter("positionD", positionD + "");//综合排序+职位
@@ -115,35 +123,44 @@ public class ChangeDoctorActivity extends AppCompatActivity {
             @Override
             public void onSuccess(String result) {
                 //获取数据成功在ListView上面显示
-                List<DoctorsTbl> listNew=new ArrayList<>();
-                Gson gson= CommonGson.getGson();
+                List<DoctorsTbl> listNew = new ArrayList<>();
+                Gson gson = CommonGson.getGson();
 
-                Type type=new TypeToken<List<DoctorsTbl>>(){}.getType();
-                listNew=gson.fromJson(result,type);
+                Type type = new TypeToken<List<DoctorsTbl>>() {
+                }.getType();
+                listNew = gson.fromJson(result, type);
                 list.clear();
                 list.addAll(listNew);//保证引用不变
-                //适配器
-                if(commonAdapter==null){
-                commonAdapter=new CommonAdapter<DoctorsTbl>(context,list,R.layout.change_doctor_listview) {
-                    @Override
-                    public void convert(ViewHolder viewHolder, DoctorsTbl doctorsTbl, int position) {
-                        ImageView imageViewPhoto=viewHolder.getViewById(R.id.imageView);
-                        TextView textViewName=viewHolder.getViewById(R.id.change_doctor_name);
-                        TextView textViewPosition=viewHolder.getViewById(R.id.change_doctor_position);
-                        TextView textViewR=viewHolder.getViewById(R.id.change_doctor_textView5);//推荐指数
-                        TextView textViewBrief=viewHolder.getViewById(R.id.change_doctor_brief);
 
-
-                        //获取图片
-                        getImage(doctorsTbl.getDoctorsPhoto(),imageViewPhoto);
-                        textViewName.setText(doctorsTbl.getDoctorsSname());
-                        textViewPosition.setText(getPositionName(doctorsTbl.getDoctorsPosition()));
-                        textViewR.setText(doctorsTbl.getDoctorsRecommend()+"");
-                        textViewBrief.setText(doctorsTbl.getDoctorsBrief());
-                    }
-                };
-                    changeDListview.setAdapter(commonAdapter);
+                if(list.size()==0){
+                    idchangeDoctorEmtry.setVisibility(View.VISIBLE);
                 }else {
+                    idchangeDoctorEmtry.setVisibility(View.GONE);
+                }
+
+
+                //适配器
+                if (commonAdapter == null) {
+                    commonAdapter = new CommonAdapter<DoctorsTbl>(context, list, R.layout.change_doctor_listview) {
+                        @Override
+                        public void convert(ViewHolder viewHolder, DoctorsTbl doctorsTbl, int position) {
+                            ImageView imageViewPhoto = viewHolder.getViewById(R.id.imageView);
+                            TextView textViewName = viewHolder.getViewById(R.id.change_doctor_name);
+                            TextView textViewPosition = viewHolder.getViewById(R.id.change_doctor_position);
+                            TextView textViewR = viewHolder.getViewById(R.id.change_doctor_textView5);//推荐指数
+                            TextView textViewBrief = viewHolder.getViewById(R.id.change_doctor_brief);
+
+
+                            //获取图片
+                            getImage(doctorsTbl.getDoctorsPhoto(), imageViewPhoto);
+                            textViewName.setText(doctorsTbl.getDoctorsSname());
+                            textViewPosition.setText(getPositionName(doctorsTbl.getDoctorsPosition()));
+                            textViewR.setText(doctorsTbl.getDoctorsRecommend() + "");
+                            textViewBrief.setText(doctorsTbl.getDoctorsBrief());
+                        }
+                    };
+                    changeDListview.setAdapter(commonAdapter);
+                } else {
                     commonAdapter.notifyDataSetInvalidated();
                 }
 
@@ -151,9 +168,9 @@ public class ChangeDoctorActivity extends AppCompatActivity {
                 changeDListview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        Intent intent=new Intent(ChangeDoctorActivity.this,DoctorsActivity.class);
-                        DoctorsTbl doctor=list.get(position);
-                        intent.putExtra("doctorOne",doctor);
+                        Intent intent = new Intent(ChangeDoctorActivity.this, DoctorsActivity.class);
+                        DoctorsTbl doctor = list.get(position);
+                        intent.putExtra("doctorOne", doctor);
                         startActivity(intent);
                     }
                 });
@@ -185,64 +202,77 @@ public class ChangeDoctorActivity extends AppCompatActivity {
     }
 
     //再次访问服务器获取图片
-    public void getImage(String position,ImageView imageView){
-        String photoUrl=IpChangeAddress.ipChangeAddress+position;
-        ImageOptions imageOptions=new ImageOptions.Builder()
+    public void getImage(String position, ImageView imageView) {
+        String photoUrl = IpChangeAddress.ipChangeAddress + position;
+        ImageOptions imageOptions = new ImageOptions.Builder()
                 .setCircular(true)
-                .setCrop(true).setSize(65,65).build();
+                .setCrop(true).setSize(65, 65).build();
 
-        x.image().bind(imageView,photoUrl,imageOptions);
+        x.image().bind(imageView, photoUrl, imageOptions);
     }
 
     //判断医生的职位
-    public  String getPositionName(int k){
-        String positionName=null;
-        switch (k){
+    public String getPositionName(int k) {
+        String positionName = null;
+        switch (k) {
             case 1:
-                positionName="主任医师" ;
+                positionName = "主任医师";
                 break;
             case 2:
-                positionName="副主任医师" ;
+                positionName = "副主任医师";
                 break;
             case 3:
-                positionName="主治医师" ;
+                positionName = "主治医师";
                 break;
             case 4:
-                positionName="普通医师" ;
+                positionName = "普通医师";
                 break;
         }
 
         return positionName;
     }
 
-    @OnClick({R.id.change_d_synthetical, R.id.change_d_position,R.id.change_h_down})
+    @OnClick({R.id.change_d_synthetical, R.id.change_d_position, R.id.change_h_down})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.change_d_synthetical:
                 //综合排序
-                synthetical=0;
-                positionD=0;
+                synthetical = 0;
+                positionD = 0;
                 getData(this);
+                getColor(changeDSynthetical, changeDoctorPositionR, changeDPosition);
                 break;
             case R.id.change_d_position:
                 //综合排序+职位筛选
+                changeDoctorPositionR.setSelected(true);
+                changeDoctorPositionR.setPressed(true);
+                changeDoctorPositionR.setBackgroundColor(Color.parseColor("#FFFFFF"));
+
+                changeDPosition.setSelected(true);
+                changeDPosition.setPressed(true);
+                changeDPosition.setBackgroundColor(Color.parseColor("#FFFFFF"));
+
+                changeDSynthetical.setSelected(false);
+                changeDSynthetical.setPressed(false);
+                changeDSynthetical.setBackgroundColor(Color.parseColor("#AADAF5"));
+
                 getPopupWindow(this);
 
                 break;
             case R.id.change_h_down:
-               getPopupWindow(this);
+                getPopupWindow(this);
                 break;
         }
     }
 
-    public void getPopupWindow(final Context context){
+    public void getPopupWindow(final Context context) {
         //设置pupopwindow
-        View view1= LayoutInflater.from(this).inflate(R.layout.common_array_adapter,null);
-        final PopupWindow popupWindow=new PopupWindow(view1,ViewGroup.LayoutParams.MATCH_PARENT, 700);
+        View view1 = LayoutInflater.from(this).inflate(R.layout.common_array_adapter, null);
+        final PopupWindow popupWindow = new PopupWindow(view1, ViewGroup.LayoutParams.MATCH_PARENT, 700);
 
         //listview设置数据源
-        ListView listView= (ListView) view1.findViewById(R.id.common_arrayadapter_listView);
-        ArrayAdapter arrayAdapter=new ArrayAdapter<String>(this,R.layout.common_arrayadapter_text,R.id.common_array_text,popContents);
+        ListView listView = (ListView) view1.findViewById(R.id.common_arrayadapter_listView);
+        ArrayAdapter arrayAdapter = new ArrayAdapter<String>(this, R.layout.common_arrayadapter_text, R.id.common_array_text, popContents);
 
         listView.setAdapter(arrayAdapter);
 
@@ -254,8 +284,8 @@ public class ChangeDoctorActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                positionD=position;
-                synthetical=null;
+                positionD = position;
+                synthetical = null;
                 //重新获取数据
                 getData(context);
                 popupWindow.dismiss();
@@ -264,4 +294,22 @@ public class ChangeDoctorActivity extends AppCompatActivity {
 
 
     }
+
+
+    private void getColor(Button button1, RelativeLayout button2, Button button3) {
+
+        button1.setSelected(true);
+        button1.setPressed(true);
+        button1.setBackgroundColor(Color.parseColor("#FFFFFF"));
+
+        button2.setSelected(false);
+        button2.setPressed(false);
+        button2.setBackgroundColor(Color.parseColor("#AADAF5"));
+
+        button3.setSelected(false);
+        button3.setPressed(false);
+        button3.setBackgroundColor(Color.parseColor("#AADAF5"));
+
+    }
+
 }

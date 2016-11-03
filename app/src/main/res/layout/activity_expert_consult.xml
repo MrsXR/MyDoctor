@@ -40,12 +40,11 @@
         android:id="@+id/expert_consult_toolbar_temp"/>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:orientation="horizontal"
         android:id="@+id/expert_consult_toolbar_temp2"
         android:layout_below="@+id/expert_consult_toolbar_temp"
-        android:padding="10dp"
-        android:background="@color/belowback">
+        android:background="@color/lightblue">
 
         <RelativeLayout
             android:layout_width="wrap_content"
@@ -59,8 +58,7 @@
                 android:id="@+id/expert_consult_synthetical"
                 android:layout_weight="1"
                 android:text="综合排序"
-                android:textSize="18dp"
-                android:background="@color/belowback"
+                android:textSize="20dp"
                />
         </RelativeLayout>
         <RelativeLayout
@@ -75,20 +73,20 @@
                 android:id="@+id/expert_consult_dosubject"
                 android:layout_weight="1"
                 android:text="科室"
-                android:textSize="18dp"
-                android:background="@color/belowback"/>
+                android:textSize="20dp"
+              />
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/expert_consult_dosubject_down"
                 android:background="@mipmap/down4"
                 android:layout_toRightOf="@+id/expert_consult_dosubject"
-                android:layout_centerInParent="true"/>
+               />
 
         </RelativeLayout>
         <RelativeLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="fill_parent"
             android:id="@+id/expert_consult_position_r"
             android:layout_weight="1"
             android:gravity="center"
@@ -99,15 +97,14 @@
                 android:id="@+id/expert_consult_position"
                 android:layout_weight="1"
                 android:text="全部职称"
-                android:textSize="18dp"
-                android:background="@color/belowback"/>
+                android:textSize="20dp" />
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/expert_consult_down"
                 android:background="@mipmap/down4"
                 android:layout_toRightOf="@+id/expert_consult_position"
-                android:layout_centerInParent="true"/>
+                />
         </RelativeLayout>
     </LinearLayout>
 

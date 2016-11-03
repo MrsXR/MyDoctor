@@ -279,7 +279,6 @@ public class yuyue_Activity extends AppCompatActivity implements newlistview.Onl
 
                     yuyueList.setAdapter(order_tblCommonAdapter);
                 } else {
-
                     order_tblCommonAdapter.notifyDataSetChanged();
                 }
 
@@ -331,6 +330,10 @@ public class yuyue_Activity extends AppCompatActivity implements newlistview.Onl
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
+        initof();
+        order_tblCommonAdapter.notifyDataSetChanged();
+
         //结果码
         if (resultCode==RESULT_OK){
             int orderId=Integer.parseInt(data.getStringExtra("back"));
@@ -339,7 +342,6 @@ public class yuyue_Activity extends AppCompatActivity implements newlistview.Onl
         }else if(resultCode== CommonQuantity.ORDEEANGIN){
             order_tblCommonAdapter.notifyDataSetChanged();
         }
-
 
     }
 }

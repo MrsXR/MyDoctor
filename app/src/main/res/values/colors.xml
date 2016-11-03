@@ -38,7 +38,8 @@
     <color name="color_white">#ffffff</color>
     <color name="btn_press_color">#5677fc</color>
     <color name="btn_pressed_color">#3ca0ec</color>
-
+    <color name="green_normal">#37C000</color>
+    <color name="green_pressed">#30A070</color>
     <color name="hhhhh">#e9e7e4</color>
 
 

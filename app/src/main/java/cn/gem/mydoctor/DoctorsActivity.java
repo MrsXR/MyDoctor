@@ -1,6 +1,7 @@
 package cn.gem.mydoctor;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -32,6 +33,7 @@ import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import cn.gem.application.MyApplication;
 import cn.gem.entity.CommentOrderDetailTbl;
 import cn.gem.entity.ConsultTbl;
 import cn.gem.entity.DoctorInHospital;
@@ -86,15 +88,18 @@ public class DoctorsActivity extends AppCompatActivity {
     ScrollView doctorsScrollView;
     @InjectView(R.id.doctor_in_subject)
     TextView doctorInSubject;
+    @InjectView(R.id.doctor_look_comment)
+    TextView doctorLookComment;
 
-    private  static final int FIRSTFLAG=1;
-    private  static final int SECONDFLAG=2;
+    private static final int FIRSTFLAG = 1;
+    private static final int SECONDFLAG = 2;
 
     Toolbar toolbar;
     int i = 2;
     DoctorsTbl doctorsTbl;
     List<BaseFragment> fragmentList = new ArrayList<BaseFragment>();
     int doctorsId;
+    int isData=0;
 
     DoctorsWork doctorsWork = new DoctorsWork();
     List<ConsultTbl> consultTbls;
@@ -104,14 +109,16 @@ public class DoctorsActivity extends AppCompatActivity {
     CommonAdapter<CommentOrderDetailTbl> commonR;//评价
 
     DoctorInHospital doctorInH;//医生所在医院的信息
-    TextView tvPrice=null;
+    TextView tvPrice = null;
+    MyApplication myApplication= (MyApplication) getApplication();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doctors);
         ButterKnife.inject(this);
-        tvPrice= (TextView) findViewById(R.id.consult_doctor_price);
+        tvPrice = (TextView) findViewById(R.id.consult_doctor_price);
         toolbar = (Toolbar) findViewById(R.id.doctors_detail_toolbar);
         toolbar.setTitle("");
         toolbar.setNavigationIcon(R.mipmap.back6);
@@ -119,16 +126,15 @@ public class DoctorsActivity extends AppCompatActivity {
 
         //获取选择医生的信息
         Intent intent = getIntent();
-        if(intent.getParcelableExtra("doctorOne")!=null){
+        if (intent.getParcelableExtra("doctorOne") != null) {
             doctorsTbl = intent.getParcelableExtra("doctorOne");
             doctorsId = doctorsTbl.getDoctorsId();
             initView();
-        }else if(intent.getIntExtra("doctorsId",0)!=0){
-            doctorsId = intent.getIntExtra("doctorsId",0);
+        } else if (intent.getIntExtra("doctorsId", 0) != 0) {
+            doctorsId = intent.getIntExtra("doctorsId", 0);
             Log.i("DoctorsActivity", "onCreate: ------------------------");
             getOneDoctor();
         }
-
 
 
         //toolbar上的导航事件按钮点击事件
@@ -137,7 +143,7 @@ public class DoctorsActivity extends AppCompatActivity {
     }
 
     //从再次预约界面跳转进来
-    private void getOneDoctor(){
+    private void getOneDoctor() {
 
         String stl = IpChangeAddress.ipChangeAddress + "OneDoctorsTblServlet";
         RequestParams requestParams = new RequestParams(stl);
@@ -146,8 +152,8 @@ public class DoctorsActivity extends AppCompatActivity {
         x.http().get(requestParams, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
-                Gson gson=CommonGson.getGson();
-                doctorsTbl=gson.fromJson(result,DoctorsTbl.class);
+                Gson gson = CommonGson.getGson();
+                doctorsTbl = gson.fromJson(result, DoctorsTbl.class);
 
                 initView();
             }
@@ -203,6 +209,7 @@ public class DoctorsActivity extends AppCompatActivity {
         String stl = IpChangeAddress.ipChangeAddress + "DoctorsWorkServlet";
         RequestParams requestParams = new RequestParams(stl);
         requestParams.addQueryStringParameter("doctorsId", doctorsId + "");
+        requestParams.addQueryStringParameter("userId", myApplication.getUserTbl().getUserId() + "");
 
         x.http().get(requestParams, new Callback.CommonCallback<String>() {
             @Override
@@ -214,6 +221,8 @@ public class DoctorsActivity extends AppCompatActivity {
                 consultTbls = doctorsWork.getConsultTbl();
                 commentOrderDetailTbls = doctorsWork.getCommentOrderDetailTbl();
                 doctorInH = doctorsWork.getDoctorInHospital();//医生所在医院的信息
+                isData=doctorsWork.getIsData();
+                
                 //将数据展示在ListView上面
                 showListViewData();
 
@@ -253,14 +262,14 @@ public class DoctorsActivity extends AppCompatActivity {
 
                     TextView tvComment = viewHolder.getViewById(R.id.doctor_user_consult);//咨询内容
 
-                    String sex =null;
-                    if( consultTbl.getUserTbl().getUserSex()==0){
-                        sex="男";
-                    }else {
-                        sex="女";
+                    String sex = null;
+                    if (consultTbl.getUserTbl().getUserSex() == 0) {
+                        sex = "男";
+                    } else {
+                        sex = "女";
                     }
 
-                    tvUser.setText("患者" + consultTbl.getUserTbl().getUserAge() + "岁 * " +sex);
+                    tvUser.setText("患者" + consultTbl.getUserTbl().getUserAge() + "岁 * " + sex);
                     tvComment.setText(consultTbl.getConsultDetailContent());
                 }
             };
@@ -275,17 +284,17 @@ public class DoctorsActivity extends AppCompatActivity {
                 @Override
                 public void convert(ViewHolder viewHolder, CommentOrderDetailTbl commentOrderDetailTbl, int position) {
                     TextView tvUser = viewHolder.getViewById(R.id.doctor_user_informatoin);//医患信息
-                    LinearLayout linearLayout=viewHolder.getViewById(R.id.doctor_user_informatoin_temp);
+                    LinearLayout linearLayout = viewHolder.getViewById(R.id.doctor_user_informatoin_temp);
                     linearLayout.setVisibility(View.VISIBLE);
-                    LinearLayout linearLayout2=viewHolder.getViewById(R.id.doctor_user_informatoin_temp2);
+                    LinearLayout linearLayout2 = viewHolder.getViewById(R.id.doctor_user_informatoin_temp2);
                     linearLayout2.setVisibility(View.VISIBLE);
-                    TextView tvIllName=viewHolder.getViewById(R.id.doctor_user_ill_name);
+                    TextView tvIllName = viewHolder.getViewById(R.id.doctor_user_ill_name);
                     RatingBar ratingBar = viewHolder.getViewById(R.id.doctor_user_attitude);//医生态度评星
                     RatingBar ratingBarT = viewHolder.getViewById(R.id.doctor_user_treat);//治疗评星
                     RatingBar ratingBarC = viewHolder.getViewById(R.id.doctor_user_comment);//推荐评星
                     TextView tvComment = viewHolder.getViewById(R.id.doctor_user_consult);//咨询内容
 
-                    tvUser.setText("来自患者" +commentOrderDetailTbl.getUserSname()+"的评论");
+                    tvUser.setText("来自患者" + commentOrderDetailTbl.getUserSname() + "的评论");
                     tvIllName.setText(commentOrderDetailTbl.getOrderIllSname());
                     ratingBar.setRating(commentOrderDetailTbl.getCommentOrderDetailAttitude());
                     ratingBarT.setRating(commentOrderDetailTbl.getCommentOrderDetailTreat());
@@ -339,18 +348,67 @@ public class DoctorsActivity extends AppCompatActivity {
         }
 
         doctorRecommend.setText(doctorsTbl.getDoctorsRecommend() + "");
-        tvPrice.setText(" ￥ "+doctorsTbl.getDoctorsConsultPrice()+"元");
+        tvPrice.setText(" ￥ " + doctorsTbl.getDoctorsConsultPrice() + "元");
 
         doctorInHospital.setText(doctorInH.getHospitalSname());//医院名称
         doctorInSubject.setText(doctorInH.getSubjectSname());//科室名称
         hospitalAddress.setText(doctorInH.getHospitalAddress());
 
         doctorBrief.setText(doctorsTbl.getDoctorsBrief());//医生简介
+
+
+        if(isData!=0){
+            Log.i("DoctorsActivity", "getDoctorsData: ========+++++======"+isData);
+            toolbar.getMenu().getItem(R.id.collect_doctor_menu).setIcon(R.drawable.collect2);
+            Log.i("DoctorsActivity", "getDoctorsData: ========+++++======"+isData);
+        }
+
+        setMenuItem(isData);
     }
 
 
+    private void setMenuItem(int isData){
+        //设置menu的item的点击事件
+        if(isData==0){
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()) {
+                    //医生收藏
+                    case R.id.collect_doctor_menu:
+                        if ((i++) % 2 == 0) {
+                            item.setIcon(R.drawable.collect2);
+                        } else {
+                            item.setIcon(R.mipmap.collect1);
+                        }
+                        break;
+                    //医生分享
+                    case R.id.share_doctor_menu:
+                }
+                return false;
+            }
+        });}
 
-
+        if(isData!=0){
+            toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(MenuItem item) {
+                    switch (item.getItemId()) {
+                        //医生收藏
+                        case R.id.collect_doctor_menu:
+                            if ((i++) % 2 == 0) {
+                                item.setIcon(R.mipmap.collect1);
+                            } else {
+                                item.setIcon(R.drawable.collect2);
+                            }
+                            break;
+                        //医生分享
+                        case R.id.share_doctor_menu:
+                    }
+                    return false;
+                }
+            });}
+    }
 
     //toolbar上的导航事件按钮点击事件
     public void checkToolbar() {
@@ -359,27 +417,6 @@ public class DoctorsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Log.i("Navigation", "MyToolbarActivity");//未设置！！！
-            }
-        });
-        //设置menu的item的点击事件
-        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                switch (item.getItemId()) {
-                    //医生收藏
-                    case R.id.collect_doctor_menu:
-
-                        if ((i++) % 2 == 0) {
-                            item.setIcon(R.drawable.collect2);
-                        } else {
-                            item.setIcon(R.mipmap.collect1);
-                        }
-
-                        break;
-                    //医生分享
-                    case R.id.share_doctor_menu:
-                }
-                return false;
             }
         });
 
@@ -400,12 +437,21 @@ public class DoctorsActivity extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
-    private void buttonOnCheck(){
+    private void buttonOnCheck() {
         doctorGoInto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(DoctorsActivity.this,MangCommentActivity.class);
-                intent.putExtra("doctotId",doctorsId);
+                Intent intent = new Intent(DoctorsActivity.this, MangCommentActivity.class);
+                intent.putExtra("doctotId", doctorsId);
+                startActivity(intent);
+            }
+        });
+
+        doctorLookComment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(DoctorsActivity.this, MangCommentActivity.class);
+                intent.putExtra("doctotId", doctorsId);
                 startActivity(intent);
             }
         });

@@ -236,7 +236,7 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/order_ill_content_number"
                     android:layout_below="@+id/order_ill_content"
-                    android:text="还有"
+                    android:text="还有300字"
                     android:layout_alignParentRight="true"
                     android:layout_marginRight="40dp"/>
 
@@ -320,6 +320,7 @@
                     android:layout_height="wrap_content"
                     android:text="同意 My.Doctor 用户协议"
                     android:textSize="17dp"
+                    android:id="@+id/order_look_protocol"
                     android:textColor="@color/colorAccent"
                     android:layout_toRightOf="@+id/allow_order"
                     android:layout_alignBottom="@+id/allow_order"

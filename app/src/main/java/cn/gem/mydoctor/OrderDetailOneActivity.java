@@ -109,6 +109,7 @@ public class OrderDetailOneActivity extends AppCompatActivity {
         orderLookdetailToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                setResult(116);
                 finish();
             }
         });
@@ -281,6 +282,9 @@ public class OrderDetailOneActivity extends AppCompatActivity {
                     orderDetailUserCancel.setText("预约已取消");
                     orderDetailUserCance2.setVisibility(View.VISIBLE);
                     orderDetailUserCance2.setText("删除预约");
+
+                    //集合中的预约状态改变
+                    orderUserDetail.getOrderTbl().setOrderPayState(5);
                 } else if (k == CommonQuantity.SEVENTH) {
                     //删除订单,k=7
                     cancelOrder(k);
@@ -302,7 +306,8 @@ public class OrderDetailOneActivity extends AppCompatActivity {
                     orderDetailUserCance2.setVisibility(View.VISIBLE);
                     orderDetailUserCance2.setText("删除预约");
                     orderDetailUserCance3.setVisibility(View.GONE);
-
+                    //集合中的预约状态改变
+                    orderUserDetail.getOrderTbl().setOrderPayState(3);
                 }
             }
         });
@@ -416,7 +421,7 @@ public class OrderDetailOneActivity extends AppCompatActivity {
     private void buttonInit(int number) {
         switch (number) {
             case CommonQuantity.FIRST:
-                orderDetailUserCancel.setText("未支付");
+                orderDetailUserCancel.setText("支付");
                 orderDetailUserCance2.setVisibility(View.VISIBLE);
                 orderDetailUserCance2.setText("删除预约");
                 break;
@@ -455,7 +460,8 @@ public class OrderDetailOneActivity extends AppCompatActivity {
       /*  if (requestCode == CommonQuantity.ORDEEONE) {
             orderDetailUserCancel.setText("取消预约");
         }*/
-        if(requestCode == CommonQuantity.ORDERCOMMRNT){
+        if(resultCode == CommonQuantity.ORDERCOMMRNT){
+
             orderDetailUserCancel.setText("查看评论");
             orderDetailUserCance2.setVisibility(View.VISIBLE);
             orderDetailUserCance2.setText("删除预约");

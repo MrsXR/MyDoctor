@@ -26,6 +26,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 import org.xutils.common.Callback;
@@ -389,8 +390,10 @@ public class ThemeDetailActivity extends AppCompatActivity {
         String url = NetUtil.url + "InsertThemeDetailServlet";
         RequestParams requestParams = new RequestParams(url);
         ThemeDetailTbl themeDetailTbl = new ThemeDetailTbl(themeId, ((MyApplication) getApplication()).getUserTbl1(), null, etHuifulouzhu.getText().toString(), new Timestamp(System.currentTimeMillis()), 1);
-        Gson gson = new Gson();
+        Log.i("ThemeDetailActivity", "insertToThemeDetail: ---"+new Timestamp(System.currentTimeMillis()));
+        Gson gson=new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
         String jsonThemeDetailInfo = gson.toJson(themeDetailTbl);
+        Log.i("ThemeDetailActivity", "insertToThemeDetail:22222222 "+jsonThemeDetailInfo);
         requestParams.addBodyParameter("themeDetailInfo", jsonThemeDetailInfo);
         x.http().post(requestParams, new Callback.CommonCallback<String>() {
             @Override
@@ -425,6 +428,7 @@ public class ThemeDetailActivity extends AppCompatActivity {
         x.http().get(requestParams, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
+                Log.i("ThemeDetailActivity", "onSuccess: 222222222"+result);
                 Gson gson = new Gson();
                 Type type = new TypeToken<List<ThemeDetailTbl>>() {
                 }.getType();
@@ -492,6 +496,7 @@ public class ThemeDetailActivity extends AppCompatActivity {
                                     }
                                     Log.i("ThemeDetailActivity", "onClick:11111 "+themeDetailTbls.get(position).getUserTbl().getUserId());
                                     Log.i("ThemeDetailActivity", "onClick:2 222222"+((MyApplication) getApplication()).getUserTbl1().getUserId());
+                                    Log.i("ThemeDetailActivity", "onClick: 33333"+themeDetailTbls.get(position).getThemeDetailIs());
                                 }
 
                             }
@@ -521,8 +526,9 @@ public class ThemeDetailActivity extends AppCompatActivity {
     public void insertThemeDetailDuoJi() {
         String url = NetUtil.url + "InsertThemeDetailDuoJiServlet";
         RequestParams requestParams = new RequestParams(url);
+        Log.i("ThemeDetailActivity", "insertThemeDetailDuoJi: 13131313"+requestParams);
         ThemeDetailTbl themeDetailTbl = new ThemeDetailTbl(themeId, ((MyApplication) getApplication()).getUserTbl1(), themeDetailTbl1, etHuifu.getText().toString(), new Timestamp(System.currentTimeMillis()), 1);
-        Gson gson = new Gson();
+        Gson gson=new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
         String jsonThemeDetailDuoJi = gson.toJson(themeDetailTbl);
         requestParams.addBodyParameter("themeDetailDuoJiInfo", jsonThemeDetailDuoJi);
         x.http().post(requestParams, new Callback.CommonCallback<String>() {
@@ -590,6 +596,7 @@ public class ThemeDetailActivity extends AppCompatActivity {
             @Override
             public void onSuccess(String result) {
                 Toast.makeText(ThemeDetailActivity.this, "删除评论成功", Toast.LENGTH_SHORT).show();
+                getThemeDetail();
             }
 
             @Override

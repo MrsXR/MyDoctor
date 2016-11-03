@@ -39,7 +39,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/user_comment_detail_number"
         android:layout_below="@+id/user_comment_detail_edittext"
-        android:text="还有"
+        android:text="还有300字"
         android:layout_alignParentRight="true"
         android:layout_marginRight="40dp"/>
 

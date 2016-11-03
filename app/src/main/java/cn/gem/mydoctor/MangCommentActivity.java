@@ -143,7 +143,7 @@ public class MangCommentActivity extends AppCompatActivity implements MyReflashL
         userSname.setText(commentOrderDetailTbl.getUserSname());
 
         userTime=viewHolder.getViewById(R.id.many_comment_time);
-        userTime.setText(commentOrderDetailTbl.getCommentOrderDetailTime().toString());
+        userTime.setText(commentOrderDetailTbl.getCommentOrderDetailTime()+"");
 
         illSname=viewHolder.getViewById(R.id.mang_comment_user_ill);
         illSname.setText(commentOrderDetailTbl.getOrderIllSname());

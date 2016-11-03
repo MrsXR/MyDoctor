@@ -17,12 +17,11 @@ public class DepartmentsTbl {
 	
 	
 
-	public DepartmentsTbl(int departmentsId, String departmentsSname, String departmentsBrief,
+	public DepartmentsTbl(int departmentsId, String departmentsSname,
 			List<SubjectTbl> subjectTbl) {
 		super();
 		this.departmentsId = departmentsId;
 		this.departmentsSname = departmentsSname;
-		this.departmentsBrief = departmentsBrief;
 		this.subjectTbl = subjectTbl;
 	}
 	

@@ -1,6 +1,8 @@
 package cn.gem.fragment;
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -43,6 +45,7 @@ public class HospitalBriefOrders extends Fragment {
     ListView listS;
 
     int hospitalId=0;
+    int selectedPosition = 0;// 选中的位置
 
     @Nullable
     @Override
@@ -65,22 +68,44 @@ public class HospitalBriefOrders extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         //科室的适配器
+
         if(departmentsTbls.size()>0) {
             rAdapter = new CommonAdapter<DepartmentsTbl>(getContext(), departmentsTbls, R.layout.hospital_brief_common_text) {
+
                 @Override
                 public void convert(ViewHolder viewHolder, DepartmentsTbl departmentsTbl, int position) {
                     textView = viewHolder.getViewById(R.id.hospital_brief_common_item);
                     textView.setText(departmentsTbl.getDepartmentsSname());
+
+                    if (selectedPosition == position) {
+                        textView.setSelected(true);
+                        textView.setPressed(true);
+                        textView.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                    } else {
+                        textView.setSelected(false);
+                        textView.setPressed(false);
+                        textView.setBackgroundColor(Color.parseColor("#AADAF5"));
+
+                    }
+                    if(selectedPosition==0&&position==0){
+                        textView.setSelected(true);
+                        textView.setPressed(true);
+                        textView.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                    }
+
                 }
             };
             listR.setAdapter(rAdapter);
 
             getSubject(0);//显示默认科室
+
             //点击科室显示对应的科目信息
             listR.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     getSubject(position);
+                    selectedPosition=position;
+                    rAdapter.notifyDataSetInvalidated();
                 }
             });
 
@@ -99,15 +124,16 @@ public class HospitalBriefOrders extends Fragment {
         }
     }
 
+
     //科室的信息显示
     public void getSubject(int k) {
         if (departmentsTbls.get(k).getSubjectTbl().size()>0) {
             subjectTbls = departmentsTbls.get(k).getSubjectTbl();
             //科目
-            sAdapter = new CommonAdapter<SubjectTbl>(getContext(), subjectTbls, R.layout.hospital_brief_common_text) {
+            sAdapter = new CommonAdapter<SubjectTbl>(getContext(), subjectTbls, R.layout.hospital_brief_common_white_text) {
                 @Override
                 public void convert(ViewHolder viewHolder, SubjectTbl subjectTbl, int position) {
-                    textView = viewHolder.getViewById(R.id.hospital_brief_common_item);
+                    textView = viewHolder.getViewById(R.id.hospital_brief_common_item1);
                     textView.setText(subjectTbl.getSubjectSname());
                 }
             };
