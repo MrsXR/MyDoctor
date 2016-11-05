@@ -65,7 +65,8 @@ public class ThemeFragment extends BaseFragment implements MyReflashList.OnRefre
     List<ThemeDetailTbl> themeDetailTbls = new ArrayList<>();
     RadioGroup radioGroup;
     HorizontalScrollView horizontalScrollView;
-    List<String> moduleItem = new ArrayList<>();
+    List<String> themeimages=new ArrayList<>();//放图片
+    List<String> moduleItem = new ArrayList<>();//存放模块集合
     @InjectView(R.id.iv_fabiao)
     ImageView ivFabiao;
     private int item_check_ID;
@@ -268,8 +269,14 @@ public class ThemeFragment extends BaseFragment implements MyReflashList.OnRefre
                             tvAnswerNum.setText(themeTbl.getAnswerNum() + "");
                             String themePhotoUrl=themeTbl.getThemePhotoUrl();
                             Log.i("ThemeFragment", "ThemeFragment: THEMEPHOTO"+themePhotoUrl);
-                            String a[]=themePhotoUrl.split("%");
-                            Log.i("ThemeFragment", "ThemeFragment: ACDDCSA"+a);
+                            if (themeTbl.getThemePhotoUrl()!=null){
+                                String[] images=themeTbl.getThemePhotoUrl().split("%");
+                                for (int i=0;i<images.length;i++){
+                                    themeimages.add(images[i]);
+                                }
+                                Log.i("ThemeFragment", "ThemeFragment: convert"+themeimages);
+                            }
+
                         }
                     };
                     lvTheme.setAdapter(themeTblCommonAdapter);
