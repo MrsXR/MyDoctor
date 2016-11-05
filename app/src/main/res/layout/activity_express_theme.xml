@@ -5,19 +5,24 @@
     android:layout_height="match_parent"
     tools:context="cn.gem.mydoctor.ExpressThemeActivity">
  <RelativeLayout
+     android:background="@color/colorTitle"
      android:id="@+id/rl_Express_theme"
      android:layout_width="match_parent"
      android:layout_height="60dp"
      android:orientation="horizontal">
 
 
-     <ImageView
-         android:layout_width="30dp"
+     <TextView
+         android:layout_alignParentLeft="true"
+         android:textSize="20dp"
+         android:gravity="center"
+         android:layout_width="70dp"
          android:layout_height="30dp"
          android:id="@+id/iv_quxiao"
+         android:text="取消"
          android:layout_centerVertical="true"
-         android:layout_marginLeft="10dp"
-         android:src="@mipmap/error"/>
+
+         android:textColor="@color/white"/>
 
      <TextView
          android:gravity="center"
@@ -25,7 +30,7 @@
          android:layout_width="100dp"
          android:layout_height="match_parent"
          android:text="发表主题"
-         android:textColor="#000000"
+         android:textColor="@color/white"
          android:id="@+id/tv_expresstheme"
          android:layout_centerInParent="true"/>
 
@@ -33,7 +38,7 @@
          android:layout_width="70dp"
          android:layout_height="30dp"
          android:textSize="20dp"
-         android:textColor="@color/colorTitle1"
+         android:textColor="@color/white"
          android:text="发表"
          android:gravity="center"
          android:id="@+id/tv_express"
@@ -74,66 +79,52 @@
         android:layout_below="@+id/ll_title_theme"
         android:id="@+id/tv_hui1">
     </TextView>
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_marginLeft="5dp"
-        android:layout_width="match_parent"
-        android:layout_height="250dp"
-        android:id="@+id/ll_context"
-        android:layout_below="@+id/tv_hui1">
-        <EditText
+    <EditText
+            android:layout_below="@+id/tv_hui1"
             android:textCursorDrawable="@drawable/color_cursor"
             android:background="@null"
             android:layout_width="match_parent"
-            android:layout_height="250dp"
+            android:layout_height="150dp"
             android:id="@+id/et_themecontext"
             android:gravity="start"
             android:hint="主题内容"/>
-    </LinearLayout>
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/ll_context"
+        android:layout_below="@+id/et_themecontext"
         android:id="@+id/ll_weizhi">
         <ImageView
             android:layout_margin="5dp"
-            android:id="@+id/iv_photo"
-            android:layout_width="40dp"
-            android:layout_height="30dp"
-            android:src="@mipmap/photo"/>
-        <ImageView
-            android:layout_alignTop="@+id/iv_photo"
+            android:id="@+id/iv_addphoto"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/iv_photo1"
-            android:layout_marginLeft="50dp"
-            android:padding="5dp"/>
-       <RadioGroup
-           android:layout_alignParentRight="true"
-           android:orientation="horizontal"
-           android:layout_width="100dp"
-           android:layout_height="20dp"
-           android:id="@+id/rg_dingwei">
+            android:src="@mipmap/add_photo"/>
         <ImageView
+            android:layout_toLeftOf="@+id/tv_placeyourself"
             android:layout_marginLeft="5dp"
             android:layout_width="25dp"
             android:layout_height="20dp"
             android:src="@mipmap/place"
             android:id="@+id/iv_place"/>
         <TextView
+            android:layout_alignParentEnd="true"
             android:layout_width="60dp"
             android:layout_height="20dp"
             android:text="所在位置"
             android:gravity="center"
             android:id="@+id/tv_placeyourself"/>
-       </RadioGroup>
+    <ScrollView
+        android:scrollbars="none"
+        android:layout_below="@+id/iv_addphoto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+     <cn.gem.util.MyGridView
 
-
-
-    </RelativeLayout>
-
-
-
-
+         android:id="@+id/gv_themePhoto"
+         android:layout_width="match_parent"
+         android:layout_height="match_parent"
+         android:numColumns="3">
+      </cn.gem.util.MyGridView>
+    </ScrollView>
+   </RelativeLayout>
 </RelativeLayout>

@@ -2,15 +2,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item android:icon="@mipmap/zan"
-        android:title="赞"
-        android:id="@+id/zan"
-        app:showAsAction="always"
-        android:orderInCategory="1">
-    </item>
 
     <item android:id="@+id/invite"
-        android:icon="@mipmap/invite"
+        android:icon="@mipmap/fenxiang"
         android:title="分享"
         app:showAsAction="always"
         android:orderInCategory="2">

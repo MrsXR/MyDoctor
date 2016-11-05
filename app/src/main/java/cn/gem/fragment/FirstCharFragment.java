@@ -2,6 +2,7 @@ package cn.gem.fragment;
 
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -62,29 +63,16 @@ public class FirstCharFragment extends Fragment {
         fragments = new Fragment[]{themeFragment, articleFragment};
         //按钮数组
         rbns = new RadioButton[2];
-        rbns[0] = (RadioButton) v.findViewById(R.id.rb_reliao1);
-        rbns[1] = (RadioButton) v.findViewById(R.id.rb_zixun1);
+        rbns[0] = (RadioButton) v.findViewById(R.id.rb_zixun1);
+        rbns[1] = (RadioButton) v.findViewById(R.id.rb_reliao1);
         //界面初始化显示的第一个fragment，添加第一个fragment
         getActivity().getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, fragments[0]).commit();
-
         rbns[0].setChecked(true);
+        rbns[0].setBackgroundColor(Color.parseColor("#17abe3"));
         ButterKnife.inject(this, v);
 
         return v;
     }
-
-//    public void onTabClicked(View view) {
-//        switch (view.getId()) {
-//            case R.id.rb_reliao1:
-//                newIndex = 0;//选中第一项
-//                break;
-//            case R.id.rb_zixun1:
-//                newIndex = 1;//选中第二项
-//                break;
-//
-//        }
-//        switchFragment();
-//    }
 
     public void switchFragment() {
         FragmentTransaction transaction;
@@ -128,18 +116,24 @@ public class FirstCharFragment extends Fragment {
                 startActivity(intent1);
                 break;
             case R.id.rb_zixun1:
+                rbns[0].setChecked(true);
+                rbns[0].setBackgroundColor(Color.WHITE);
+                rbns[1].setBackgroundColor(Color.parseColor("#17abe3"));
                 newIndex = 1;//选中第一项
                 switchFragment();
                 Log.i("FirstCharFragment", "FirstCharFragment: onClick"+fragments[newIndex]);
                 break;
             case R.id.rb_reliao1:
+                rbns[1].setChecked(true);
+                rbns[0].setBackgroundColor(Color.parseColor("#17abe3"));
+                rbns[1].setBackgroundColor(Color.WHITE);
                 newIndex=0; //选中第二项
                 switchFragment();
                 Log.i("FirstCharFragment", "FirstCharFragment: onClick"+fragments[newIndex]);
-                 break;
+                break;
         }
     }
 
 
-    }
+}
 

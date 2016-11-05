@@ -3,6 +3,8 @@ package cn.gem.mydoctor;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -38,6 +40,7 @@ import java.lang.reflect.Type;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -51,12 +54,19 @@ import cn.gem.util.CommonAdapter;
 import cn.gem.util.IpChangeAddress;
 import cn.gem.util.NetUtil;
 import cn.gem.util.ViewHolder;
+import cn.jpush.android.api.JPushInterface;
+import cn.jpush.android.api.TagAliasCallback;
+import cn.sharesdk.framework.Platform;
+import cn.sharesdk.framework.ShareSDK;
+import sharesdk.onekeyshare.OnekeyShare;
+import sharesdk.onekeyshare.ShareContentCustomizeCallback;
 
 public class ThemeDetailActivity extends AppCompatActivity {
     List<PraiseTbl> praiseTbls = new ArrayList<PraiseTbl>();
     ThemeTbl themeTbl;
     ModuleTbl moduleTbl;
     int themeId;
+    int pushId;
     int praiseNum;//点赞数量
     ThemeDetailTbl themeDetailTbl1;//所评论的对象
     ThemeDetailTbl themeDetailTbl2;//所删除的对象
@@ -210,12 +220,14 @@ public class ThemeDetailActivity extends AppCompatActivity {
                 break;
             case R.id.iv_pinglun:
                 rlEditDibu.setVisibility(View.VISIBLE);
+                etHuifulouzhu.requestFocus();
                 llDibu.setVisibility(View.GONE);
                 InputMethodManager imm1 = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm1.showSoftInput(ivPinglun, InputMethodManager.RESULT_SHOWN);
                 imm1.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
                 break;
             case R.id.iv_shoucang:
+                showShare();
                 break;
             case R.id.tv_module:
                 break;
@@ -245,6 +257,8 @@ public class ThemeDetailActivity extends AppCompatActivity {
                 } else {
                     insertThemeDetailDuoJi();
                     updateAswerNum();
+                    zucePush();
+                    sendPush();
                     etHuifu.setText("");
                     imm3.hideSoftInputFromWindow(etHuifu.getWindowToken(), 0);
                 }
@@ -370,16 +384,7 @@ public class ThemeDetailActivity extends AppCompatActivity {
         tvPinglun.setText(themeTbl.getAnswerNum() + "");
         tvThemecontent.setText(themeTbl.getThemeContent());
         tvDibupinglun.setText(themeTbl.getAnswerNum() + "");
-        tvModule.setText(themeTbl.getModuleTbl().getModuleSname());
-        String photoUrl1 =  IpChangeAddress.ipChangeAddress + themeTbl.getThemePhotoUrl1();
-        ImageOptions imageOptions1 = new ImageOptions.Builder().setCrop(true).setSize(400, 400).build();
-        x.image().bind(ivPhoto1, photoUrl1, imageOptions1);
-        String photoUrl2 =  IpChangeAddress.ipChangeAddress+ themeTbl.getThemePhotoUrl2();
-        ImageOptions imageOptions2 = new ImageOptions.Builder().setCrop(true).setSize(400, 400).build();
-        x.image().bind(ivPhoto2, photoUrl2, imageOptions2);
-        String photoUrl3 =  IpChangeAddress.ipChangeAddress+ themeTbl.getThemePhotoUrl3();
-        ImageOptions imageOptions3 = new ImageOptions.Builder().setCrop(true).setSize(400, 400).build();
-        x.image().bind(ivPhoto3, photoUrl3, imageOptions3);
+
         getDataFromPraise();
         getThemeDetail();
 
@@ -468,9 +473,11 @@ public class ThemeDetailActivity extends AppCompatActivity {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         rlEditHuifu.setVisibility(View.VISIBLE);
+                        etHuifu.requestFocus();
                         llDibu.setVisibility(View.GONE);
                         etHuifu.setHint("回复" + themeDetailTbls.get(position).getUserTbl().getUserSname());
                         themeDetailTbl1 = themeDetailTbls.get(position);
+                        pushId=themeDetailTbls.get(position).getUserTbl().getUserId();
                         Log.i("ThemeDetailActivity", "ThemeDetailActivity: 点击。。。" + themeDetailTbls.get(position).getUserTbl().getUserSname());
                         InputMethodManager imm1 = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                         imm1.showSoftInput(etHuifu, InputMethodManager.RESULT_SHOWN);
@@ -622,4 +629,91 @@ public class ThemeDetailActivity extends AppCompatActivity {
         im.hideSoftInputFromWindow(getCurrentFocus().getApplicationWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
         return super.onTouchEvent(event);
     }
+    public void zucePush(){
+        JPushInterface.setAlias(this, ((MyApplication) getApplication()).getUserTbl1().getUserId()+"", new TagAliasCallback() {
+            @Override
+            public void gotResult(int i, String s, Set<String> set) {
+                Log.i("MainActivity", "MainActivity: gotResult:返回码"+i+"别名"+s);
+            }
+        });
+    }
+    public void sendPush(){
+        String url=NetUtil.url+"JPushServlet";
+        RequestParams requestParams=new RequestParams(url);
+        requestParams.addQueryStringParameter("alias",pushId+"");
+        Log.i("ThemeDetailActivity", "ThemeDetailActivity: sendPushPISHID"+pushId);
+        x.http().get(requestParams, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+        });
+    }
+    private void showShare() {
+        ShareSDK.initSDK(this);
+        OnekeyShare oks = new OnekeyShare();
+        //关闭sso授权
+        oks.disableSSOWhenAuthorize();
+        // 分享时Notification的图标和文字  2.5.9以后的版本不调用此方法
+        //oks.setNotification(R.drawable.ic_launcher, getString(R.string.app_name));
+        // title标题，印象笔记、邮箱、信息、微信、人人网和QQ空间使用
+        oks.setTitle("来自APP:MyDoctor的分享");
+        // titleUrl是标题的网络链接，仅在人人网和QQ空间使用
+        oks.setTitleUrl("http://sharesdk.cn");
+        // text是分享文本，所有平台都需要这个字段
+        oks.setText("哈哈哈哈哈哈哈");
+        // imagePath是图片的本地路径，Linked-In以外的平台都支持此参数
+        //oks.setImagePath("/sdcard/test.jpg");//确保SDcard下面存在此张图片
+        // url仅在微信（包括好友和朋友圈）中使用
+        oks.setUrl("http://sharesdk.cn");
+        // comment是我对这条分享的评论，仅在人人网和QQ空间使用
+        oks.setComment("我是测试评论文本");
+        // site是分享此内容的网站名称，仅在QQ空间使用
+        oks.setSite(getString(R.string.app_name));
+        // siteUrl是分享此内容的网站地址，仅在QQ空间使用
+        oks.setSiteUrl("http://www.baidu.com");
+        oks.setImageUrl("http://f1.sharesdk.cn/imgs/2014/02/26/owWpLZo_638x960.jpg");
+        oks.setShareContentCustomizeCallback(new ShareContentCustomizeCallback() {
+            @Override
+            public void onShare(Platform platform, cn.sharesdk.framework.Platform.ShareParams paramsToShare) {
+                if ("QZone".equals(platform.getName())) {
+                    paramsToShare.setTitle(null);
+                    paramsToShare.setTitleUrl("分享文本 http://www.baidu.com");
+                }
+                if ("SinaWeibo".equals(platform.getName())) {
+                    paramsToShare.setUrl(null);
+                    paramsToShare.setText("分享文本 http://www.baidu.com");
+                }
+                if ("Wechat".equals(platform.getName())) {
+                    Bitmap imageData = BitmapFactory.decodeResource(getResources(), R.drawable.ssdk_logo);
+                    paramsToShare.setImageData(imageData);
+                }
+                if ("WechatMoments".equals(platform.getName())) {
+                    Bitmap imageData = BitmapFactory.decodeResource(getResources(), R.drawable.ssdk_logo);
+                    paramsToShare.setImageData(imageData);
+                }
+
+            }
+        });
+
+// 启动分享GUI
+        oks.show(this);
+    }
+
+
 }

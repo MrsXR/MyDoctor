@@ -8,6 +8,8 @@ import android.util.Log;
 import org.xutils.x;
 
 import cn.gem.entity.UserTbl;
+import cn.jpush.android.api.JPushInterface;
+import cn.sharesdk.framework.ShareSDK;
 
 /**
  * Created by dliu on 2016/9/30.
@@ -61,6 +63,8 @@ public class MyApplication extends Application {
         super.onCreate();
         Log.i("MyApplication", "onCreate: ");
         x.Ext.init(this);
+        JPushInterface.init(this);
+        ShareSDK.initSDK(this);
         //Fresco.initialize(this);//需要对com.facebook.drawee.view.SimpleDraweeView添加依赖
     }
 

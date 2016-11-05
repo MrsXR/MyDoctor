@@ -1,99 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
+    android:padding="5dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <LinearLayout
+    <RelativeLayout
+        android:padding="5dp"
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="65dp"
+        android:layout_height="wrap_content"
         android:id="@+id/article_title_item">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:id="@+id/article_title1">
-
-
-
-        <ImageView
-            android:padding="3dp"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:id="@+id/article_photo"
-            android:src="@mipmap/ic_launcher"
-            android:layout_weight="1"/>
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
+    <ImageView
+        android:layout_marginRight="8dp"
+        android:id="@+id/iv_article_photo"
+        android:layout_width="70dp"
+        android:layout_height="50dp" />
+        <TextView
             android:id="@+id/tv_article_title"
-            android:layout_weight="5" >
+            android:textColor="@color/text"
+            android:text="文章标题"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/iv_article_photo"/>
+        <TextView
+            android:layout_toRightOf="@+id/iv_article_photo"
+            android:layout_alignBottom="@+id/iv_article_photo"
+            android:id="@+id/article_time"
+            android:text="2012-05-02"
+            android:textSize="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_marginLeft="20dp"
+            android:layout_alignBottom="@+id/iv_article_photo"
+            android:text="阅读量:"
+            android:layout_toRightOf="@+id/article_time"
+            android:id="@+id/tv_article_looknum"
+            android:textColor="@color/click"
+            android:textSize="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+        <TextView
+            android:id="@+id/tv_article_looknum1"
+            android:textColor="@color/click"
+            android:layout_marginLeft="3dp"
+            android:layout_toRightOf="@+id/tv_article_looknum"
+            android:textSize="10dp"
+            android:text="200"
+            android:layout_alignBottom="@+id/iv_article_photo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/article_from"
+            android:layout_alignBottom="@+id/iv_article_photo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="健康网"
+            android:textSize="10dp"
+            android:textColor="#0000ff"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="20dp"
+            />
+        <TextView
+            android:layout_above="@+id/article_time"
+            android:layout_toRightOf="@+id/iv_article_photo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_content"
+            android:textSize="10dp"
+            android:text="这种食物吃了有问题"
+            android:layout_below="@+id/tv_article_title"/>
+
+    </RelativeLayout>
 
 
+    </RelativeLayout>
 
-            <TextView
-                android:padding="1dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="文章标题"
-                android:gravity="center_vertical"
-                android:id="@+id/tv_title"
-                android:layout_weight="7"/>
-
-            <RadioGroup
-
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:id="@+id/rg_title_article_item"
-                android:orientation="horizontal"
-                android:layout_weight="3">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="7"/>
-             <TextView
-
-                android:padding="1dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="time"
-                android:layout_weight="3"
-
-                android:textSize="10dp"
-                android:id="@+id/tv_article_time" />
-            <TextView
-                android:padding="1dp"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="阅读量："
-                android:textSize="10dp"
-                android:id="@+id/tv_read_namber"
-                android:layout_weight="2"
-                />
-            <TextView
-                android:padding="1dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="num"
-                    android:textAlignment="gravity"
-                    android:id="@+id/tv_article_readnumber"
-                    android:layout_weight="1"/>
-            </RadioGroup>
-
-
-        </LinearLayout>
-
-
-
-
-    </LinearLayout>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="5dp"
-        android:background="@color/hui"
-        android:layout_below="@+id/article_title1"/>
-
-    </LinearLayout>
-
-</RelativeLayout>

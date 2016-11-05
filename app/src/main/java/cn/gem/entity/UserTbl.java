@@ -14,6 +14,15 @@ public class UserTbl implements Parcelable {
 	private float userHeight;
 	private float userWeight;
 	private String userCase;
+	private String userPhoto;
+
+	public String getUserPhoto() {
+		return userPhoto;
+	}
+
+	public void setUserPhoto(String userPhoto) {
+		this.userPhoto = userPhoto;
+	}
 
 	public UserTbl(String userSname, String userPhone, String userCard) {
 		this.userSname = userSname;

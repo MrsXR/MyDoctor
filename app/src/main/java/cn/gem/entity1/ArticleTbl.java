@@ -16,12 +16,21 @@ public class ArticleTbl {
 	private int articleReadnumber;
     private Timestamp articleTime;
     private int collectId;
+	private String articleFrom;
 
 
 	public ArticleTbl( String articleTitle, int articleReadnumber,Timestamp articleTime) {
 		this.articleTime = articleTime;
 		this.articleReadnumber = articleReadnumber;
 		this.articleTitle = articleTitle;
+	}
+
+	public String getArticleFrom() {
+		return articleFrom;
+	}
+
+	public void setArticleFrom(String articleFrom) {
+		this.articleFrom = articleFrom;
 	}
 
 	public int getArticleId() {

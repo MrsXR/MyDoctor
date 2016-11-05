@@ -24,9 +24,8 @@ public class ThemeTbl implements Parcelable {
 	private DoctorsTbl doctorsTbl;
 	private int answerNum;
 	private int lookNumber;
-	private String themePhotoUrl1;
-	private String themePhotoUrl2;
-	private String themePhotoUrl3;
+	private String themePhotoUrl;
+
 
 	public ThemeTbl(ModuleTbl moduleTbl,UserTbl userTbl,String themeName,String themeContent, Timestamp themeTime) {
 		this.themeName = themeName;
@@ -41,28 +40,12 @@ public class ThemeTbl implements Parcelable {
 		return lookNumber;
 	}
 
-	public String getThemePhotoUrl1() {
-		return themePhotoUrl1;
+	public String getThemePhotoUrl() {
+		return themePhotoUrl;
 	}
 
-	public void setThemePhotoUrl1(String themePhotoUrl1) {
-		this.themePhotoUrl1 = themePhotoUrl1;
-	}
-
-	public String getThemePhotoUrl2() {
-		return themePhotoUrl2;
-	}
-
-	public void setThemePhotoUrl2(String themePhotoUrl2) {
-		this.themePhotoUrl2 = themePhotoUrl2;
-	}
-
-	public String getThemePhotoUrl3() {
-		return themePhotoUrl3;
-	}
-
-	public void setThemePhotoUrl3(String themePhotoUrl3) {
-		this.themePhotoUrl3 = themePhotoUrl3;
+	public void setThemePhotoUrl(String themePhotoUrl) {
+		this.themePhotoUrl = themePhotoUrl;
 	}
 
 	public void setLookNumber(int lookNumber) {
@@ -148,9 +131,8 @@ public class ThemeTbl implements Parcelable {
 		dest.writeParcelable(this.doctorsTbl, flags);
 		dest.writeInt(this.answerNum);
 		dest.writeInt(this.lookNumber);
-		dest.writeString(this.themePhotoUrl1);
-		dest.writeString(this.themePhotoUrl2);
-		dest.writeString(this.themePhotoUrl3);
+		dest.writeString(this.themePhotoUrl);
+
 	}
 
 	protected ThemeTbl(Parcel in) {
@@ -163,9 +145,8 @@ public class ThemeTbl implements Parcelable {
 		this.doctorsTbl = in.readParcelable(DoctorsTbl.class.getClassLoader());
 		this.answerNum = in.readInt();
 		this.lookNumber = in.readInt();
-		this.themePhotoUrl1 = in.readString();
-		this.themePhotoUrl2 = in.readString();
-		this.themePhotoUrl3 = in.readString();
+		this.themePhotoUrl = in.readString();
+
 	}
 
 	public static final Parcelable.Creator<ThemeTbl> CREATOR = new Parcelable.Creator<ThemeTbl>() {

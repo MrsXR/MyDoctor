@@ -11,17 +11,61 @@
       android:background="@color/colorTitle"
       >
 </android.support.v7.widget.Toolbar>
-    <LinearLayout
+    <ScrollView
+        android:scrollbars="none"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/toolbar_articleDetail">
-        <WebView
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+       <TextView
+           android:textColor="@color/text"
+           android:padding="8dp"
+           android:textSize="18dp"
+           android:id="@+id/tv_articleTitle"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="文章标题"/>
+        <TextView
+            android:layout_marginLeft="10dp"
+            android:layout_below="@+id/tv_articleTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_articletime"
+            android:text="2014-02-20"/>
+        <TextView
+            android:layout_marginRight="10dp"
+            android:id="@+id/tv_articleFrom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="来自:名医网"
+            android:layout_alignParentRight="true"
+            android:layout_alignBottom="@+id/tv_articletime"/>
+        <TextView
+            android:layout_margin="10dp"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/webView"
-            />
-    </LinearLayout>
+            android:layout_height="wrap_content"
+            android:id="@+id/article_content"
+            android:layout_below="@+id/tv_articletime"/>
+         <TextView
+             android:textColor="@color/text"
+             android:layout_margin="10dp"
+             android:textSize="18dp"
+             android:text="相关文章"
+             android:layout_below="@+id/article_content"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:id="@+id/tv_thesame"/>
+        <cn.gem.weight.NoScrollListview
+            android:layout_below="@+id/tv_thesame"
+            android:id="@+id/lv_thesame"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
+        </cn.gem.weight.NoScrollListview>
+    </RelativeLayout>
 
+    </ScrollView>
 
 </RelativeLayout>

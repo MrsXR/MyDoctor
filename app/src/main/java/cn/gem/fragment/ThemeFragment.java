@@ -2,10 +2,13 @@ package cn.gem.fragment;
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.CursorJoiner;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
@@ -20,6 +23,7 @@ import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -32,31 +36,38 @@ import org.xutils.x;
 import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
 import butterknife.ButterKnife;
+import butterknife.InjectView;
+import butterknife.OnClick;
 import cn.gem.entity.QueryThemeBean;
 import cn.gem.entity.ThemeDetailTbl;
 import cn.gem.entity1.ThemeTbl;
+import cn.gem.mydoctor.ExpressThemeActivity;
 import cn.gem.mydoctor.R;
-
 import cn.gem.mydoctor.ThemeDetailActivity;
 import cn.gem.util.CommonAdapter;
-import cn.gem.util.IpChangeAddress;
+import cn.gem.util.FileTraversal;
 import cn.gem.util.NetUtil;
 import cn.gem.util.ViewHolder;
+import cn.gem.weight.MyReflashList;
 
 /**
  * Created by panwenpeng on 2016/10/14.
  */
-public class ThemeFragment extends BaseFragment {
-
-    ListView lvTheme;
+public class ThemeFragment extends BaseFragment implements MyReflashList.OnRefreshUploadChangeListener {
+    List<FileTraversal> fileTraversal;
+    ImageView ivSend;
+    MyReflashList lvTheme;
     List<ThemeDetailTbl> themeDetailTbls = new ArrayList<>();
     RadioGroup radioGroup;
     HorizontalScrollView horizontalScrollView;
     List<String> moduleItem = new ArrayList<>();
+    @InjectView(R.id.iv_fabiao)
+    ImageView ivFabiao;
     private int item_check_ID;
     int screenHalf;
     RadioButton rb;
@@ -67,7 +78,7 @@ public class ThemeFragment extends BaseFragment {
     Integer pageNo = 1;
     Integer pageSize = 5;
     int lookNumber;
-
+    Handler handler = new Handler();
     CommonAdapter<ThemeTbl> themeTblCommonAdapter;
     List<ThemeTbl> themeTbls = new ArrayList<ThemeTbl>();
     View v;
@@ -79,8 +90,11 @@ public class ThemeFragment extends BaseFragment {
         v = inflater.inflate(R.layout.fragment_theme, null);
         radioGroup = (RadioGroup) v.findViewById(R.id.radio_group);
         horizontalScrollView = (HorizontalScrollView) v.findViewById(R.id.horizontalscrollview);
-        lvTheme = (ListView) v.findViewById(R.id.lv_theme);
+        lvTheme = (MyReflashList) v.findViewById(R.id.lv_theme);
+        ivSend = (ImageView) v.findViewById(R.id.iv_add1);
+
         getData();
+        ButterKnife.inject(this, v);
         return v;
     }
 
@@ -108,7 +122,7 @@ public class ThemeFragment extends BaseFragment {
 
     @Override
     public void initEvent() {
-        //
+
 
     }
 
@@ -219,11 +233,11 @@ public class ThemeFragment extends BaseFragment {
         requestParams.addQueryStringParameter("flag", flag + "");
         requestParams.addQueryStringParameter("pageNo", pageNo + "");
         requestParams.addQueryStringParameter("pageSize", pageSize + "");
-        Log.i("ThemeFragment", "ThemeFragment: 主页面初始化"+requestParams);
+        Log.i("ThemeFragment", "ThemeFragment: 主页面初始化" + requestParams);
         x.http().get(requestParams, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
-                Log.i("ThemeFragment", "ThemeFragment: onSuccess------------"+result);
+                Log.i("ThemeFragment", "ThemeFragment: onSuccess------------" + result);
                 //json转换成List<>
                 Gson gson = new Gson();
                 Type type = new TypeToken<List<ThemeTbl>>() {
@@ -239,32 +253,23 @@ public class ThemeFragment extends BaseFragment {
                         public void convert(ViewHolder viewHolder, ThemeTbl themeTbl, int position) {
                             TextView tvThenmeName = viewHolder.getViewById(R.id.tv_username);
                             tvThenmeName.setText(themeTbl.getUserTbl().getUserSname());
+                            ImageView userPhoto=viewHolder.getViewById(R.id.iv_userphoto);
+                            ImageOptions imageOptions=new ImageOptions.Builder().setCircular(true).build();
+                            String userImage=NetUtil.image+themeTbl.getUserTbl().getUserPhoto();
+                            x.image().bind(userPhoto,userImage,imageOptions);
                             TextView tvThemeName = viewHolder.getViewById(R.id.tv_forum_title);
                             tvThemeName.setText(themeTbl.getThemeName());
                             TextView tvThemeTime = viewHolder.getViewById(R.id.tv_themetime);
-                            String time=upsateTime(themeTbl.getThemeTime());
-                            tvThemeTime.setText(time+"");
+                            String time = upsateTime(themeTbl.getThemeTime());
+                            tvThemeTime.setText(time + "");
                             TextView tvThemeReadNum = viewHolder.getViewById(R.id.tv_theme_readnumber);
                             tvThemeReadNum.setText(themeTbl.getLookNumber() + "");
                             TextView tvAnswerNum = viewHolder.getViewById(R.id.tv_answertheme_number);
                             tvAnswerNum.setText(themeTbl.getAnswerNum() + "");
-                            ImageView ivUrl1 = viewHolder.getViewById(R.id.iv_themeImage1);
-                            ImageView ivUrl2 = viewHolder.getViewById(R.id.iv_themeImage2);
-                            ImageView ivUrl3 = viewHolder.getViewById(R.id.iv_themeImage3);
-                            String photoUrl1 = IpChangeAddress.ipChangeAddress + themeTbl.getThemePhotoUrl1();
-                            ImageOptions imageOptions1 = new ImageOptions.Builder().setCrop(true).setSize(400, 400).build();
-                            x.image().bind(ivUrl1, photoUrl1, imageOptions1);
-
-                            String photoUrl2 = IpChangeAddress.ipChangeAddress + themeTbl.getThemePhotoUrl2();
-                            ImageOptions imageOptions2 = new ImageOptions.Builder().setCrop(true).setSize(400, 400).build();
-                            x.image().bind(ivUrl2, photoUrl2, imageOptions2);
-
-                            String photoUrl3 = IpChangeAddress.ipChangeAddress + themeTbl.getThemePhotoUrl3();
-                            ImageOptions imageOptions3 = new ImageOptions.Builder().setCrop(true).setSize(400, 400).build();
-                            x.image().bind(ivUrl3, photoUrl3, imageOptions3);
-
-
-
+                            String themePhotoUrl=themeTbl.getThemePhotoUrl();
+                            Log.i("ThemeFragment", "ThemeFragment: THEMEPHOTO"+themePhotoUrl);
+                            String a[]=themePhotoUrl.split("%");
+                            Log.i("ThemeFragment", "ThemeFragment: ACDDCSA"+a);
                         }
                     };
                     lvTheme.setAdapter(themeTblCommonAdapter);
@@ -272,7 +277,7 @@ public class ThemeFragment extends BaseFragment {
                     themeTblCommonAdapter.notifyDataSetChanged();
                 }
 
-
+                lvTheme.completeLoad();
             }
 
             @Override
@@ -297,13 +302,134 @@ public class ThemeFragment extends BaseFragment {
         Display display = manager.getDefaultDisplay();
         return display.getWidth();
     }
-   public String upsateTime(Date date){
-       SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-       //Date dateNow = new Date(System.currentTimeMillis());
-       String time=sdf.format(date);
-       return time;
-   }
+  //shijiangeshihua
+    public String upsateTime(Date date) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        //Date dateNow = new Date(System.currentTimeMillis());
+        String time = sdf.format(date);
+        return time;
+    }
 
+
+    @OnClick(R.id.iv_fabiao)
+    public void onClick() {
+        Intent intent=new Intent(getActivity(), ExpressThemeActivity.class);
+        Bundle bundle=new Bundle();
+        bundle.putInt("moduleId",moduleId);
+        intent.putExtras(bundle);
+        startActivity(intent);
+    }
+
+    @Override
+    public void onRefresh() {
+        pageNo=1;
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                getData();
+                lvTheme.completeRefresh();
+            }
+        },1000);
+
+    }
+
+    @Override
+    public void onPull() {
+        pageNo++;
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                getDataJiazai();
+            }
+        },1000);
+
+
+
+
+    }
+
+    public void getDataJiazai() {
+        //初始化数据
+        //xutils获取网络数据
+        String url = NetUtil.url + "QueryThemeServlet";
+        RequestParams requestParams = new RequestParams(url);
+        requestParams.addQueryStringParameter("moduleId", moduleId + "");
+        requestParams.addQueryStringParameter("flag", flag + "");
+        requestParams.addQueryStringParameter("pageNo", pageNo + "");
+        requestParams.addQueryStringParameter("pageSize", pageSize + "");
+        Log.i("ThemeFragment", "ThemeFragment: 主页面初始化" + requestParams);
+        x.http().get(requestParams, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                Log.i("ThemeFragment", "ThemeFragment: onSuccess------------" + result);
+                //json转换成List<>
+                Gson gson = new Gson();
+                Type type = new TypeToken<List<ThemeTbl>>() {
+                }.getType();
+                List<ThemeTbl> newThemetbl = new ArrayList<ThemeTbl>();
+                newThemetbl = gson.fromJson(result, type);
+            if (newThemetbl.size()==0){
+                    pageNo--;
+                    Toast.makeText(getActivity(), "没有更多数据", Toast.LENGTH_SHORT).show();
+                    lvTheme.completeLoad();
+                    return;
+                }
+                 themeTbls.addAll(newThemetbl);
+                //设置listview的适配器
+                if (themeTblCommonAdapter == null) {
+                    themeTblCommonAdapter = new CommonAdapter<ThemeTbl>(getActivity(), themeTbls, R.layout.theme_item) {
+                        @Override
+                        public void convert(ViewHolder viewHolder, ThemeTbl themeTbl, int position) {
+                            TextView tvThenmeName = viewHolder.getViewById(R.id.tv_username);
+                            tvThenmeName.setText(themeTbl.getUserTbl().getUserSname());
+                            ImageView userPhoto=viewHolder.getViewById(R.id.iv_userphoto);
+                            ImageOptions imageOptions=new ImageOptions.Builder().setCircular(true).build();
+                            String userImage=NetUtil.image+themeTbl.getUserTbl().getUserPhoto();
+                            x.image().bind(userPhoto,userImage,imageOptions);
+                            TextView tvThemeName = viewHolder.getViewById(R.id.tv_forum_title);
+                            tvThemeName.setText(themeTbl.getThemeName());
+                            TextView tvThemeTime = viewHolder.getViewById(R.id.tv_themetime);
+                            String time = upsateTime(themeTbl.getThemeTime());
+                            tvThemeTime.setText(time + "");
+                            TextView tvThemeReadNum = viewHolder.getViewById(R.id.tv_theme_readnumber);
+                            tvThemeReadNum.setText(themeTbl.getLookNumber() + "");
+                            TextView tvAnswerNum = viewHolder.getViewById(R.id.tv_answertheme_number);
+                            tvAnswerNum.setText(themeTbl.getAnswerNum() + "");
+
+
+                        }
+                    };
+                    lvTheme.setAdapter(themeTblCommonAdapter);
+                } else {
+                    themeTblCommonAdapter.notifyDataSetChanged();
+                }
+
+                lvTheme.completeLoad();
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+        });
+    }
+
+    @Override
+    public void onResume() {
+        Log.i("ThemeFragment", "ThemeFragment: onResume");
+        getData();
+        super.onResume();
+    }
 
 }
 

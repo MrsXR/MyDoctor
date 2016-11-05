@@ -3,12 +3,18 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <LinearLayout
         android:orientation="vertical"
         android:id="@+id/rl_hottheme"
         android:layout_width="match_parent"
-        android:layout_height="260dp"
+        android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         >
         <TextView
@@ -19,7 +25,7 @@
             android:layout_height="wrap_content"
             android:text="热门话题"/>
 
-        <ListView
+        <cn.gem.weight.NoScrollListview
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/lv_findtheme"
@@ -32,7 +38,7 @@
         android:orientation="vertical"
         android:id="@+id/rl_hotarticle"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         >
         <TextView
@@ -43,11 +49,13 @@
             android:layout_height="wrap_content"
             android:text="热门资讯"/>
 
-        <ListView
+        <cn.gem.weight.NoScrollListview
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/lv_findarticle"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true" />
     </LinearLayout>
+    </LinearLayout>
+</ScrollView>
 </LinearLayout>

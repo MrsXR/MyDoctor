@@ -37,6 +37,10 @@ public class ModuleTbl implements Parcelable {
 	public ModuleTbl() {
 	}
 
+	public ModuleTbl(int moduleId) {
+		this.moduleId = moduleId;
+	}
+
 	@Override
 	public String toString() {
 		return "ModuleTbl{" +
