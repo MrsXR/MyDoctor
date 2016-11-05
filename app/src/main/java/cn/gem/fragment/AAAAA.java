@@ -1,6 +1,7 @@
 package cn.gem.fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -9,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,6 +29,7 @@ import java.util.List;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import cn.gem.entity.DoctorsTbl;
+import cn.gem.mydoctor.DoctorsActivity;
 import cn.gem.mydoctor.R;
 import cn.gem.util.CommonAdapter;
 import cn.gem.util.NetUtil;
@@ -68,17 +71,14 @@ public class AAAAA extends Fragment implements newlistview.Onlister {
 
     public void initof() {
         RequestParams requestParams = new RequestParams(NetUtil.url + "doctors_tbl_shoucang_servlet");
-        Log.i("222222", "onCreateView: ");
         NetUtil netUtil = new NetUtil();
         int id = netUtil.getUser().getUserId();
-        Log.i("aaaa", "initof: " + id);
         requestParams.addQueryStringParameter("userid", id + "");
 
         x.http().get(requestParams, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
                 Gson gson = new Gson();
-                Log.i("333333", "onCreateView: ");
                 Type type = new TypeToken<List<DoctorsTbl>>() {
                 }.getType();
 
@@ -86,9 +86,7 @@ public class AAAAA extends Fragment implements newlistview.Onlister {
 
                 list.clear();
                 list.addAll(new_list);
-                Log.i("444444", "onSuccess: " + list);
                 if (doctors_commomadapter == null) {
-                    Log.i("5555", "onSuccess: ");
                     doctors_commomadapter = new CommonAdapter<DoctorsTbl>(getActivity(), list, R.layout.shoucang_yisheng_item) {
                         @Override
                         public void convert(ViewHolder viewHolder, DoctorsTbl doctor_tbl, int position) {
@@ -126,6 +124,22 @@ public class AAAAA extends Fragment implements newlistview.Onlister {
                 } else {
                     doctors_commomadapter.notifyDataSetChanged();
                 }
+
+                //点击事件
+                shoucangFragmentListview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                        if(newlistview.isTag()==false&&position!=0&&position<=list.size()) {
+                        Intent intent = new Intent(getContext(), DoctorsActivity.class);
+                        intent.putExtra("doctorsId",list.get(position-1).getDoctorsId());
+                            Log.i("AAAAA", "onItemClick: ----"+list.get(position-1).getDoctorsId());
+                        startActivity(intent);
+                        }
+                    }
+                });
+
+
             }
 
 

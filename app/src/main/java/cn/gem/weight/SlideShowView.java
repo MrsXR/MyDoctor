@@ -93,11 +93,11 @@ public class SlideShowView extends FrameLayout {
      */
     private void initData(){
         imagesResIds = new int[]{
-                R.drawable.aaaaaa,
-                R.drawable.aaaaaa,
-                R.drawable.aaaaaa,
-                R.drawable.aaaaaa,
-                R.drawable.aaaaaa,
+                R.mipmap.img_0735,
+                R.mipmap.img_0736,
+                R.mipmap.img_0739,
+                R.mipmap.img_0735,
+                R.mipmap.img_0736,
 
         };
         imageViewsList = new ArrayList<ImageView>();
@@ -229,9 +229,9 @@ public class SlideShowView extends FrameLayout {
             currentItem = pos;
             for(int i=0;i < dotViewsList.size();i++){
                 if(i == pos){
-                    ((View)dotViewsList.get(pos)).setBackgroundResource(R.drawable.aaaaaa);
+                    ((View)dotViewsList.get(pos)).setBackgroundResource(R.mipmap.small_blue);
                 }else {
-                    ((View)dotViewsList.get(i)).setBackgroundResource(R.drawable.aaaaaa);
+                    ((View)dotViewsList.get(i)).setBackgroundResource(R.mipmap.small_emtry);
                 }
             }
         }

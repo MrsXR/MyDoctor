@@ -3,16 +3,16 @@ package cn.gem.entity;
  * 收藏
  */
 
-import java.util.Date;
+import java.sql.Timestamp;
 
 public class UserCollectTbl {
 	private int userCollectId;
 	private int userId;
 	private int userCollectType;
-	private Date userCollectTime;
+	private Timestamp userCollectTime;
 	private int userCollectDetailId;
-	
-	
+
+
 	public int getUserCollectId() {
 		return userCollectId;
 	}
@@ -31,10 +31,10 @@ public class UserCollectTbl {
 	public void setUserCollectType(int userCollectType) {
 		this.userCollectType = userCollectType;
 	}
-	public Date getUserCollectTime() {
+	public Timestamp getUserCollectTime() {
 		return userCollectTime;
 	}
-	public void setUserCollectTime(Date userCollectTime) {
+	public void setUserCollectTime(Timestamp userCollectTime) {
 		this.userCollectTime = userCollectTime;
 	}
 	public int getUserCollectDetailId() {
@@ -43,6 +43,6 @@ public class UserCollectTbl {
 	public void setUserCollectDetailId(int userCollectDetailId) {
 		this.userCollectDetailId = userCollectDetailId;
 	}
-	
+
 
 }
