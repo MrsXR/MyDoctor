@@ -279,62 +279,6 @@
                 android:layout_height="5dp"
                 android:background="@color/splitbar"
                 />
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingBottom="@dimen/activity_vertical_margin"
-                android:paddingLeft="@dimen/activity_horizontal_margin"
-                android:paddingRight="@dimen/activity_horizontal_margin"
-                android:paddingTop="@dimen/activity_vertical_margin"
-                android:id="@+id/temp6">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="相关咨询"
-                    android:textColor="@color/black"
-                    android:textSize="18dp"
-                    android:id="@+id/temp2"/>
-
-                <ImageButton
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:layout_marginLeft="320dp"
-                    android:background="@mipmap/right"
-                    android:id="@+id/doctor_go_comment"/>
-                <!--分隔符-->
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:id="@+id/temp3"
-                    android:layout_below="@+id/temp2"
-                    android:background="@color/splitbar"
-                    android:layout_marginTop="10dp"
-                    />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/temp3"
-                    android:orientation="vertical">
-                  <cn.gem.weight.NoScrollListview
-                      android:layout_width="match_parent"
-                      android:layout_height="wrap_content"
-                      android:id="@+id/doctor_user_comment_listview"
-                      android:paddingTop="5dp"
-                      android:paddingBottom="5dp">
-
-                  </cn.gem.weight.NoScrollListview>
-
-                </LinearLayout>
-
-            </RelativeLayout>
-
-            <!--分隔符-->
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="5dp"
-                android:background="@color/splitbar"
-                />
 
             <RelativeLayout
                 android:layout_width="match_parent"

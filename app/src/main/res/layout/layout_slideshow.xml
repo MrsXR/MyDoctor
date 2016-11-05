@@ -19,35 +19,35 @@
             android:id="@+id/v_dot1"
             android:layout_width="8dp"
             android:layout_height="8dp"
-            android:background="@drawable/aaaaaa" />
+            android:background="@mipmap/small_emtry" />
 
         <View
             android:id="@+id/v_dot2"
             android:layout_width="8dp"
             android:layout_height="8dp"
             android:layout_marginLeft="5dp"
-            android:background="@drawable/aaaaaa" />
+            android:background="@mipmap/small_emtry" />
 
         <View
             android:id="@+id/v_dot3"
             android:layout_width="8dp"
             android:layout_height="8dp"
             android:layout_marginLeft="5dp"
-            android:background="@drawable/aaaaaa" />
+            android:background="@mipmap/small_emtry" />
 
         <View
             android:id="@+id/v_dot4"
             android:layout_width="8dp"
             android:layout_height="8dp"
             android:layout_marginLeft="5dp"
-            android:background="@drawable/aaaaaa" />
+            android:background="@mipmap/small_emtry" />
 
         <View
             android:id="@+id/v_dot5"
             android:layout_width="8dp"
             android:layout_height="8dp"
             android:layout_marginLeft="5dp"
-            android:background="@drawable/aaaaaa" />
+            android:background="@mipmap/small_emtry" />
 
     </LinearLayout>
 

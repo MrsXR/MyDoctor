@@ -1,7 +1,6 @@
 package cn.gem.mydoctor;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -74,10 +73,6 @@ public class DoctorsActivity extends AppCompatActivity {
     RelativeLayout doctorsDetailContent2;
     @InjectView(R.id.doctor_brief_viewpage)
     ViewPager doctorBriefViewpage;
-    @InjectView(R.id.doctor_go_comment)
-    ImageButton doctorGoComment;
-    @InjectView(R.id.doctor_user_comment_listview)
-    NoScrollListview doctorUserCommentListview;
     @InjectView(R.id.doctor_go_into)
     ImageButton doctorGoInto;
     @InjectView(R.id.doctor_user_consult_listview)
@@ -95,22 +90,21 @@ public class DoctorsActivity extends AppCompatActivity {
     private static final int SECONDFLAG = 2;
 
     Toolbar toolbar;
-    int i = 2;
+    int i = 1;
     DoctorsTbl doctorsTbl;
     List<BaseFragment> fragmentList = new ArrayList<BaseFragment>();
     int doctorsId;
-    int isData=0;
+    int isData = 0;
 
     DoctorsWork doctorsWork = new DoctorsWork();
     List<ConsultTbl> consultTbls;
     List<CommentOrderDetailTbl> commentOrderDetailTbls;
 
-    CommonAdapter<ConsultTbl> commonC;//咨询
     CommonAdapter<CommentOrderDetailTbl> commonR;//评价
 
     DoctorInHospital doctorInH;//医生所在医院的信息
     TextView tvPrice = null;
-    MyApplication myApplication= (MyApplication) getApplication();
+    MyApplication myApplication = (MyApplication) getApplication();
 
 
     @Override
@@ -221,8 +215,8 @@ public class DoctorsActivity extends AppCompatActivity {
                 consultTbls = doctorsWork.getConsultTbl();
                 commentOrderDetailTbls = doctorsWork.getCommentOrderDetailTbl();
                 doctorInH = doctorsWork.getDoctorInHospital();//医生所在医院的信息
-                isData=doctorsWork.getIsData();
-                
+                isData = doctorsWork.getIsData();
+
                 //将数据展示在ListView上面
                 showListViewData();
 
@@ -251,7 +245,7 @@ public class DoctorsActivity extends AppCompatActivity {
 
 
     public void showListViewData() {
-        //相关咨询
+     /*   //相关咨询
         if (commonC == null) {
             commonC = new CommonAdapter<ConsultTbl>(this, consultTbls, R.layout.doctor_user_informatoin) {
 
@@ -277,7 +271,7 @@ public class DoctorsActivity extends AppCompatActivity {
         } else {
             commonC.notifyDataSetChanged();
         }
-
+*/
         //评价
         if (commonR == null) {
             commonR = new CommonAdapter<CommentOrderDetailTbl>(this, commentOrderDetailTbls, R.layout.doctor_user_informatoin) {
@@ -356,47 +350,46 @@ public class DoctorsActivity extends AppCompatActivity {
 
         doctorBrief.setText(doctorsTbl.getDoctorsBrief());//医生简介
 
-
-        if(isData!=0){
-            Log.i("DoctorsActivity", "getDoctorsData: ========+++++======"+isData);
-            toolbar.getMenu().getItem(R.id.collect_doctor_menu).setIcon(R.drawable.collect2);
-            Log.i("DoctorsActivity", "getDoctorsData: ========+++++======"+isData);
+        setMenuItem(isData);
+        if (isData != 0) {
+            toolbar.getMenu().getItem(0).setIcon(R.drawable.collect2);
         }
 
-        setMenuItem(isData);
+
     }
 
 
-    private void setMenuItem(int isData){
+    private void setMenuItem(int isData) {
         //设置menu的item的点击事件
-        if(isData==0){
-        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                switch (item.getItemId()) {
-                    //医生收藏
-                    case R.id.collect_doctor_menu:
-                        if ((i++) % 2 == 0) {
-                            item.setIcon(R.drawable.collect2);
-                        } else {
-                            item.setIcon(R.mipmap.collect1);
-                        }
-                        break;
-                    //医生分享
-                    case R.id.share_doctor_menu:
-                }
-                return false;
-            }
-        });}
-
-        if(isData!=0){
+        if (isData == 0) {
             toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
                 @Override
                 public boolean onMenuItemClick(MenuItem item) {
                     switch (item.getItemId()) {
                         //医生收藏
                         case R.id.collect_doctor_menu:
-                            if ((i++) % 2 == 0) {
+                            if ((++i) % 2 == 0) {
+                                item.setIcon(R.drawable.collect2);
+                            } else {
+                                item.setIcon(R.mipmap.collect1);
+                            }
+                            break;
+                        //医生分享
+                        case R.id.share_doctor_menu:
+                    }
+                    return false;
+                }
+            });
+        }
+
+        if (isData != 0) {
+            toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(MenuItem item) {
+                    switch (item.getItemId()) {
+                        //医生收藏
+                        case R.id.collect_doctor_menu:
+                            if ((++i) % 2 == 0) {
                                 item.setIcon(R.mipmap.collect1);
                             } else {
                                 item.setIcon(R.drawable.collect2);
@@ -407,7 +400,8 @@ public class DoctorsActivity extends AppCompatActivity {
                     }
                     return false;
                 }
-            });}
+            });
+        }
     }
 
     //toolbar上的导航事件按钮点击事件
@@ -453,6 +447,52 @@ public class DoctorsActivity extends AppCompatActivity {
                 Intent intent = new Intent(DoctorsActivity.this, MangCommentActivity.class);
                 intent.putExtra("doctotId", doctorsId);
                 startActivity(intent);
+            }
+        });
+    }
+
+    @Override
+    protected void onDestroy() {
+        //原本收藏过，且触发过按钮-------取消收藏
+        if(isData!=0&&i!=1&&(i++) % 2 == 0){
+            upCollect(2);
+        }
+
+        //原本没有收藏过，且触发过按钮-----收藏
+        if(isData==0&&i!=1&&(i++) % 2 == 0){
+            upCollect(1);
+        }
+        super.onDestroy();
+    }
+
+    private void upCollect(int flag){
+
+        String stl=IpChangeAddress.ipChangeAddress+"UserCollectServlet";
+        RequestParams request=new RequestParams(stl);
+        request.addQueryStringParameter("userId",myApplication.getUserTbl().getUserId()+"");
+        request.addQueryStringParameter("flag",flag+"");
+        request.addQueryStringParameter("type",1+"");
+        request.addQueryStringParameter("doctorsId",doctorsId+"");
+
+        x.http().get(request, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
             }
         });
     }

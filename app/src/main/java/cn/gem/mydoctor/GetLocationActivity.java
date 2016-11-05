@@ -60,7 +60,6 @@ public class GetLocationActivity extends FragmentActivity implements
 
     public LocationClient mLocationClient = null;
     public BDLocationListener myListener = new MyLocationListener();
-    MapView mMapView = null;
     double altitude;
     double longitude;
     String address = null;
@@ -74,15 +73,11 @@ public class GetLocationActivity extends FragmentActivity implements
     private PoiSearch mPoiSearch = null;
     private SuggestionSearch mSuggestionSearch = null;
     private BaiduMap mBaiduMap = null;
-    private List<String> suggest;
     /**
      * 搜索关键字输入窗口
      */
     private EditText editCity = null;
-    private AutoCompleteTextView keyWorldsView = null;
-    private ArrayAdapter<String> sugAdapter = null;
     private int loadIndex = 0;
-    int searchType = 0;  // 搜索的类型，在显示时区分
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,8 +87,6 @@ public class GetLocationActivity extends FragmentActivity implements
         SDKInitializer.initialize(getApplicationContext());
         setContentView(R.layout.activity_get_location);
         ButterKnife.inject(this);
-
-        initBack();//返回首页
 
         //d对应控件
         mBaiduMap = ((SupportMapFragment) (getSupportFragmentManager()
@@ -120,17 +113,6 @@ public class GetLocationActivity extends FragmentActivity implements
         editCity.addTextChangedListener(new TextChange());
     }
 
-    void initBack(){
-        ImageButton imageButton= (ImageButton) findViewById(R.id.get_location_back);
-
-        imageButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-
-    }
 
     private void initPosition() {
         LocationClientOption option = new LocationClientOption();
@@ -243,7 +225,6 @@ public class GetLocationActivity extends FragmentActivity implements
 
 
     void getLocationHospital(String address) {
-        searchType = 1;
         String citystr;
         if (address != null) {
             citystr = address;
@@ -255,14 +236,17 @@ public class GetLocationActivity extends FragmentActivity implements
     }
 
     //点击事件
-    @OnClick({R.id.get_location_back, R.id.search_clear, R.id.go_location})
+    @OnClick({R.id.get_location_back, R.id.get_location_reflash, R.id.go_location})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.get_location_back:
                 //返回主页
+                finish();
                 break;
-            case R.id.search_clear:
-                //清除字段
+            case R.id.get_location_reflash:
+                //刷新界面
+                loadIndex++;
+                getLocationHospital(address);
                 break;
             case R.id.go_location:
                 //搜索
@@ -300,12 +284,9 @@ public class GetLocationActivity extends FragmentActivity implements
         public boolean onPoiClick(int index) {
             super.onPoiClick(index);
             PoiInfo poi = getPoiResult().getAllPoi().get(index);
-           if (poi.hasCaterDetails) {
 
                getHospital(poi.name);
-               Log.i("MyPoiOverlay", "onPoiClick: --------------------------");
 
-           }
             return true;
         }
     }
@@ -326,14 +307,12 @@ public class GetLocationActivity extends FragmentActivity implements
         buttonE.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.i("MyPoiOverlay", "onPoiClick: --------9999999999999999------------------");
                 Intent intent=new Intent(GetLocationActivity.this,HospitalBriefActivity.class);
                 Bundle bundle=new Bundle();
                 bundle.putInt("hospitalId",hospitalId);
                 intent.putExtras(bundle);
                 startActivity(intent);
                 dialog.dismiss();
-                finish();
             }
         });
 
@@ -353,16 +332,14 @@ public class GetLocationActivity extends FragmentActivity implements
 
         RequestParams requestParams=new RequestParams(stl);
         requestParams.addQueryStringParameter("hospitalname",hospitalname);
-        Log.i("MyPoiOverlay", "onPoiClick: --------------------------"+requestParams);
+
         x.http().get(requestParams, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
-                if(result==null){
-                    Log.i("MyPoiOverlay", "onPoiClick: --------------------------"+hospitalname);
-                    Toast.makeText(GetLocationActivity.this,"暂不提供"+hospitalname+"的信息，敬请谅解!",Toast.LENGTH_LONG);
+                if(Integer.parseInt(result)==0){
+                    Toast.makeText(GetLocationActivity.this,"暂不提供"+hospitalname+"的信息，敬请谅解!",Toast.LENGTH_LONG).show();
                 }else {
                    int  hospitalId=Integer.parseInt(result);
-                    Log.i("MyPoiOverlay", "onPoiClick: ----------888888888----------------");
                     toHospitabl(hospitalId,hospitalname);//跳转事件
                 }
             }

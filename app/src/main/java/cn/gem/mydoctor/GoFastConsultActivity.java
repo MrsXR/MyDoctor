@@ -111,6 +111,7 @@ public class GoFastConsultActivity extends AppCompatActivity {
 
             case R.id.go_fast_consult:
 
+                if(goFastConsultEdittext.getText()!=null&&!goFastConsultEdittext.getText().toString().equals("")){
                 if(goFastConsultAgree.isChecked()){
                 //添加到数据库
                     userIllContent=goFastConsultEdittext.getText().toString();
@@ -120,6 +121,9 @@ public class GoFastConsultActivity extends AppCompatActivity {
                    // GoFastConsultActivity.this.finish();
                 }else if(!goFastConsultAgree.isChecked()){
                     Toast.makeText(GoFastConsultActivity.this, "请选择同意My.Doctor用户协议", Toast.LENGTH_SHORT).show();
+                }
+                }else {
+                    Toast.makeText(GoFastConsultActivity.this, "请填写咨询内容！", Toast.LENGTH_SHORT).show();
                 }
                 break;
             case R.id.go_fast_consult_back:

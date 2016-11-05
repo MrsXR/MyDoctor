@@ -18,8 +18,9 @@
                 />
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:background="@color/splitbar"/>
+                android:layout_height="6dp"
+                android:background="@color/splitbar"
+               />
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -71,21 +72,49 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/home_go_fastD"
+                    android:padding="@dimen/activity_horizontal_margin"
+                    android:layout_weight="1"
                    >
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/home_temp2"
-                        android:background="@drawable/founction_1"/>
+                        android:background="@drawable/founction_1"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="@dimen/padding_search_bar"
+                       />
 
                     <TextView
-                        android:layout_width="2dp"
-                        android:layout_height="120dp"
-                        android:background="@color/splitbar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="快速咨询"
+                        android:id="@+id/first_temp"
+                        android:layout_marginLeft="8dp"
+                        android:textSize="@dimen/activity_horizontal_margin"
+                        android:layout_marginTop="@dimen/padding_search_bar"
                         android:layout_toRightOf="@+id/home_temp2"
                         />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="医生在线  免费咨询"
+                        android:layout_below="@+id/first_temp"
+                        android:textSize="12dp"
+                        android:layout_marginLeft="8dp"
+                        android:textColor="@color/grey"
+                        android:layout_marginTop="@dimen/activity_horizontal_margin"
+                        android:layout_toRightOf="@+id/home_temp2"
+                        />
+
                 </RelativeLayout>
 
+
+                <TextView
+                    android:layout_marginTop="10dp"
+                    android:layout_width="2dp"
+                    android:layout_height="90dp"
+                    android:background="@color/splitbar"
+                    android:layout_toRightOf="@+id/home_go_fastD"/>
 
                 <RelativeLayout
                     android:layout_width="wrap_content"
@@ -93,6 +122,7 @@
                     android:layout_toRightOf="@+id/home_go_fastD"
                     android:padding="@dimen/activity_horizontal_margin"
                     android:id="@+id/search_to_content"
+                    android:layout_weight="1"
                     >
                     <ImageView
                         android:layout_width="wrap_content"
@@ -100,16 +130,30 @@
                         android:background="@drawable/icon_search_by_disease_big"
                         android:id="@+id/home_temp4"
                         android:layout_gravity="center_horizontal"
-                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="@dimen/padding_search_bar"
                         />
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="搜索"
-                        android:layout_below="@+id/home_temp4"
-                        android:layout_marginLeft="40dp"
-                        android:layout_marginTop="10dp"
+                        android:id="@+id/first_temp3"
+                        android:layout_toRightOf="@+id/home_temp4"
+                        android:layout_marginLeft="8dp"
+                        android:textSize="@dimen/activity_horizontal_margin"
+                        android:layout_marginTop="@dimen/padding_search_bar"
                         android:gravity="center"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="查找您需要的"
+                        android:layout_below="@+id/first_temp3"
+                        android:textSize="12dp"
+                        android:layout_marginLeft="8dp"
+                        android:textColor="@color/grey"
+                        android:layout_marginTop="@dimen/activity_horizontal_margin"
+                        android:layout_toRightOf="@+id/home_temp4"
+                        />
                 </RelativeLayout>
 
             </RelativeLayout>
@@ -120,27 +164,51 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/home_temp3">
+                android:layout_below="@+id/home_temp3"
+                android:layout_weight="1">
                 <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/home_consult"
+                    android:padding="@dimen/activity_horizontal_margin"
                   >
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@drawable/founction_2"
-                        android:id="@+id/home_temp6"/>
+                        android:id="@+id/home_temp6"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="@dimen/padding_search_bar"/>
 
                     <TextView
-                        android:layout_width="2dp"
-                        android:layout_height="120dp"
-                        android:background="@color/splitbar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="专家咨询"
+                        android:id="@+id/first_temp2"
+                        android:layout_marginLeft="8dp"
+                        android:textSize="@dimen/activity_horizontal_margin"
+                        android:layout_marginTop="@dimen/padding_search_bar"
+                        android:layout_toRightOf="@+id/home_temp6"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="指定专家  为您解答"
+                        android:layout_below="@+id/first_temp2"
+                        android:textSize="12dp"
+                        android:textColor="@color/grey"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginTop="@dimen/activity_horizontal_margin"
                         android:layout_toRightOf="@+id/home_temp6"
                         />
                 </RelativeLayout>
 
-
+                <TextView
+                    android:layout_marginTop="10dp"
+                    android:layout_width="2dp"
+                    android:layout_height="90dp"
+                    android:background="@color/splitbar"
+                    android:layout_toRightOf="@+id/home_consult"/>
 
                 <RelativeLayout
                     android:layout_width="wrap_content"
@@ -148,21 +216,38 @@
                     android:layout_toRightOf="@+id/home_consult"
                     android:padding="@dimen/activity_horizontal_margin"
                     android:id="@+id/search_content_s"
+                    android:layout_weight="1"
                   >
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@drawable/icon_nearby_hospital_big"
                         android:id="@+id/home_temp7"
-                        android:layout_marginLeft="20dp"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="@dimen/padding_search_bar"
                         />
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="附近"
-                        android:layout_marginLeft="40dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_below="@+id/home_temp7"/>
+                        android:id="@+id/first_temp4"
+                        android:layout_toRightOf="@+id/home_temp7"
+                        android:layout_marginLeft="8dp"
+                        android:textSize="@dimen/activity_horizontal_margin"
+                        android:layout_marginTop="@dimen/padding_search_bar"
+                        android:gravity="center"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="定位周围医院"
+                        android:layout_below="@+id/first_temp4"
+                        android:textSize="12dp"
+                        android:layout_marginLeft="8dp"
+                        android:textColor="@color/grey"
+                        android:layout_marginTop="@dimen/activity_horizontal_margin"
+                        android:layout_toRightOf="@+id/home_temp7"
+                        />
                 </RelativeLayout>
 
             </RelativeLayout>
@@ -182,15 +267,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/home_hospital_temp"
-                    android:background="@drawable/biz_privatehospital_index_icon"/>
+                    android:background="@drawable/a_onlineprescribe_icon"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="医院"
                     android:layout_toRightOf="@+id/home_hospital_temp"
                     android:layout_marginTop="15dp"
-                    android:layout_marginLeft="15dp"
-                    android:textSize="40dp"
+                    android:layout_marginLeft="20dp"
+                    android:textSize="30dp"
                   />
             </RelativeLayout>
 
